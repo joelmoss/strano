@@ -1,0 +1,6 @@
+== Strano
+
+The Capistrano backed deployment management UI.
+
+- Github auth
+- Create project from a Github repo
