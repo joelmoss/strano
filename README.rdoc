@@ -4,3 +4,11 @@ The Capistrano backed deployment management UI.
 
 - Github auth
 - Create project from a Github repo
+
+
+=== Workflow
+
+- Create project with a Github URL
+- Clone the project to a local internal space
+- Load in Cap files in real time or cache them?
+- Git pull to the local repo each time the project is accessed and/or on a schedule
