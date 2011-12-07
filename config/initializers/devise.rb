@@ -198,8 +198,8 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'
   
-  require "omniauth-facebook"
-  config.omniauth :github, ENV['GITHUB_KEY'], ENV['GITHUB_SECRET']
+  require "omniauth-github"
+  config.omniauth :github, ENV['STRANO_GITHUB_KEY'], ENV['STRANO_GITHUB_SECRET'], :scope => "user,repo"
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
