@@ -15,7 +15,7 @@ gem 'jquery-rails'
 gem 'twitter-bootstrap-rails'
 gem 'devise'
 gem 'omniauth-github'
-
+gem 'github_api'
 gem 'capistrano'
 
 # To use debugger
@@ -35,8 +35,10 @@ group :development, :test do
   gem "database_cleaner"
   gem 'marked'
   gem 'ffaker'
+  gem 'vcr'
 end  
   
 group :test do
   gem 'sqlite3'
+  gem 'webmock'
 end

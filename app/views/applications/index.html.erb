@@ -1,0 +1,20 @@
+<%- title resource_class.to_s.underscore.humanize.pluralize -%>
+
+<%- if collection.empty? -%>
+  
+  <h4 align="center">No <%= resource_class.to_s.underscore.humanize.pluralize %> found!</h4>
+  
+<% else %>
+
+  <table class="zebra-striped">
+    <thead>
+      <tr>
+        <%= render 'table_head' %>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render collection %>
+    </tbody>
+  </table>
+  
+<%- end -%>
