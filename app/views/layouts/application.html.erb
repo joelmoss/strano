@@ -21,10 +21,18 @@
         <a class="brand" href="/">STRANO</a>
         <ul class="nav">
           <li class="active"><a href="/">Dashboard</a></li>
-          <%- unless user_signed_in? -%>
-            <li><%= link_to 'Sign in via Github', user_omniauth_authorize_path(:github) %></li>
-          <%- end -%>
         </ul>
+        
+        <div class="pull-right">
+          <%- if user_signed_in? -%>
+            <div id="user_display_bar">
+              <span><%= current_user %></span>
+              <%= image_tag current_user.avatar_url, :size => "28x28" %>
+            </div>
+          <%- else -%>
+            <span><%= link_to 'Sign in via Github', user_omniauth_authorize_path(:github) %></span>
+          <%- end -%>
+        </div>
       </div>
     </div>
   </div>
@@ -65,7 +73,7 @@
         </div>
         <div class="span8 right">
           <%- if user_signed_in? -%>
-            Signed in via <%= link_to 'Github', "https://github.com/#{current_user}" %> as <%= current_user %> //
+            Signed in via <%= link_to 'Github', current_user.html_url %> as <%= current_user %> //
             <%= link_to 'sign out', destroy_user_session_path, :method => :delete, :confirm => "Are you sure you want to sign out?" %>
           <%- end -%>
         </div>

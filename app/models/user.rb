@@ -8,8 +8,15 @@ class User < ActiveRecord::Base
   
   serialize :github_data
   
+  delegate :login, :avatar_url, :html_url, :to => :github_data
+  
   
   def to_s
-    github_data[:login]
+    login
   end
+  
+  def github_data
+    @github_data ||= Hashie::Mash.new(read_attribute(:github_data))
+  end
+  
 end

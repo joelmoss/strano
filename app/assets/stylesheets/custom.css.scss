@@ -24,3 +24,20 @@ footer {
   color: #BBB;
   text-decoration: line-through;
 }
+
+.topbar {
+  .pull-right > span {
+    top: 10px;
+    position: relative;
+  }
+  #user_display_bar {
+    img {
+      margin: 6px 0 0 5px;
+    }
+    span {
+      top: -10px;
+      position: relative;
+    }
+    color: #FFF;
+  }
+}
