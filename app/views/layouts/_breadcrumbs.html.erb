@@ -1,0 +1,7 @@
+<div id="breadcrumbs" class="breadcrumb">
+  <ul>
+    <%- breadcrumbs.each do |crumb| -%>
+      <li><%= crumb.last.nil? ? crumb.first : link_to(crumb.first, crumb.last) %></li>
+    <%- end -%>
+  </ul>
+</div>

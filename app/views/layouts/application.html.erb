@@ -18,30 +18,58 @@
   <div class="topbar">
     <div class="fill">
       <div class="container">
-        <a class="brand" href="/">Strano</a>
+        <a class="brand" href="/">STRANO</a>
         <ul class="nav">
           <li class="active"><a href="/">Dashboard</a></li>
-          <li><a href="/">Sign in</a></li>
+          <%- unless user_signed_in? -%>
+            <li><%= link_to 'Sign in via Github', user_omniauth_authorize_path(:github) %></li>
+          <%- end -%>
         </ul>
       </div>
     </div>
   </div>
 
   <div class="container">
+    
+    <%= render_breadcrumbs %>
 
-    <div class="content">
-      <div class="page-header">
-        <h1>Page name <small>Supporting text or tagline</small></h1>
-      </div>
-      
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
-      
-      <%= yield %>
+    <div class="page-header">
+      <h1>
+        <%= @title_for_content if show_title? %>
+        <%- if show_subtitle? -%>
+          <small>&nbsp;&nbsp;<%= @subtitle_for_content %></small>
+        <%- end -%>
+      </h1>
     </div>
+      
+    <%- if notice -%>
+      <div class="alert-message success fade in" data-alert="alert">
+        <a class="close" href="#">&times;</a>
+        <%= notice %>
+      </div>
+    <%- end -%>
+    
+    <%- if alert -%>
+      <div class="alert-message error fade in" data-alert="alert">
+        <a class="close" href="#">&times;</a>
+        <%= alert %>
+      </div>
+    <%- end -%>
+    
+    <%= yield %>
 
     <footer>
-      <p>&copy; Develop with Style 2011</p>
+      <div class="row">
+        <div class="span8">
+          Strano: Piss easy deployment! // &copy; <%= link_to 'Develop with Style', 'http://developwithstyle.com' %>. <%= Date.today.year %>
+        </div>
+        <div class="span8 right">
+          <%- if user_signed_in? -%>
+            Signed in via <%= link_to 'Github', "https://github.com/#{current_user}" %> as <%= current_user %> //
+            <%= link_to 'sign out', destroy_user_session_path, :method => :delete, :confirm => "Are you sure you want to sign out?" %>
+          <%- end -%>
+        </div>
+      </div>
     </footer>
 
   </div>

@@ -7,4 +7,9 @@ class User < ActiveRecord::Base
   # attr_accessible :email, :remember_me
   
   serialize :github_data
+  
+  
+  def to_s
+    github_data[:login]
+  end
 end

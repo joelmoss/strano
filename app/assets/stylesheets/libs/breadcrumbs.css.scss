@@ -1,0 +1,83 @@
+/* ============================================================================== */
+/* BREADCRUMBS                                                                    */
+/* ============================================================================== */
+
+#breadcrumbs {
+  margin: 0 0 30px;
+  padding: 0;
+  float: left;
+  display: block;
+  height: 21px;
+  overflow: hidden;
+  width: 99%;
+  padding: 5px;
+  border: solid 1px #dedede;
+  background-color: #FFF;
+  font-size: 12px;
+  
+  ul {
+    margin: 0;
+    padding: 0;
+    height: 21px;
+    display: block;
+    
+    li {
+      display: block;
+      float: left;
+      position: relative;
+      height: 21px;
+      overflow: hidden;
+      line-height: 21px;
+      margin: 0px 6px 0px 0;
+      padding: 0px 10px 0px 0;
+      font-size: .9167em;
+      background: url('/assets/chevron.gif') no-repeat 100% 0;
+    
+      div.chevronOverlay {
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: 2;
+      }
+      span {
+        display: block;
+        overflow: hidden;
+      }
+      a {
+        display: block;
+        position: relative;
+        height: 21px;
+        line-height: 21px;
+        overflow: hidden;
+        float: left;
+      }
+    
+      &:first-child a {
+        height: 16px !important;
+        text-indent: -1000em;
+        width: 16px;
+        padding: 0;
+        margin-top: 2px;
+        overflow: hidden;
+        background: url('/assets/icon_home.gif') no-repeat 0 0;
+      }
+    
+      &:first-child a:hover {
+        background-position: 0 -16px;
+      }
+      
+      &:last-child {
+        background: none;
+        margin-right: 0;
+        padding-right: 0;
+      }
+    }
+  }
+}
+
+.chevronOverlay {
+  display: none;
+  background: url('/assets/chevron_overlay.png') no-repeat 100% 0;
+  width: 13px;
+  height: 20px;
+}
