@@ -12,3 +12,9 @@ The Capistrano backed deployment management UI.
 - Clone the project to a local internal space
 - Load in Cap files in real time or cache them?
 - Git pull to the local repo each time the project is accessed and/or on a schedule
+
+
+
+=== Public SSH Key
+
+Save your server's public SSH key to ENV['STRANO_PUBLIC_SSH_KEY']

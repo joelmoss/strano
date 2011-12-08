@@ -9,6 +9,7 @@ require 'rspec/autorun'
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 OmniAuth.config.test_mode = true
+ENV['STRANO_PUBLIC_SSH_KEY'] = 'stranoshakey'
 
 RSpec.configure do |config|
   config.mock_with :rspec
