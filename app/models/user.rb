@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   cattr_accessor :disable_ssh_github_upload
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email
+  attr_accessible :email, :github_data, :github_access_token
   
   # The github data will be serialzed as a Hash.
   serialize :github_data
@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
   
   # Convert the github data into a Hashie::Mash object, so that delegation works.
   # 
-  # Returns the #github_data as a Hashie::Mash object.
+  # Returns a Hashie::Mash object.
   def github_data
     @github_data ||= Hashie::Mash.new(read_attribute(:github_data))
   end
@@ -36,15 +36,27 @@ class User < ActiveRecord::Base
       Github::Users.new(:oauth_token => github_access_token) if github_access_token.present?
     end
   end
+  
+  # Is this user authorized for full Github API access using an OAuth access
+  # token?
+  # 
+  # Returns a Boolean.
+  def authorized_for_github?
+    !github.nil?
+  end
 
   
   private
   
     # Upload SSH key to github, but not if disable_ssh_github_upload is true.
+    # User must also be authorized for Github API access.
     def upload_ssh_key_to_github
-      unless self.class.disable_ssh_github_upload
+      if !self.class.disable_ssh_github_upload && authorized_for_github?
         github.create_key(:title => "Strano", :key => ENV['STRANO_PUBLIC_SSH_KEY'])
+        self.toggle! :ssh_key_uploaded_to_github
       end
+    rescue Github::Error => e
+      # do nothing
     end
   
 end
