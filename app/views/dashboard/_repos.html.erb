@@ -1,0 +1,19 @@
+<%- if @repos.empty? -%>
+  
+  <h4 align="center">No repositories found in your Github account! Strano currently only supports the deployment of Github repositories.</h4>
+  
+<% else %>
+
+  <table class="zebra-striped">
+    <thead>
+      <tr>
+        <th width="40"></th>
+        <th>Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render :partial => 'repo', :collection => @repos %>
+    </tbody>
+  </table>
+  
+<%- end -%>

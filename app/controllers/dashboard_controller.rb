@@ -3,5 +3,6 @@ class DashboardController < ApplicationController
   
   def index
     @repos = Github::Repos.new(:oauth_token => current_user.github_access_token).repos
+    @projects = Project.all
   end
 end

@@ -14,7 +14,18 @@ The Capistrano backed deployment management UI.
 - Git pull to the local repo each time the project is accessed and/or on a schedule
 
 
+==== Setup a repo
+
+- 
+
+
+
 
 === Public SSH Key
 
 Save your server's public SSH key to ENV['STRANO_PUBLIC_SSH_KEY']
+
+
+=== Repository clone location
+
+In vendor/repos, but can be changed by setting ENV['STRANO_CLONE_PATH']

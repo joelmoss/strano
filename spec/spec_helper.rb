@@ -3,6 +3,7 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
+require 'fakefs/spec_helpers'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -10,6 +11,7 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 OmniAuth.config.test_mode = true
 ENV['STRANO_PUBLIC_SSH_KEY'] = 'stranoshakey'
+GirlFriday::Queue.immediate!
 
 RSpec.configure do |config|
   config.mock_with :rspec

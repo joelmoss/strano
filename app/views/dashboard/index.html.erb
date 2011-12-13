@@ -1,21 +1,11 @@
 <%- title 'Dashboard' -%>
 
-<%- if @repos.empty? -%>
-  
-  <h4 align="center">No repositories found in your Github account!</h4>
-  
-<% else %>
+<ul class="tabs" data-tabs="tabs">
+  <li class="active"><a href="#projects">Projects</a></li>
+  <li><a href="#repos">Repositories</a></li>
+</ul>
 
-  <table class="zebra-striped">
-    <thead>
-      <tr>
-        <th width="40"></th>
-        <th>Name</th>
-      </tr>
-    </thead>
-    <tbody>
-      <%= render :partial => 'repo', :collection => @repos %>
-    </tbody>
-  </table>
-  
-<%- end -%>
+<div class="tab-content">
+  <div class="tab-pane active" id="projects"><%= render 'projects' %></div>
+  <div class="tab-pane" id="repos"><%= render 'repos' %></div>
+</div>

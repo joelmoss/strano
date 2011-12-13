@@ -17,6 +17,9 @@ gem 'devise'
 gem 'omniauth-github'
 gem 'github_api'
 gem 'capistrano'
+gem 'grit'
+gem 'girl_friday'
+gem 'inherited_resources'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
@@ -41,4 +44,5 @@ end
 group :test do
   gem 'sqlite3'
   gem 'webmock'
+  gem "fakefs", :require => "fakefs/safe"
 end

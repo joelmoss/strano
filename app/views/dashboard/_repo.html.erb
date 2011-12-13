@@ -1,4 +1,6 @@
+<%- return if Project.exists?(:url => repo.ssh_url) -%>
+
 <tr>
-  <td><%= link_to 'Setup', '#', :class => "btn primary" %></td>
+  <td><%= link_to 'Setup', projects_path('project[url]' => repo.ssh_url), :class => "btn primary", :method => :post %></td>
   <td><h5><%= link_to repo.name, repo.html_url %></h5></td>
 </tr>

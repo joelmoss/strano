@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
+  has_many :projects
+  
   devise :omniauthable
   
   cattr_accessor :disable_ssh_github_upload
@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
     # Upload SSH key to github, but not if disable_ssh_github_upload is true.
     # User must also be authorized for Github API access.
     def upload_ssh_key_to_github
-      if !self.class.disable_ssh_github_upload && authorized_for_github?
+      if !ssh_key_uploaded_to_github? && !self.class.disable_ssh_github_upload && authorized_for_github?
         github.create_key(:title => "Strano", :key => ENV['STRANO_PUBLIC_SSH_KEY'])
         self.toggle! :ssh_key_uploaded_to_github
       end
