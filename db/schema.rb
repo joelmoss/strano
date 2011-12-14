@@ -11,13 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111210145824) do
+ActiveRecord::Schema.define(:version => 20111213110503) do
 
   create_table "projects", :force => true do |t|
-    t.string   "github_url"
+    t.string   "url"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "github_data"
   end
 
   create_table "users", :force => true do |t|

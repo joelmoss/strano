@@ -15,14 +15,11 @@ gem 'jquery-rails'
 gem 'twitter-bootstrap-rails'
 gem 'devise'
 gem 'omniauth-github'
-gem 'github_api'
+gem 'github_api', :git => "https://github.com/joelmoss/github.git"
 gem 'capistrano'
 gem 'grit'
 gem 'girl_friday'
 gem 'inherited_resources'
-
-# To use debugger
-# gem 'ruby-debug19', :require => 'ruby-debug'
 
 group :development, :test do
   gem 'guard'

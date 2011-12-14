@@ -11,7 +11,6 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 OmniAuth.config.test_mode = true
 ENV['STRANO_PUBLIC_SSH_KEY'] = 'stranoshakey'
-GirlFriday::Queue.immediate!
 
 RSpec.configure do |config|
   config.mock_with :rspec
@@ -37,6 +36,8 @@ RSpec.configure do |config|
     DeferredGarbageCollection.reconsider
   end
   
+  config.after(:each) { User.disable_ssh_github_upload = false }
+  
   config.treat_symbols_as_metadata_keys_with_true_values = true
   config.filter_run :focus => true
   config.run_all_when_everything_filtered = true
@@ -44,3 +45,5 @@ RSpec.configure do |config|
   config.include Devise::TestHelpers, :type => :controller
   config.extend VCR::RSpec::Macros
 end
+
+GirlFriday::Queue.immediate!

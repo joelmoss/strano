@@ -11,21 +11,17 @@ describe User do
   end
   
   describe "#authorized_for_github?" do
-    before(:each) do
-      User.disable_ssh_github_upload = true
-    end
+    before(:each) { User.disable_ssh_github_upload = true }
     
     it { FactoryGirl.build(:user, :github_access_token => nil).authorized_for_github?.should == false }
     it { FactoryGirl.create(:user).authorized_for_github?.should == true }
   end
 
   describe "#github" do
-    before(:each) do
-      User.disable_ssh_github_upload = true
-    end
+    before(:each) { User.disable_ssh_github_upload = true }
     
     it { FactoryGirl.build(:user, :github_access_token => nil).github.should be_nil }
-    it { FactoryGirl.create(:user).github.should be_a(Github::Users) }
+    it { FactoryGirl.create(:user).github.should be_a(Github::Client) }
     it { FactoryGirl.create(:user).github.oauth_token.should == 'somerandomstring' }
   end
 

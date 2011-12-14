@@ -30,10 +30,10 @@ class User < ActiveRecord::Base
     @github_data ||= Hashie::Mash.new(read_attribute(:github_data))
   end
   
-  # Returns an authenticated instance of Github::Users.
+  # Returns an authenticated instance of Github.
   def github
     @github ||= begin
-      Github::Users.new(:oauth_token => github_access_token) if github_access_token.present?
+      Github.new(:oauth_token => github_access_token) if github_access_token.present?
     end
   end
   
@@ -52,7 +52,7 @@ class User < ActiveRecord::Base
     # User must also be authorized for Github API access.
     def upload_ssh_key_to_github
       if !ssh_key_uploaded_to_github? && !self.class.disable_ssh_github_upload && authorized_for_github?
-        github.create_key(:title => "Strano", :key => ENV['STRANO_PUBLIC_SSH_KEY'])
+        github.users.create_key(:title => "Strano", :key => ENV['STRANO_PUBLIC_SSH_KEY'])
         self.toggle! :ssh_key_uploaded_to_github
       end
     rescue Github::Error => e

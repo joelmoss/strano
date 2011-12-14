@@ -1,4 +1,4 @@
-module Strano
+module Strano  
   class Repo
     
     attr_accessor :ssh_url, :user_name, :repo_name
@@ -23,6 +23,17 @@ module Strano
       repo
     end
     
+    # Remove a cloned repo from the filesystem.
+    # 
+    # url - The SSH URL of the git repository that this local repo is cloned from.
+    # 
+    # Returns Boolean true if the repo was successfully removed.
+    def self.remove(url)
+      repo = new(url)
+      repo.git.fs_delete('../')
+      !repo.git.fs_exist?('../')
+    end
+    
     def root_path
       ENV['STRANO_CLONE_PATH'] || Rails.root.join("vendor/repos")
     end
@@ -35,5 +46,5 @@ module Strano
       @git ||= Grit::Git.new(path)
     end
     
-  end
+  end  
 end

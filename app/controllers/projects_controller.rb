@@ -1,4 +1,10 @@
 class ProjectsController < InheritedResources::Base
+  actions :all, :except => :index
+  
+  
+  def destory
+    destroy { root_url(:anchor => "projects") }
+  end
   
   
   protected

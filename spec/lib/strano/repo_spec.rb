@@ -38,10 +38,22 @@ describe Strano::Repo do
     let(:url) { 'git@github.com:joelmoss/strano.git' }
     let(:path) { '/test/path/to/repos/joelmoss/strano' }
     
-    it "should clone a github repository to STRANO_CLONE_PATH" do
+    it "should clone a github repository" do
       Grit::Git.any_instance.should_receive(:clone).with({}, url, path)
       Strano::Repo.clone(url).should be_a(Strano::Repo)
     end
+  end
+  
+  describe ".remove" do
+    let(:url) { 'git@github.com:joelmoss/strano.git' }
+    let(:path) { '/test/path/to/repos/joelmoss/strano' }
+
+    before(:each) do
+      Grit::Git.any_instance.should_receive(:fs_delete).with('../')
+      Grit::Git.any_instance.should_receive(:fs_exist?).with('../').and_return(false)
+    end
+    
+    it { Strano::Repo.remove(url).should == true }
   end
   
 end
