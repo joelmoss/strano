@@ -4,4 +4,6 @@
 <% breadcrumb parent, parent %>
 
 <h5>Results:</h5>
-<pre><%= resource.results || '...' %></pre>
+<pre id="job-results" data-job_id="<%= resource.id %>" data-project_id="<%= parent.id %>">
+  <%= resource.results || image_tag("loading.gif", :size => "16x16") %>
+</pre>

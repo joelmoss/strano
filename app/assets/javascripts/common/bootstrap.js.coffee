@@ -5,6 +5,9 @@ $ ->
   $("a[rel=popover]").popover offset: 10
   
 $ ->
+  $(".alert-message").alert()
+  
+$ ->
   domModal = $(".modal").modal(
     backdrop: true
     closeOnEscape: true

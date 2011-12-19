@@ -10,7 +10,7 @@
   <![endif]-->
   
   <%= stylesheet_link_tag    "application" %>
-  <%= javascript_include_tag "application" %>
+  <%= javascript_include_tag "application", "app/#{controller_name}" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -52,15 +52,15 @@
     </div>
       
     <%- if notice -%>
-      <div class="alert-message success fade in" data-alert="alert">
-        <a class="close" href="#">&times;</a>
+      <div class="alert-message success fade in">
+        <a class="close" href="#">×</a>
         <%= notice %>
       </div>
     <%- end -%>
     
     <%- if alert -%>
-      <div class="alert-message error fade in" data-alert="alert">
-        <a class="close" href="#">&times;</a>
+      <div class="alert-message error fade in">
+        <a class="close" href="#">×</a>
         <%= alert %>
       </div>
     <%- end -%>
