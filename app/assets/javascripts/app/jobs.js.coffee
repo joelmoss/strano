@@ -8,7 +8,7 @@ $ ->
   
     get_job_status = ->
       $.getJSON "/projects/#{project_id}/jobs/#{job_id}", (data) ->
-        if data.results == ""
+        if data.results == null
           setTimeout get_job_status, 3000
         else
           div.text data.results
