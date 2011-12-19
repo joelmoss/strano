@@ -1,0 +1,35 @@
+<%- title "Create Project" -%>
+<%- breadcrumb 'Projects', root_path(:anchor => "projects") -%>
+
+<ul class="tabs" data-tabs="tabs">
+  <li class="active"><a href="#repos">My Repositories</a></li>
+
+  <li class="dropdown" data-dropdown="dropdown">
+    <a href="#" class="dropdown-toggle">Organisations...</a>
+    <ul class="dropdown-menu">
+      <%- current_user.github.orgs.orgs.each do |org| -%>
+        <li><a href="#<%= org.login %>"><%= org.login %></a></li>
+      <%- end -%>
+    </ul>
+  </li>
+</ul>
+
+<div class="tab-content">
+  <div class="tab-pane active" id="repos"><%= render 'repos', :repos => @repos %></div>
+
+  <%- current_user.github.orgs.orgs.each do |org| -%>
+
+    <div class="tab-pane" id="<%= org.login %>">
+
+      <h2 class="page-header">
+        <%= image_tag org.avatar_url, :size => "26x26", :class => "org-avatar" %>
+        <span class="padding-bottom3"><%= org.login %></span>
+      </h2>
+
+      <%= render 'repos', :repos => current_user.github.repos.list_repos(:org => org.login) %>
+
+    </div>
+
+  <%- end -%>
+
+</div>

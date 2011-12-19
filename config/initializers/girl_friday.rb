@@ -1,6 +1,6 @@
 class MyErrorHandler
   def handle(ex)
-    puts ex.message
+    mark ex.message
   end
 end
 
@@ -10,4 +10,8 @@ end
 
 REPO_REMOVE_QUEUE = GirlFriday::WorkQueue.new(:repo_remove, :error_handler => MyErrorHandler) do |msg|
   Strano::Repo.remove(msg)
+end
+
+CAP_EXECUTE_QUEUE = GirlFriday::WorkQueue.new(:cap_execute, :error_handler => MyErrorHandler) do |msg|
+  Job.find(msg[:job_id]).run_task
 end

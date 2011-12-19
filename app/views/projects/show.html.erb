@@ -4,7 +4,10 @@
 
 <ul class="tabs" data-tabs="tabs">
   <li class="active"><a href="#info">Information</a></li>
-  
+  <%- if resource.capified? -%>
+    <li><a href="#tasks">Tasks</a></li>
+  <%- end -%>
+
   <li class="dropdown" data-dropdown="dropdown">
     <a href="#" class="dropdown-toggle">Manage</a>
     <ul class="dropdown-menu">
@@ -16,6 +19,40 @@
 
 <div class="tab-content">
   <div class="tab-pane active" id="info">
-    
+
+    <%- if resource.capified? -%>
+
+
+
+    <%- else -%>
+
+      <div class="alert-message warning fade in" data-alert="alert">
+        <a class="close" href="#">&times;</a>
+        <p>This project has not been capified as it does not contain a Capfile, which means we cannot deploy it or run any Capistrano commands against it.</p>
+      </div>
+
+    <%- end -%>
+
   </div>
+
+  <%- if resource.capified? -%>
+    <div class="tab-pane" id="tasks">
+
+      <table>
+        <%- resource.tasks.each do |task| -%>
+          <tr>
+            <td>
+              <%= link_to 'Run', new_project_jobs_path(resource, task.fully_qualified_name), :class => "btn primary" %>
+            </td>
+            <td>
+              <h3><%= task.fully_qualified_name %></h3>
+              <pre><%= task.description %></pre>
+            </td>
+          </tr>
+        <%- end -%>
+      </table>
+
+    </div>
+  <%- end -%>
+
 </div>

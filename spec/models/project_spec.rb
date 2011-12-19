@@ -6,6 +6,7 @@ describe Project do
 
   let(:url) { 'git@github.com:joelmoss/strano.git' }
   let(:user) { FactoryGirl.create(:user) }
+  let(:cloned_project) { FactoryGirl.build_stubbed(:project) }
   let(:project) do
     Strano::Repo.should_receive(:clone).with(url)
     Project.create(:url => url, :user_id => user.id)

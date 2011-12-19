@@ -8,6 +8,14 @@ GIT
       multi_json (~> 1.0.3)
       oauth2 (~> 0.5.0)
 
+GIT
+  remote: https://github.com/plataformatec/simple_form.git
+  revision: 6943b37d64895c8433941986837e1d4a719415ba
+  specs:
+    simple_form (2.0.0.dev)
+      actionpack (~> 3.0)
+      activemodel (~> 3.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -251,6 +259,7 @@ DEPENDENCIES
   rspec-rails
   sass-rails (~> 3.1.5)
   shoulda-matchers
+  simple_form!
   sqlite3
   twitter-bootstrap-rails
   uglifier (>= 1.0.3)

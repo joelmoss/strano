@@ -1,0 +1,22 @@
+<% title "New Job" %>
+<% subtitle "task: #{resource.task}" %>
+<% breadcrumb "Projects", projects_path %>
+<% breadcrumb parent, parent %>
+
+<%= simple_form_for resource, :url => [parent, resource] do |f| %>
+
+  <div class="clearfix">
+    <label>Task</label>
+    <div class="input">
+      <span class="uneditable-input"><%= resource.task %></span>
+      <%= f.hidden_field :task %>
+    </div>
+  </div>
+  <%= f.input :notes, :input_html => { :class => "span8", :rows => 5 } %>
+  
+  <div class="actions">
+    <%= f.button :submit, :class => 'primary' %>
+    <%= button_tag 'Cancel', :type => :reset, :class => "btn" %>
+  </div>
+
+<%- end %>

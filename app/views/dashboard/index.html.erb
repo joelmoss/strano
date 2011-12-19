@@ -1,11 +1,20 @@
 <%- title 'Dashboard' -%>
 
-<ul class="tabs" data-tabs="tabs">
-  <li class="active"><a href="#projects">Projects</a></li>
-  <li><a href="#repos">Repositories</a></li>
-</ul>
+<%- if @projects.empty? -%>
+  
+  <h4 align="center">You haven't created any projects yet! <%= link_to "Create a project now", new_project_path %>...</h4>
+  
+<% else %>
 
-<div class="tab-content">
-  <div class="tab-pane active" id="projects"><%= render 'projects' %></div>
-  <div class="tab-pane" id="repos"><%= render 'repos' %></div>
-</div>
+  <table class="zebra-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render @projects %>
+    </tbody>
+  </table>
+  
+<%- end -%>

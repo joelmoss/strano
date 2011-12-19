@@ -1,15 +1,21 @@
+require 'capistrano/cli'
+require "kernel"
+
 class Project < ActiveRecord::Base
 
   # The github data will be serialzed as a Hash.
   serialize :github_data
 
   belongs_to :user
+  has_many :jobs
+
+  validate :url, :presence => true, :uniqueness => { :case_sensitive => false }
 
   after_create :clone_repo
   before_save :update_github_data
   after_destroy :remove_repo
-  
-  delegate :user_name, :repo_name, :to => :repo
+
+  delegate :user_name, :repo_name, :cloned?, :capified?, :to => :repo
 
 
   def to_s
@@ -31,6 +37,21 @@ class Project < ActiveRecord::Base
   # Returns a Strano::Repo instance.
   def repo
     @repo ||= Strano::Repo.new(url)
+  end
+
+  def tasks
+    @tasks ||= cap(%W(-t)).task_list(:all)
+  end
+
+  # Execute a capistrano command.
+  #
+  # args - An Array of arguments which will be passed to the Cap command.
+  def cap(args = [])
+    @cap, args = nil, %W(-f Capfile -Xx -l STDOUT) + args
+    FileUtils.chdir repo.path do
+      @cap = Capistrano::CLI.parse(args).execute!
+    end
+    @cap
   end
 
 

@@ -46,5 +46,19 @@ module Strano
       @git ||= Grit::Git.new(path)
     end
     
+    # Is this repo cloned to the local file system?
+    # 
+    # Returns a Boolean true if it has been cloned.
+    def cloned?
+      git.fs_exist?('.git')
+    end
+    
+    # Is this repo capified? Meaning does it have a Capfile in its root.
+    # 
+    # Returns a Boolean true if it has been capified.
+    def capified?
+      git.fs_exist?('Capfile')
+    end
+    
   end  
 end

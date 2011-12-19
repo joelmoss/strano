@@ -1,0 +1,7 @@
+<% title "Job ##{resource.id}" %>
+<% subtitle "task: #{resource.task}" %>
+<% breadcrumb "Projects", projects_path %>
+<% breadcrumb parent, parent %>
+
+<h5>Results:</h5>
+<pre><%= resource.results || '...' %></pre>
