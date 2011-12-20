@@ -1,0 +1,42 @@
+<div class="tab-pane" id="history">
+
+  <%- if resource.jobs.empty? -%>
+  
+    <h4 align="center">You haven't run any jobs for this project yet!</h4>
+  
+  <% else %>
+
+    <table class="zebra-striped">
+      <thead>
+        <tr>
+          <th width="220">Date</th>
+          <th>Task</th>
+          <th>Run by</th>
+          <th>Ran for</th>
+          <th width="125"></th>
+        </tr>
+      </thead>
+      <tbody>
+      
+        <%- resource.jobs.each do |job| -%>
+          <tr>
+            <td class="small">
+              <strong><%= time_ago_in_words job.created_at %> ago</strong>
+              <div><%= job.created_at.to_s :short %></div>
+            </td>
+            <td><code><%= job.task %></code></td>
+            <td><%= job.user %></td>
+            <td class="small"><%= distance_of_time_in_words job.created_at, job.completed_at, true %></td>
+            <td>
+              <%= link_to "view results", [resource, job], :class => 'label notice' %>
+              <%= link_to "delete", [resource, job], :class => 'label error', :method => :delete, :confirm => "Are you sure?" %>
+            </td>
+          </tr>
+        <%- end -%>
+      
+      </tbody>
+    </table>
+  
+  <%- end -%>
+
+</div>

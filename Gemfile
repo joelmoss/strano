@@ -19,6 +19,7 @@ gem 'github_api', :git => "https://github.com/joelmoss/github.git"
 gem 'capistrano'
 gem 'grit'
 gem 'girl_friday'
+gem 'dotiw'
 gem 'inherited_resources'
 gem 'simple_form', :git => 'https://github.com/plataformatec/simple_form.git'
 

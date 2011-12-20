@@ -1,6 +1,6 @@
 $ ->
   
-  if $('#job-results')?
+  if $('#job-results').size() > 0
   
     div = $ '#job-results'
     project_id = div.data 'project_id'

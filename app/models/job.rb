@@ -1,7 +1,10 @@
 class Job < ActiveRecord::Base
   
   belongs_to :project
+  belongs_to :user
   after_create :execute_task
+  
+  default_scope order('created_at DESC')
   
   
 
@@ -9,12 +12,16 @@ class Job < ActiveRecord::Base
     capture_stdout { project.cap %W( #{task} ) }.string
   end
   
+  def complete?
+    !results.blank?
+  end
+  
   
   private
   
     def execute_task
       CAP_EXECUTE_QUEUE.push({:job_id => id}) do |result|
-        update_attribute :results, result
+        update_attributes :results => result, :completed_at => Time.now
       end
     end
     

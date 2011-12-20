@@ -16,10 +16,15 @@ class Project < ActiveRecord::Base
   after_destroy :remove_repo
 
   delegate :user_name, :repo_name, :cloned?, :capified?, :to => :repo
+  delegate :html_url, :description, :organization, :to => :github_data
 
 
   def to_s
     "#{user_name}/#{repo_name}"
+  end
+
+  def organization?
+    organization.present?
   end
 
   # Convert the github data into a Hashie::Mash object, so that delegation works.
