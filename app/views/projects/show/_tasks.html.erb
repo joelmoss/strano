@@ -24,6 +24,14 @@
             <%= link_to raw("show full description >"), '#', :class => "show-task-description label" %>
           </div>
         </div>
+        <div class="row">
+          <div class="span14 quiet">
+            <%- if last_run = resource.jobs.where(:task => task.fully_qualified_name).first -%>
+              last run <%= link_to "#{time_ago_in_words(last_run.created_at)} ago", [resource, last_run] %>
+              <span class="small padding-left">(<%= last_run.created_at.to_s :short %>)</span>
+            <%- end -%>
+          </div>
+        </div>
         <div class="row hide">
           <div class="span14">
             <pre><%= task.description %></pre>
