@@ -16,7 +16,7 @@ gem 'twitter-bootstrap-rails'
 gem 'devise'
 gem 'omniauth-github'
 gem 'github_api', :git => "https://github.com/joelmoss/github.git"
-gem 'capistrano'
+gem 'capistrano', '~> 2.10.0.pre'
 gem 'grit'
 gem 'girl_friday'
 gem 'dotiw'

@@ -51,7 +51,7 @@ GEM
     arel (2.2.1)
     bcrypt-ruby (3.0.1)
     builder (3.0.0)
-    capistrano (2.9.0)
+    capistrano (2.10.0.pre)
       highline
       net-scp (>= 1.0.0)
       net-sftp (>= 2.0.0)
@@ -238,7 +238,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  capistrano
+  capistrano (~> 2.10.0.pre)
   coffee-rails (~> 3.1.1)
   database_cleaner
   devise
