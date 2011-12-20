@@ -7,7 +7,7 @@ class Project < ActiveRecord::Base
   serialize :github_data
 
   belongs_to :user
-  has_many :jobs
+  has_many :jobs, :dependent => :destroy
 
   validate :url, :presence => true, :uniqueness => { :case_sensitive => false }
 
@@ -44,8 +44,14 @@ class Project < ActiveRecord::Base
     @repo ||= Strano::Repo.new(url)
   end
 
-  def tasks
-    @tasks ||= cap(%W(-t)).task_list(:all)
+  def tasks(include_empty_and_internal = false)
+    @tasks ||= begin
+      _tasks = cap(%W(-t)).task_list(:all)
+      unless include_empty_and_internal
+        _tasks.reject! { |t| t.description.empty? || t.description =~ /^\[internal\]/ }
+      end
+      _tasks
+    end
   end
 
   # Execute a capistrano command.

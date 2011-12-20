@@ -1,17 +1,36 @@
 <div class="tab-pane" id="tasks">
 
-  <table>
-    <%- resource.tasks.each do |task| -%>
-      <tr>
-        <td>
-          <%= link_to 'Run', new_project_jobs_path(resource, task.fully_qualified_name), :class => "btn primary" %>
-        </td>
-        <td>
-          <h3><%= task.fully_qualified_name %></h3>
-          <pre><%= task.description %></pre>
-        </td>
-      </tr>
+  <div class="right">
+    <%- if params[:all_tasks] -%>
+      <%= link_to 'hide hidden tasks', resource_path(:tab => "tasks"), :class => "btn small" %>
+    <%- else -%>
+      <%= link_to 'show hidden tasks', resource_path(:tab => "tasks", :all_tasks => true), :class => "btn small" %>
     <%- end -%>
-  </table>
+  </div>
+  
+  <hr />
+
+  <%- resource.tasks(params[:all_tasks]).each do |task| -%>
+    <div class="row margin-top">
+      <div class="span2 margin-top">
+        <%= link_to 'Run this...', new_project_jobs_path(resource, task.fully_qualified_name), :class => "btn primary" %>
+      </div>
+      <div class="span14 bordered-bottom padding-bottom2">
+        <div class="row">
+          <div class="span11">
+            <h3><%= task.fully_qualified_name %> <small class="padding-left"><%= task.brief_description %></small></h3>
+          </div>
+          <div class="span3 right margin-top2">
+            <%= link_to raw("show full description >"), '#', :class => "show-task-description label" %>
+          </div>
+        </div>
+        <div class="row hide">
+          <div class="span14">
+            <pre><%= task.description %></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  <%- end -%>
 
 </div>

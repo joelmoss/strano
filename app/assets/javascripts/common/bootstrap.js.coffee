@@ -6,11 +6,9 @@
   var History = window.History;
   if (!History.enabled) return false;
 
-  History.Adapter.bind(window,'statechange',function(){
+  History.Adapter.bind(window, 'statechange', function() {
     var State = History.getState();
-    if (State.data.tab) {
-      $("li a[href=#"+State.data.tab+"]").trigger('click');
-    }
+    if (State.data.tab) $("li a[href=#"+State.data.tab+"]").trigger('click');
   });
 
 })(window);`
@@ -34,13 +32,20 @@ $ ->
   # Set the location hash on tab click
   tabs.find('li > a').change ->
     tab = $(this).attr('href').replace /#/, ''
-    History.pushState {tab: tab}, null, "?tab=#{tab}"
+    params = $.getUrlVars()
+    params['tab'] = tab
+    
+    History.pushState {tab: tab}, null, "?" + $.param(params)
 
   if History.getState().data.tab != undefined
     # Set selected tab as active
     tabs.find("li a[href=##{History.getState().data.tab}]").trigger 'click'
 
+  else if (tab = $.getUrlVar('tab')) != undefined
+    tabs.find("li a[href=##{tab}]").trigger 'click'
+  
   else
+  
     # Set first tab as active if none are active
     active_tab = tabs.find('li.active a')
     if active_tab.size() < 1
