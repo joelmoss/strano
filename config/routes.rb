@@ -6,7 +6,7 @@ Strano::Application.routes.draw do
   end
 
   resources :projects do
-    resources :jobs, :except => :new do
+    resources :jobs, :except => [:new,:index] do
       get 'new/:task', :action => :new, :on => :collection, :as => :new
     end
   end

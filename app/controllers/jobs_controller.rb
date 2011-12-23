@@ -1,5 +1,6 @@
 class JobsController < InheritedResources::Base
   belongs_to :project
+  actions :all, :except => :index
   respond_to :json, :only => :show
 
   
