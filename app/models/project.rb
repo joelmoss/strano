@@ -44,13 +44,21 @@ class Project < ActiveRecord::Base
     @repo ||= Strano::Repo.new(url)
   end
 
-  def tasks(include_empty_and_internal = false)
-    @tasks ||= begin
-      _tasks = cap(%W(-t)).task_list(:all)
-      unless include_empty_and_internal
-        _tasks.reject! { |t| t.description.empty? || t.description =~ /^\[internal\]/ }
-      end
-      _tasks
+  # The public task list for this project's repository.
+  # 
+  # Returns an Array of tasks.
+  def public_tasks
+    @public_tasks ||= begin
+      tasks.reject { |t| t.description.empty? || t.description =~ /^\[internal\]/ }
+    end
+  end
+  
+  # The hidden and internal task list for this project's repository.
+  # 
+  # Returns an Array of tasks.
+  def hidden_tasks
+    @hidden_tasks ||= begin
+      tasks.select { |t| t.description.empty? || t.description =~ /^\[internal\]/ }
     end
   end
 
@@ -67,6 +75,10 @@ class Project < ActiveRecord::Base
 
 
   private
+
+    def tasks
+      @tasks ||= cap(%W(-t)).task_list(:all).sort_by(&:fully_qualified_name)
+    end
 
     def clone_repo
       REPO_CLONE_QUEUE << url

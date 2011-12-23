@@ -3,6 +3,7 @@ $.extend({
   // returns a hash of URL query parameters
   getUrlVars: function(){
     var vars = {}, hash;
+    if (window.location.href.indexOf('?') < 0) return vars;
     var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
     for (var i = 0; i < hashes.length; i++) {
       hash = hashes[i].split('=');

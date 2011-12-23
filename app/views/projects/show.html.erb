@@ -3,6 +3,17 @@
 <%- subtitle "#{resource.user_name}/#{resource.repo_name}" -%>
 
 <ul class="tabs" data-tabs="tabs">
+  
+  <div class="pull-right" id="tabwell">
+    <div class="hide" id="tabwell-tasks">
+      <%- if params[:all_tasks] -%>
+        <%= link_to 'hide hidden tasks', resource_path(:tab => "tasks"), :class => "btn small" %>
+      <%- else -%>
+        <%= link_to 'show hidden tasks', resource_path(:tab => "tasks", :all_tasks => true), :class => "btn small" %>
+      <%- end -%>
+    </div>
+  </div>
+  
   <li class="active"><a href="#info">Information</a></li>
   <%- if resource.capified? -%><li><a href="#tasks">Tasks</a></li><%- end -%>
   <li><a href="#history">History</a></li>

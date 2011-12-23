@@ -29,6 +29,27 @@ $ ->
 
   tabs = $('ul[data-tabs], ul[data-pills]')
 
+
+  # Handle the right well for tabs if one exists.
+  if $('#tabwell').size() > 0
+    
+    tabs.bind 'change', (e) ->
+      activated = $(e.target) # activated tab
+      previous = $(e.relatedTarget) # previous tab
+
+      if activated.attr('href').indexOf('#') is 0
+        name = activated.attr('href').replace '#', ''
+        
+        if $("#tabwell-#{name}").size() > 0
+          $("#tabwell-#{name}").show()
+        
+      if previous.attr('href').indexOf('#') is 0
+        name = previous.attr('href').replace '#', ''
+
+        if $("#tabwell-#{name}").size() > 0
+          $("#tabwell-#{name}").hide()
+
+
   # Set the location hash on tab click
   tabs.find('li > a').change ->
     tab = $(this).attr('href').replace /#/, ''
