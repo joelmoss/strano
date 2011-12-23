@@ -18,7 +18,7 @@
       </thead>
       <tbody>
       
-        <%- resource.jobs.each do |job| -%>
+        <%- resource.jobs.page(params[:page]).each do |job| -%>
           <tr>
             <td class="small">
               <strong><%= time_ago_in_words job.created_at %> ago</strong>
@@ -36,6 +36,8 @@
       
       </tbody>
     </table>
+    
+    <%= paginate resource.jobs.page(params[:page]) %>
   
   <%- end -%>
 

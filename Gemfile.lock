@@ -119,6 +119,10 @@ GEM
       railties (~> 3.0)
       thor (~> 0.14)
     json (1.6.3)
+    kaminari (0.13.0)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      railties (>= 3.0.0)
     less (2.0.8)
       commonjs (~> 0.2.0)
       therubyracer (~> 0.9.9)
@@ -256,6 +260,7 @@ DEPENDENCIES
   guard-rspec
   inherited_resources
   jquery-rails
+  kaminari
   marked
   mysql2
   omniauth-github

@@ -21,6 +21,7 @@ gem 'grit'
 gem 'girl_friday'
 gem 'dotiw'
 gem 'inherited_resources'
+gem 'kaminari'
 gem 'simple_form', :git => 'https://github.com/plataformatec/simple_form.git'
 
 group :development, :test do
