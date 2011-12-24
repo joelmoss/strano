@@ -23,8 +23,18 @@ class Project < ActiveRecord::Base
     "#{user_name}/#{repo_name}"
   end
 
+  # Is this project part of a Github organisation profile?
+  # 
+  # Returns a Boolean true if it is part of an organisation.
   def organization?
     organization.present?
+  end
+  
+  # Has this project completed cloning?
+  # 
+  # Returns a Boolean true if it has been cloned.
+  def cloned?
+    !cloned_at.blank?
   end
 
   # Convert the github data into a Hashie::Mash object, so that delegation works.
@@ -81,7 +91,9 @@ class Project < ActiveRecord::Base
     end
 
     def clone_repo
-      REPO_CLONE_QUEUE << url
+      REPO_CLONE_QUEUE.push(url) do |result|
+        update_attribute :cloned_at, Time.now
+      end
     end
 
     def remove_repo
