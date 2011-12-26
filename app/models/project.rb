@@ -6,7 +6,6 @@ class Project < ActiveRecord::Base
   # The github data will be serialzed as a Hash.
   serialize :github_data
 
-  belongs_to :user
   has_many :jobs, :dependent => :destroy
 
   validate :url, :presence => true, :uniqueness => { :case_sensitive => false }
@@ -36,6 +35,17 @@ class Project < ActiveRecord::Base
   def cloned?
     !cloned_at.blank?
   end
+  
+  # Does the given user have access to this project's repository?
+  # 
+  # user - The current_user User object.
+  # 
+  # Returns a Boolean true if the user has access.
+  def accessible_by?(user)
+    !!user.github.repos.get_repo(user_name, repo_name)
+  rescue Github::ResourceNotFound
+    false
+  end
 
   # Convert the github data into a Hashie::Mash object, so that delegation works.
   #
@@ -44,9 +54,9 @@ class Project < ActiveRecord::Base
     @github_data ||= Hashie::Mash.new(read_attribute(:github_data))
   end
 
-  # Returns an authenticated instance of Github::Repos.
+  # Returns an un-authenticated instance of Github::Repos.
   def github
-    @github ||= user.github.repos(:user => repo.user_name, :repo => repo.repo_name)
+    mark @github ||= Github::Repos.new(:user => repo.user_name, :repo => repo.repo_name)
   end
 
   # Returns a Strano::Repo instance.
@@ -91,9 +101,7 @@ class Project < ActiveRecord::Base
     end
 
     def clone_repo
-      REPO_CLONE_QUEUE.push(url) do |result|
-        update_attribute :cloned_at, Time.now
-      end
+      REPO_CLONE_QUEUE.push(url) { |result| update_attribute :cloned_at, Time.now }
     end
 
     def remove_repo

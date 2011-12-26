@@ -1,5 +1,6 @@
 class ProjectsController < InheritedResources::Base
-  actions :all, :except => :index
+  before_filter :authenticate_user!  
+  before_filter :ensure_accessibility_by_current_user, :except => [:index, :new, :create]
   
   
   def new
@@ -12,10 +13,12 @@ class ProjectsController < InheritedResources::Base
   end
   
   
-  protected
+  private
   
-    def begin_of_association_chain
-      current_user
+    def ensure_accessibility_by_current_user
+      unless resource.accessible_by? current_user
+        redirect_to collection_path, :alert => "You do not have access to this project '#{resource}'."
+      end
     end
-    
+   
 end

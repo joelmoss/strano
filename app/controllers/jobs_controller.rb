@@ -1,4 +1,5 @@
 class JobsController < InheritedResources::Base
+  before_filter :authenticate_user!
   belongs_to :project
   actions :all, :except => :index
   respond_to :json, :only => :show

@@ -5,8 +5,7 @@
 <%- if resource.cloned? -%>
 
   <%- unless resource.capified? -%>
-    <div class="alert-message warning fade in" data-alert="alert">
-      <a class="close" href="#">&times;</a>
+    <div class="alert-message error">
       <p>This project has not been capified as it does not contain a Capfile, which means we cannot deploy it or run any Capistrano commands against it.</p>
     </div>
   <%- end -%>
@@ -25,7 +24,7 @@
   
     <li class="active"><a href="#info">Information</a></li>
     <%- if resource.capified? -%><li><a href="#tasks">Tasks</a></li><%- end -%>
-    <li><a href="#history">History</a></li>
+    <%- unless resource.jobs.empty? -%><li><a href="#history">History</a></li><%- end -%>
 
     <li class="dropdown" data-dropdown="dropdown">
       <a href="#" class="dropdown-toggle">Manage...</a>
@@ -39,7 +38,7 @@
   <div class="tab-content">
     <div class="tab-pane active" id="info"><%= render 'projects/show/info' %></div>
     <%= render 'projects/show/tasks' if resource.capified? %>
-    <%= render 'projects/show/history' %>
+    <%= render 'projects/show/history' unless resource.jobs.empty? %>
   </div>
 
 <%- else -%>

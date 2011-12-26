@@ -1,3 +1,5 @@
+<%- return unless project.accessible_by? current_user -%>
+
 <tr>
   <td><%= link_to project, project %></td>
 </tr>

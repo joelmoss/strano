@@ -1,4 +1,5 @@
 <%- title "Create Project" -%>
+<%- subtitle "from a github repo", true, true -%>
 <%- breadcrumb 'Projects', root_path(:anchor => "projects") -%>
 
 <ul class="tabs" data-tabs="tabs">
@@ -7,7 +8,7 @@
   <li class="dropdown" data-dropdown="dropdown">
     <a href="#" class="dropdown-toggle">Organisations...</a>
     <ul class="dropdown-menu">
-      <%- current_user.github.orgs.orgs.each do |org| -%>
+      <%- current_user.github.orgs.orgs do |org| -%>
         <li><a href="#<%= org.login %>"><%= org.login %></a></li>
       <%- end -%>
     </ul>
@@ -17,7 +18,7 @@
 <div class="tab-content">
   <div class="tab-pane active" id="repos"><%= render 'repos', :repos => @repos %></div>
 
-  <%- current_user.github.orgs.orgs.each do |org| -%>
+  <%- current_user.github.orgs.orgs do |org| -%>
 
     <div class="tab-pane" id="<%= org.login %>">
 
