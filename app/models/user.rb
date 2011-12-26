@@ -1,6 +1,4 @@
 class User < ActiveRecord::Base
-  has_many :projects
-  
   devise :omniauthable
   
   cattr_accessor :disable_ssh_github_upload
