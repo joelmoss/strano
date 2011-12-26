@@ -2,53 +2,63 @@
 <%- breadcrumb 'Projects', root_path(:anchor => "projects") -%>
 <%- subtitle "#{resource.user_name}/#{resource.repo_name}" -%>
 
-<%- if resource.cloned? -%>
+<%- unless resource.cloned? -%>
 
-  <%- unless resource.capified? -%>
-    <div class="alert-message error">
-      <p>This project has not been capified as it does not contain a Capfile, which means we cannot deploy it or run any Capistrano commands against it.</p>
+  <%- if resource.created_at < 15.minutes.ago -%>
+    <div class="alert-message error" id="clone-msg">
+      <p>Cloning seems to have failed as it has been running for over <%= time_ago_in_words resource.created_at %>.</p>
     </div>
+  <%- else -%>
+    <div class="alert-message info" id="clone-msg">
+      <p><strong>Cloning the repository</strong>. Please wait...</p>
+    </div>
+    
+    <script type="text/javascript" charset="utf-8">
+      $(function(){ $.check_project_cloning() });
+    </script>
   <%- end -%>
 
-  <ul class="tabs" data-tabs="tabs">
-  
-    <div class="pull-right" id="tabwell">
-      <div class="hide" id="tabwell-tasks">
-        <%- if params[:all_tasks] -%>
-          <%= link_to 'hide hidden tasks', resource_path(:tab => "tasks"), :class => "btn small" %>
-        <%- else -%>
-          <%= link_to 'show hidden tasks', resource_path(:tab => "tasks", :all_tasks => true), :class => "btn small" %>
-        <%- end -%>
-      </div>
+<%- end -%>
+
+<%- if resource.cloned? && !resource.capified? -%>
+  <div class="alert-message error">
+    <p>This project has not been capified as it does not contain a Capfile, which means we cannot deploy it or run any Capistrano commands against it.</p>
+  </div>
+<%- end -%>
+
+<ul class="tabs" data-tabs="tabs">
+
+  <div class="pull-right" id="tabwell">
+    <div class="hide" id="tabwell-tasks">
+      <%- if params[:all_tasks] -%>
+        <%= link_to 'hide hidden tasks', resource_path(:tab => "tasks"), :class => "btn small" %>
+      <%- else -%>
+        <%= link_to 'show hidden tasks', resource_path(:tab => "tasks", :all_tasks => true), :class => "btn small" %>
+      <%- end -%>
     </div>
-  
-    <li class="active"><a href="#info">Information</a></li>
+  </div>
+
+  <li class="active"><a href="#info">Information</a></li>
+
+  <%- if resource.cloned? -%>
     <%- if resource.capified? -%><li><a href="#tasks">Tasks</a></li><%- end -%>
     <%- unless resource.jobs.empty? -%><li><a href="#history">History</a></li><%- end -%>
+  <%- end -%>
 
-    <li class="dropdown" data-dropdown="dropdown">
-      <a href="#" class="dropdown-toggle">Manage...</a>
-      <ul class="dropdown-menu">
-        <li><%= link_to 'Edit', [:edit, resource] %></li>
-        <li><%= link_to 'Delete!', resource, :method => :delete, :confirm => "Are you sure you want to delete this?" %></li>
-      </ul>
-    </li>
-  </ul>
+  <li class="dropdown" data-dropdown="dropdown">
+    <a href="#" class="dropdown-toggle">Manage...</a>
+    <ul class="dropdown-menu">
+      <li><%= link_to 'Edit', [:edit, resource] %></li>
+      <li><%= link_to 'Delete!', resource, :method => :delete, :confirm => "Are you sure you want to delete this?" %></li>
+    </ul>
+  </li>
+</ul>
 
-  <div class="tab-content">
-    <div class="tab-pane active" id="info"><%= render 'projects/show/info' %></div>
+<div class="tab-content">
+  <div class="tab-pane active" id="info"><%= render 'projects/show/info' %></div>
+
+  <%- if resource.cloned? -%>
     <%= render 'projects/show/tasks' if resource.capified? %>
     <%= render 'projects/show/history' unless resource.jobs.empty? %>
-  </div>
-
-<%- else -%>
-
-  <div class="alert-message info">
-    <p><strong>Cloning the repository</strong>. Please wait...</p>
-  </div>
-  
-  <script type="text/javascript" charset="utf-8">
-    setTimeout("window.location.reload(false);", 5000);
-  </script>
-
-<%- end -%>
+  <%- end -%>
+</div>

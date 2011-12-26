@@ -19,7 +19,7 @@ module Strano
     def self.clone(url)
       repo = new(url)
       repo.git.fs_mkdir('..')
-      repo.git.clone({}, url, repo.path)
+      repo.git.clone({:timeout => false}, url, repo.path)
       repo
     end
     
