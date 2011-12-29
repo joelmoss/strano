@@ -15,7 +15,7 @@ gem 'jquery-rails'
 gem 'twitter-bootstrap-rails'
 gem 'devise'
 gem 'omniauth-github'
-gem 'github_api', :git => "https://github.com/joelmoss/github.git"
+gem 'github_api'
 gem 'capistrano', '~> 2.10.0.pre'
 gem 'grit'
 gem 'girl_friday'
@@ -31,7 +31,7 @@ group :development, :test do
   gem 'guard-pow'
   gem 'rb-fsevent'
   gem 'growl'
-  
+
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'shoulda-matchers'
@@ -39,8 +39,8 @@ group :development, :test do
   gem 'marked'
   gem 'ffaker'
   gem 'vcr'
-end  
-  
+end
+
 group :test do
   gem 'sqlite3'
   gem 'webmock'

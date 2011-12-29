@@ -9,21 +9,22 @@ describe Project do
   let(:cloned_project) { FactoryGirl.build_stubbed(:project) }
   let(:project) do
     Strano::Repo.should_receive(:clone).with(url)
-    Project.create(:url => url, :user_id => user.id)
+    Github::Repos.any_instance.should_receive(:get_repo).at_least(:once).and_return({:stuff => :stuff})
+    Project.create :url => url
   end
-  
+
   use_vcr_cassette
-  
+
   it "should set the github data after save" do
     project.github_data.should_not be_empty
   end
-  
+
   describe "#repo" do
     it { project.repo.should be_a(Strano::Repo) }
   end
-  
+
   describe "#github" do
     it { project.github.should be_a(Github::Repos) }
   end
-  
+
 end

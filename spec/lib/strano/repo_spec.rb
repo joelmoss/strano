@@ -37,7 +37,7 @@ describe Strano::Repo do
     let(:path) { "#{REPO_ROOT}/joelmoss/strano" }
 
     it "should clone a github repository" do
-      Grit::Git.any_instance.should_receive(:clone).with({}, url, path)
+      Grit::Git.any_instance.should_receive(:clone).with({:timeout => false}, url, path)
       Strano::Repo.clone(url).should be_a(Strano::Repo)
     end
   end
@@ -55,7 +55,7 @@ describe Strano::Repo do
 
   describe "#cloned?" do
     before(:each) { FakeFS.deactivate! }
-    
+
     it { repo.cloned?.should == true }
 
     context "when project is not cloned" do
@@ -64,7 +64,7 @@ describe Strano::Repo do
       it { repo.cloned?.should == false }
     end
   end
-  
+
   describe "#capified?" do
     before(:each) { FakeFS.deactivate! }
 

@@ -4,7 +4,7 @@ class JobsController < InheritedResources::Base
   actions :all, :except => :index
   respond_to :json, :only => :show
 
-  
+
   def create
     create! :notice => "Your new job is being processed..."
   end

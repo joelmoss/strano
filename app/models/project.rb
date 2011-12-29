@@ -1,5 +1,5 @@
 require 'capistrano/cli'
-require "kernel"
+require 'kernel'
 
 class Project < ActiveRecord::Base
 
@@ -14,6 +14,7 @@ class Project < ActiveRecord::Base
   before_save :update_github_data
   after_destroy :remove_repo
 
+  # Lets do some delegation so that we can access some common methods directly.
   delegate :user_name, :repo_name, :cloned?, :capified?, :to => :repo
   delegate :html_url, :description, :organization, :to => :github_data
 
@@ -23,23 +24,23 @@ class Project < ActiveRecord::Base
   end
 
   # Is this project part of a Github organisation profile?
-  # 
+  #
   # Returns a Boolean true if it is part of an organisation.
   def organization?
     organization.present?
   end
-  
+
   # Has this project completed cloning?
-  # 
+  #
   # Returns a Boolean true if it has been cloned.
   def cloned?
     !cloned_at.blank?
   end
-  
+
   # Does the given user have access to this project's repository?
-  # 
+  #
   # user - The current_user User object.
-  # 
+  #
   # Returns a Boolean true if the user has access.
   def accessible_by?(user)
     !!user.github.repos.get_repo(user_name, repo_name)
@@ -56,7 +57,7 @@ class Project < ActiveRecord::Base
 
   # Returns an un-authenticated instance of Github::Repos.
   def github
-    mark @github ||= Github::Repos.new(:user => repo.user_name, :repo => repo.repo_name)
+    @github ||= Github::Repos.new(:user => repo.user_name, :repo => repo.repo_name)
   end
 
   # Returns a Strano::Repo instance.
@@ -65,16 +66,16 @@ class Project < ActiveRecord::Base
   end
 
   # The public task list for this project's repository.
-  # 
+  #
   # Returns an Array of tasks.
   def public_tasks
     @public_tasks ||= begin
       tasks.reject { |t| t.description.empty? || t.description =~ /^\[internal\]/ }
     end
   end
-  
+
   # The hidden and internal task list for this project's repository.
-  # 
+  #
   # Returns an Array of tasks.
   def hidden_tasks
     @hidden_tasks ||= begin
