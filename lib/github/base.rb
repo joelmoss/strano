@@ -34,7 +34,9 @@ class Github::Base
     end
     
     def connection(options = {})
-      @connection ||= FaradayStack.build header_options.merge(options)
+      @connection ||= FaradayStack.build header_options.merge(options) do |builder|
+        builder.use Faraday::Response::Mashify
+      end
     end
   
     def header_options

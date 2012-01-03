@@ -1,7 +1,3 @@
-require "github/user"
-require "github/key"
-require "github/repo"
-
 class Github
 
   class InvalidAccessToken < StandardError; end
@@ -18,6 +14,14 @@ class Github
   
   def key
     Github::Key.new @access_token
+  end
+  
+  def orgs
+    Github::Orgs.new @access_token
+  end
+  
+  def repos
+    Github::Repos.new @access_token
   end
   
   # Gets a Github repo based on the given user name and repo name.

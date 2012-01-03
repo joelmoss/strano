@@ -1,6 +1,6 @@
 <%- title "Create Project" -%>
 <%- subtitle "from a github repo", true, true -%>
-<%- breadcrumb 'Projects', root_path(:anchor => "projects") -%>
+<%- breadcrumb 'Projects', collection_path -%>
 
 <ul class="tabs" data-tabs="tabs">
   <li class="active"><a href="#repos">My Repositories</a></li>
@@ -8,7 +8,7 @@
   <li class="dropdown" data-dropdown="dropdown">
     <a href="#" class="dropdown-toggle">Organisations...</a>
     <ul class="dropdown-menu">
-      <%- current_user.github.orgs.orgs do |org| -%>
+      <%- current_user.github.orgs.each do |org| -%>
         <li><a href="#<%= org.login %>"><%= org.login %></a></li>
       <%- end -%>
     </ul>
@@ -16,9 +16,9 @@
 </ul>
 
 <div class="tab-content">
-  <div class="tab-pane active" id="repos"><%= render 'repos', :repos => @repos %></div>
+  <div class="tab-pane active" id="repos"><%= render 'repos', :repos => current_user.github.repos %></div>
 
-  <%- current_user.github.orgs.orgs do |org| -%>
+  <%- current_user.github.orgs.each do |org| -%>
 
     <div class="tab-pane" id="<%= org.login %>">
 
@@ -27,7 +27,7 @@
         <span class="padding-bottom3"><%= org.login %></span>
       </h2>
 
-      <%= render 'repos', :repos => current_user.github.repos.list_repos(:org => org.login) %>
+      <%= render 'repos', :repos => org.repos %>
 
     </div>
 

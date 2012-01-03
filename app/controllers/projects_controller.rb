@@ -4,11 +4,6 @@ class ProjectsController < InheritedResources::Base
   respond_to :json, :only => :show
   
   
-  def new
-    @repos = current_user.github.repos.repos
-    new!
-  end
-  
   def destory
     destroy { root_url(:anchor => "projects") }
   end

@@ -10,16 +10,4 @@ describe Github do
     end
   end
 
-  describe "#user" do
-    it { github.user.should be_a(Github::User) }
-  end
-
-  describe "#key" do
-    it { github.key.should be_a(Github::Key) }
-  end
-
-  describe "#repo" do
-    it { github.repo('bob', 'bobsrepo').should be_a(Github::Repo) }
-  end
-
 end

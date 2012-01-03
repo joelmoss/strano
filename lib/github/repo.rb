@@ -10,7 +10,6 @@ class Github
     def inspect
       repo
     end
-
     alias :to_hash :inspect
 
 

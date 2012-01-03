@@ -2,7 +2,7 @@ class DashboardController < ApplicationController
   before_filter :authenticate_user!
   
   def index
-    @repos = current_user.github.repos.repos
+    # @repos = current_user.github.repos
     # @repos.delete_if do |r|
     #   branch = r.master_branch || 'master'      
     #   github.git_data.tree r.owner.login, r.name, branch do |o|

@@ -43,8 +43,8 @@ class Project < ActiveRecord::Base
   #
   # Returns a Boolean true if the user has access.
   def accessible_by?(user)
-    !!user.github.repos.get_repo(user_name, repo_name)
-  rescue Github::ResourceNotFound
+    !!github.to_hash
+  rescue
     false
   end
 
