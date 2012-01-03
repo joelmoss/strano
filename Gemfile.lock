@@ -79,15 +79,12 @@ GEM
       addressable (~> 2.2.6)
       multipart-post (~> 1.1.3)
       rack (>= 1.1.0, < 2)
+    faraday-stack (0.1.3)
+      faraday (~> 0.6)
     ffaker (1.10.1)
     ffi (1.0.11)
     girl_friday (0.9.7)
       connection_pool (~> 0.1.0)
-    github_api (0.3.6)
-      faraday (~> 0.7.4)
-      hashie (~> 1.2.0)
-      multi_json (~> 1.0.3)
-      oauth2 (~> 0.5.0)
     grit (2.4.1)
       diff-lcs (~> 1.1)
       mime-types (~> 1.15)
@@ -232,6 +229,7 @@ GEM
     webmock (1.7.8)
       addressable (~> 2.2, > 2.2.5)
       crack (>= 0.1.7)
+    yajl-ruby (1.1.0)
 
 PLATFORMS
   ruby
@@ -244,9 +242,10 @@ DEPENDENCIES
   dotiw
   factory_girl_rails
   fakefs
+  faraday
+  faraday-stack
   ffaker
   girl_friday
-  github_api
   grit
   growl
   guard
@@ -270,3 +269,4 @@ DEPENDENCIES
   uglifier (>= 1.0.3)
   vcr
   webmock
+  yajl-ruby

@@ -13,10 +13,12 @@
     </div>
   </div>
   <%= f.input :notes, :input_html => { :class => "span8", :rows => 5 } %>
-  
+
   <div class="actions">
     <%= f.button :submit, :class => 'primary' %>
     <%= button_tag 'Cancel', :type => :reset, :class => "btn" %>
   </div>
 
 <%- end %>
+
+<%= parent.cap.stages %>

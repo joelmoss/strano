@@ -1,0 +1,79 @@
+---
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :get
+    uri: https://api.github.com:443/repos/joelmoss/strano
+    body: 
+    headers:
+      user-agent:
+      - Strano
+      content-type:
+      - application/json
+      authorization:
+      - token somerandomkey
+      accept-encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 200
+      message: OK
+    headers:
+      server:
+      - nginx/1.0.4
+      date:
+      - Tue, 03 Jan 2012 22:05:15 GMT
+      content-type:
+      - application/json; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      status:
+      - 200 OK
+      x-ratelimit-limit:
+      - '5000'
+      etag:
+      - ! '"a8087d8b7b8b60c8e6125ff4ffd7a9d6"'
+      x-oauth-scopes:
+      - repo, user
+      x-ratelimit-remaining:
+      - '4997'
+      x-accepted-oauth-scopes:
+      - repo, public_repo
+    body: ! |-
+      {
+        "git_url": "git://github.com/joelmoss/strano.git",
+        "watchers": 1,
+        "ssh_url": "git@github.com:joelmoss/strano.git",
+        "has_downloads": true,
+        "mirror_url": null,
+        "svn_url": "https://github.com/joelmoss/strano",
+        "homepage": "",
+        "has_issues": true,
+        "clone_url": "https://github.com/joelmoss/strano.git",
+        "forks": 1,
+        "fork": false,
+        "has_wiki": true,
+        "updated_at": "2011-12-20T02:16:45Z",
+        "private": false,
+        "size": 312,
+        "master_branch": null,
+        "url": "https://api.github.com/repos/joelmoss/strano",
+        "language": "Ruby",
+        "owner": {
+          "login": "joelmoss",
+          "gravatar_id": "4fe35d76373429a6bdd9326b5ebbd515",
+          "url": "https://api.github.com/users/joelmoss",
+          "id": 4614,
+          "avatar_url": "https://secure.gravatar.com/avatar/4fe35d76373429a6bdd9326b5ebbd515?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png"
+        },
+        "name": "strano",
+        "open_issues": 0,
+        "id": 2676130,
+        "integrate_branch": null,
+        "html_url": "https://github.com/joelmoss/strano",
+        "description": "",
+        "pushed_at": "2011-12-20T02:16:45Z",
+        "created_at": "2011-10-30T17:25:33Z"
+      }
+    http_version: '1.1'

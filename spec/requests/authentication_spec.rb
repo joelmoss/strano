@@ -3,10 +3,9 @@ require 'spec_helper'
 describe "Authentication" do
 
   context "on successful sign in" do
-    use_vcr_cassette
+    use_vcr_cassette 'Github_Key/_create', :erb => true
 
     before(:each) do
-      Github.oauth_token = 'b25b94f3a2f36b79903259c36e79b3ed5acfca9e'
       OmniAuth.config.mock_auth[:github] = { :credentials => { :token => "65r6w5er1w6er5w65ef1" },
                                              :extra => {
                                                :raw_info => {

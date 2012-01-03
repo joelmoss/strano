@@ -57,7 +57,7 @@ class Project < ActiveRecord::Base
 
   # Returns an un-authenticated instance of Github::Repos.
   def github
-    @github ||= Github::Repos.new(:user => repo.user_name, :repo => repo.repo_name)
+    @github ||= Github.new.repo(repo.user_name, repo.repo_name)
   end
 
   # Returns a Strano::Repo instance.
@@ -98,7 +98,7 @@ class Project < ActiveRecord::Base
   private
 
     def tasks
-      @tasks ||= cap(%W(-t)).task_list(:all).sort_by(&:fully_qualified_name)
+      @tasks ||= cap.task_list(:all).sort_by(&:fully_qualified_name)
     end
 
     def clone_repo
@@ -110,7 +110,7 @@ class Project < ActiveRecord::Base
     end
 
     def update_github_data
-      self.github_data = github.get_repo
+      self.github_data = github.to_hash
     end
 
 end

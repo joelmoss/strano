@@ -3,8 +3,9 @@ require 'spec_helper'
 describe User do
 
   describe "upload Strano SSH key to users Github account after creation" do
+    use_vcr_cassette 'Github_Key/_create', :erb => true
+    
     it "should upload SSH key to Github" do
-      Github::Users.any_instance.should_receive(:create_key).with(:title => "Strano", :key => "stranoshakey")
       user = FactoryGirl.create(:user)
       user.ssh_key_uploaded_to_github?.should == true
     end
@@ -21,8 +22,7 @@ describe User do
     before(:each) { User.disable_ssh_github_upload = true }
     
     it { FactoryGirl.build(:user, :github_access_token => nil).github.should be_nil }
-    it { FactoryGirl.create(:user).github.should be_a(Github::Client) }
-    it { FactoryGirl.create(:user).github.oauth_token.should == 'somerandomstring' }
+    it { FactoryGirl.create(:user).github.should be_a(Github) }
   end
 
 end
