@@ -59,3 +59,9 @@ footer {
 .bordered-bottom {
   border-bottom: 1px solid #EEE;
 }
+
+#results pre {
+  overflow-x: auto;
+  white-space: pre;
+  word-wrap: normal;
+}

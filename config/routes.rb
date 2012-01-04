@@ -11,6 +11,6 @@ Strano::Application.routes.draw do
     end
   end
 
-  root :to => "dashboard#index"
+  root :to => "projects#index"
 
 end

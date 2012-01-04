@@ -5,15 +5,15 @@ class Project < ActiveRecord::Base
   class CloneRepo
     def self.perform(project_id)
       project = Project.find(project_id)
-      Strano::Repo.clone project.url      
-      project.update_attribute :cloned_at, Time.now
+      Strano::Repo.clone project.url
+      project.update_column :cloned_at, Time.now
+      project.touch
     end
   end
   
   class RemoveRepo
     def self.perform(project_id)
-      project = Project.find(project_id)
-      Strano::Repo.remove project.url
+      Strano::Repo.remove Project.unscoped.find(project_id).url
     end
   end
 
@@ -32,7 +32,13 @@ class Project < ActiveRecord::Base
   # Lets do some delegation so that we can access some common methods directly.
   delegate :user_name, :repo_name, :cloned?, :capified?, :to => :repo
   delegate :html_url, :description, :organization, :to => :github_data
+  
+  default_scope where(:deleted_at => nil)
 
+
+  def self.deleted
+    self.unscoped.where 'deleted_at IS NOT NULL'
+  end
 
   def to_s
     "#{user_name}/#{repo_name}"

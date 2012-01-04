@@ -21,7 +21,12 @@ class Job < ActiveRecord::Base
   after_create :execute_task
   
   default_scope order('created_at DESC')
-  
+  default_scope where(:deleted_at => nil)
+
+
+  def self.deleted
+    self.unscoped.where 'deleted_at IS NOT NULL'
+  end
   
 
   def run_task

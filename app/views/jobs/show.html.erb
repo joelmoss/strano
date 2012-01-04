@@ -6,7 +6,7 @@
 
 <ul class="tabs" data-tabs="tabs">
   <li class="active"><a href="#results">Results</a></li>
-  <li><a href="#notes">Notes</a></li>
+  <%- if resource.notes.present? -%><li><a href="#notes">Notes</a></li><%- end -%>
 
   <li class="dropdown" data-dropdown="dropdown">
     <a href="#" class="dropdown-toggle">Actions</a>
@@ -27,9 +27,6 @@
     <%- end -%>
     
   </div>
-  <div class="tab-pane" id="notes">
-    
-    <%= resource.notes %>
-    
-  </div>
+  
+  <%- if resource.notes.present? -%><div class="tab-pane" id="notes"><%= resource.notes %></div><%- end -%>
 </div>

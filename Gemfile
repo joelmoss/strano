@@ -25,6 +25,7 @@ gem 'qu-redis'
 gem 'dotiw'
 gem 'inherited_resources'
 gem 'kaminari'
+gem 'permanent_records'
 gem 'simple_form', :git => 'https://github.com/plataformatec/simple_form.git'
 
 # Required by some projects

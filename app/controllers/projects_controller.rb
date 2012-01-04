@@ -5,7 +5,7 @@ class ProjectsController < InheritedResources::Base
   
   
   def destory
-    destroy { root_url(:anchor => "projects") }
+    destroy! { root_url(:anchor => "projects") }
   end
   
   

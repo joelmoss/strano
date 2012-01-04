@@ -16,6 +16,13 @@ class User < ActiveRecord::Base
   # so we can clone private repos.
   after_create :upload_ssh_key_to_github
 
+  default_scope where(:deleted_at => nil)
+
+
+  def self.deleted
+    self.unscoped.where 'deleted_at IS NOT NULL'
+  end
+
 
   def to_s
     login

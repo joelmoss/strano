@@ -14,7 +14,7 @@ $.extend
     getProject = ->
       $.getJSON location, (data) ->
         if data.cloned_at == null
-          time_diff = new Date() - Date.parse(data.created_at)
+          time_diff = new Date().getTime() - Date.parse(data.created_at)
           
           # older than 15 minutes and cloning has still not completed.
           if time_diff > 900
