@@ -1,7 +1,22 @@
 require 'capistrano/cli'
-require 'kernel'
 
 class Project < ActiveRecord::Base
+
+  class CloneRepo
+    def self.perform(project_id)
+      project = Project.find(project_id)
+      Strano::Repo.clone project.url      
+      project.update_attribute :cloned_at, Time.now
+    end
+  end
+  
+  class RemoveRepo
+    def self.perform(project_id)
+      project = Project.find(project_id)
+      Strano::Repo.remove project.url
+    end
+  end
+
 
   # The github data will be serialzed as a Hash.
   serialize :github_data
@@ -102,11 +117,11 @@ class Project < ActiveRecord::Base
     end
 
     def clone_repo
-      REPO_CLONE_QUEUE.push(url) { |result| update_attribute :cloned_at, Time.now }
+      Qu.enqueue Project::CloneRepo, id
     end
 
     def remove_repo
-      REPO_REMOVE_QUEUE << url
+      Qu.enqueue Project::RemoveRepo, id
     end
 
     def update_github_data

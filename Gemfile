@@ -21,11 +21,14 @@ gem 'faraday-stack'
 gem 'faraday_middleware'
 gem 'capistrano', '~> 2.10.0.pre'
 gem 'grit'
-gem 'girl_friday'
+gem 'qu-redis'
 gem 'dotiw'
 gem 'inherited_resources'
 gem 'kaminari'
 gem 'simple_form', :git => 'https://github.com/plataformatec/simple_form.git'
+
+# Required by some projects
+gem 'airbrake'
 
 group :development, :test do
   gem 'guard'

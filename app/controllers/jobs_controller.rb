@@ -5,6 +5,13 @@ class JobsController < InheritedResources::Base
   respond_to :json, :only => :show
 
 
+  def new
+    @job = parent.jobs.build params[:job]
+    @job.stage = parent.cap.default_stage if parent.cap.namespaces.keys.include?(:multistage)
+    
+    new!
+  end
+
   def create
     create! :notice => "Your new job is being processed..."
   end

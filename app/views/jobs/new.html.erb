@@ -12,6 +12,11 @@
       <%= f.hidden_field :task %>
     </div>
   </div>
+  
+  <%- if parent.cap.namespaces.keys.include?(:multistage) -%>
+    <%= f.input :stage, :as => :select, :collection => parent.cap.stages, :include_blank => false %>
+  <%- end -%>
+  
   <%= f.input :notes, :input_html => { :class => "span8", :rows => 5 } %>
 
   <div class="actions">
@@ -20,5 +25,3 @@
   </div>
 
 <%- end %>
-
-<%= parent.cap.stages %>

@@ -1,4 +1,20 @@
+require 'kernel'
+
 class Job < ActiveRecord::Base
+  
+  class CapExecute
+    def self.perform(job_id)
+      job = Job.find(job_id)
+      
+      result = begin
+        job.run_task
+      rescue Exception => e
+        e.message
+      end
+      
+      job.update_attributes :results => result, :completed_at => Time.now
+    end
+  end
   
   belongs_to :project
   belongs_to :user
@@ -9,7 +25,7 @@ class Job < ActiveRecord::Base
   
 
   def run_task
-    capture_stdout { project.cap %W( #{task} ) }.string
+    capture_stdout { project.cap [stage, task] }.string
   end
   
   def complete?
@@ -20,9 +36,7 @@ class Job < ActiveRecord::Base
   private
   
     def execute_task
-      CAP_EXECUTE_QUEUE.push({:job_id => id}) do |result|
-        update_attributes :results => result, :completed_at => Time.now
-      end
+      Qu.enqueue Job::CapExecute, id
     end
     
 end
