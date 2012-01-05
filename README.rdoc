@@ -10,14 +10,8 @@ The Capistrano backed deployment management UI.
 
 - Create project with a Github URL
 - Clone the project to a local internal space
-- Load in Cap files in real time or cache them?
-- Git pull to the local repo each time the project is accessed and/or on a schedule
-
-
-==== Setup a repo
-
-- 
-
+- Load in Cap files
+- TODO: Git pull to the local repo each time the project is accessed and/or on a schedule
 
 
 
@@ -29,3 +23,10 @@ Save your server's public SSH key to ENV['STRANO_PUBLIC_SSH_KEY']
 === Repository clone location
 
 In vendor/repos, but can be changed by setting ENV['STRANO_CLONE_PATH']
+
+
+=== Background Processing
+
+Background processing is taken care of by the Qu gem, and should NOT be run via rake.
+
+  rails r 'Qu::Worker.new(*["default"]).start'

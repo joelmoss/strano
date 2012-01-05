@@ -5,9 +5,29 @@ class Project < ActiveRecord::Base
   class CloneRepo
     def self.perform(project_id)
       project = Project.find(project_id)
+      project.update_column :pull_in_progress, true
+      
       Strano::Repo.clone project.url
-      project.update_column :cloned_at, Time.now
-      project.touch
+      
+      Project.update_all({:updated_at => Time.now,
+                          :cloned_at => Time.now,
+                          :pulled_at => Time.now,
+                          :pull_in_progress => false},
+                          :id => project_id)
+    end
+  end
+  
+  class PullRepo
+    def self.perform(project_id)
+      project = Project.find(project_id)
+      project.update_column :pull_in_progress, true
+      
+      Strano::Repo.pull project.url
+      
+      Project.update_all({:updated_at => Time.now,
+                          :pulled_at => Time.now,
+                          :pull_in_progress => false},
+                          :id => project_id)
     end
   end
   
@@ -113,6 +133,18 @@ class Project < ActiveRecord::Base
       @cap = Capistrano::CLI.parse(args).execute!
     end
     @cap
+  end
+  
+  # Run git pull on the repo, as long as the last pull was more than 15 mins ago.
+  def pull
+    if !pull_in_progress? && !pulled_at.nil? && (Time.now - pulled_at) > 900
+      Qu.enqueue Project::PullRepo, id
+    end
+  end
+  
+  # Run git pull on the repo regardless of when it was last pulled.
+  def pull!
+    Qu.enqueue Project::PullRepo, id unless pull_in_progress?
   end
 
 

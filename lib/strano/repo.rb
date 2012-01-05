@@ -23,6 +23,16 @@ module Strano
       repo
     end
 
+    # Pull a cloned repo.
+    #
+    # url - The SSH URL of the git repository that this local repo is cloned from.
+    #
+    # Returns Boolean true if the repo was successfully removed.
+    def self.pull(url)
+      repo = new(url)
+      repo.git.pull({:timeout => false, :chdir => repo.path, :base => false})
+    end
+    
     # Remove a cloned repo from the filesystem.
     #
     # url - The SSH URL of the git repository that this local repo is cloned from.
