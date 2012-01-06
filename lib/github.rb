@@ -1,3 +1,11 @@
+require "github/base"
+require "github/key"
+require "github/org"
+require "github/orgs"
+require "github/repo"
+require "github/repos"
+require "github/user"
+
 class Github
 
   class InvalidAccessToken < StandardError; end
