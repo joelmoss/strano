@@ -27,6 +27,7 @@ gem 'inherited_resources'
 gem 'kaminari'
 gem 'permanent_records'
 gem 'simple_form', :git => 'https://github.com/plataformatec/simple_form.git'
+gem 'foreman'
 
 # Required by some projects
 gem 'airbrake'

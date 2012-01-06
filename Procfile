@@ -1,0 +1,1 @@
+job: bundle exec rails r 'Qu::Worker.new(*["default"]).start'
