@@ -47,5 +47,3 @@ RSpec.configure do |config|
   config.include Devise::TestHelpers, :type => :controller
   config.extend VCR::RSpec::Macros
 end
-
-GirlFriday::Queue.immediate!
