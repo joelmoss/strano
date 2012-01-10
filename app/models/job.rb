@@ -3,6 +3,8 @@ require 'kernel'
 class Job < ActiveRecord::Base
   
   class CapExecute
+    @queue = :job
+    
     def self.perform(job_id)
       job = Job.find(job_id)
       
@@ -30,7 +32,22 @@ class Job < ActiveRecord::Base
   
 
   def run_task
-    capture_stdout { project.cap [stage, task] }.string
+    status, stdout_output, stderr_output = nil, "", ""
+    
+    FileUtils.chdir project.repo.path do
+      command = "bundle exec cap -f Capfile -Xx -l STDOUT #{stage} #{task}"
+      status = Open4::popen4 command do |pid, stdin, stdout, stderr|
+        stdin.close
+        stdout_output = stdout.read.strip
+        stderr_output = stderr.read.strip
+      end
+    end
+    
+    if status.exitstatus != 0
+      stderr_output
+    else
+      stdout_output
+    end
   end
   
   def complete?
@@ -41,7 +58,7 @@ class Job < ActiveRecord::Base
   private
   
     def execute_task
-      Qu.enqueue Job::CapExecute, id
+      Resque.enqueue Job::CapExecute, id
     end
     
 end

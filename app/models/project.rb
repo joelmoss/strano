@@ -3,6 +3,8 @@ require 'capistrano/cli'
 class Project < ActiveRecord::Base
 
   class CloneRepo
+    @queue = :project
+    
     def self.perform(project_id)
       project = Project.find(project_id)
       project.update_column :pull_in_progress, true
@@ -18,6 +20,8 @@ class Project < ActiveRecord::Base
   end
   
   class PullRepo
+    @queue = :project
+    
     def self.perform(project_id)
       project = Project.find(project_id)
       project.update_column :pull_in_progress, true
@@ -32,6 +36,8 @@ class Project < ActiveRecord::Base
   end
   
   class RemoveRepo
+    @queue = :project
+    
     def self.perform(project_id)
       Strano::Repo.remove Project.unscoped.find(project_id).url
     end
@@ -128,23 +134,25 @@ class Project < ActiveRecord::Base
   #
   # args - An Array of arguments which will be passed to the Cap command.
   def cap(args = [])
-    @cap, args = nil, %W(-f Capfile -Xx -l STDOUT) + args
+    @_cap = nil
+    
     FileUtils.chdir repo.path do
-      @cap = Capistrano::CLI.parse(args).execute!
+      @_cap = Capistrano::CLI.parse(%W(-f Capfile -Xx -l STDOUT) + args).execute!
     end
-    @cap
+    
+    @_cap
   end
   
   # Run git pull on the repo, as long as the last pull was more than 15 mins ago.
   def pull
     if !pull_in_progress? && !pulled_at.nil? && (Time.now - pulled_at) > 900
-      Qu.enqueue Project::PullRepo, id
+      Resque.enqueue Project::PullRepo, id
     end
   end
   
   # Run git pull on the repo regardless of when it was last pulled.
   def pull!
-    Qu.enqueue Project::PullRepo, id unless pull_in_progress?
+    Resque.enqueue Project::PullRepo, id unless pull_in_progress?
   end
 
 
@@ -155,11 +163,11 @@ class Project < ActiveRecord::Base
     end
 
     def clone_repo
-      Qu.enqueue Project::CloneRepo, id
+      Resque.enqueue Project::CloneRepo, id
     end
 
     def remove_repo
-      Qu.enqueue Project::RemoveRepo, id
+      Resque.enqueue Project::RemoveRepo, id
     end
 
     def update_github_data

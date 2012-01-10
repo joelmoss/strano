@@ -11,6 +11,9 @@ Strano::Application.routes.draw do
     end
   end
 
+  require 'resque/server'
+  mount Resque::Server.new, :at => "/resque"
+
   root :to => "projects#index"
 
 end

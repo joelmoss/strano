@@ -21,16 +21,17 @@ gem 'faraday-stack'
 gem 'faraday_middleware'
 gem 'capistrano', '~> 2.10.0.pre'
 gem 'grit'
-gem 'qu-redis'
+gem 'resque'
 gem 'dotiw'
 gem 'inherited_resources'
 gem 'kaminari'
 gem 'permanent_records'
 gem 'simple_form', :git => 'https://github.com/plataformatec/simple_form.git'
 gem 'foreman'
+gem 'open4'
 
 # Required by some projects
-gem 'airbrake'
+gem 'airbrake', :require => nil
 
 group :development, :test do
   gem 'guard'
