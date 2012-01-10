@@ -1,1 +1,1 @@
-job: bundle exec rails r 'Qu::Worker.new(*["default"]).start'
+job: bundle exec rake QUEUES=* resque:work

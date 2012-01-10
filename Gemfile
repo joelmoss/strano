@@ -30,9 +30,6 @@ gem 'simple_form', :git => 'https://github.com/plataformatec/simple_form.git'
 gem 'foreman'
 gem 'open4'
 
-# Required by some projects
-gem 'airbrake', :require => nil
-
 group :development, :test do
   gem 'guard'
   gem 'guard-rspec'

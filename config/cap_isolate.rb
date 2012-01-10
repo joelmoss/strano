@@ -1,1 +1,0 @@
-gem 'capistrano', '~> 2.10.0.pre'
