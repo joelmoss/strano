@@ -13,6 +13,7 @@ end
 
 gem 'jquery-rails'
 gem 'twitter-bootstrap-rails'
+gem 'resque'
 gem 'devise'
 gem 'omniauth-github'
 gem 'yajl-ruby'
@@ -21,13 +22,11 @@ gem 'faraday-stack'
 gem 'faraday_middleware'
 gem 'capistrano', '~> 2.10.0.pre'
 gem 'grit'
-gem 'resque'
 gem 'dotiw'
 gem 'inherited_resources'
 gem 'kaminari'
 gem 'permanent_records'
 gem 'simple_form', :git => 'https://github.com/plataformatec/simple_form.git'
-gem 'foreman'
 gem 'open4'
 
 group :development, :test do
