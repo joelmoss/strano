@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.1.3'
-gem 'mysql2'
+gem 'sqlite3'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -14,7 +14,7 @@ end
 gem 'jquery-rails'
 gem 'twitter-bootstrap-rails'
 gem 'resque'
-gem 'devise'
+gem 'devise', :git => "https://github.com/plataformatec/devise.git"
 gem 'omniauth-github'
 gem 'yajl-ruby'
 gem 'faraday'
@@ -47,7 +47,6 @@ group :development, :test do
 end
 
 group :test do
-  gem 'sqlite3'
   gem 'webmock'
   gem "fakefs", :require => "fakefs/safe"
 end
