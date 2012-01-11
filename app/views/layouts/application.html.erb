@@ -20,18 +20,17 @@
       <div class="container">
         <a class="brand" href="/">STRANO</a>
         <ul class="nav">
-          <!-- <li class="<%= 'active' if controller_name == 'dashboard' %>"><a href="/">Dashboard</a></li> -->
           <li class="<%= 'active' if controller_name == 'projects' %>"><a href="/projects">Projects</a></li>
         </ul>
         
         <div class="pull-right">
-          <%- if user_signed_in? -%>
+          <%- if signed_in? -%>
             <div id="user_display_bar">
               <span><%= current_user %></span>
               <%= image_tag current_user.avatar_url, :size => "28x28" %>
             </div>
           <%- else -%>
-            <span><%= link_to 'Sign in via Github', user_omniauth_authorize_path(:github) %></span>
+            <span><%= link_to 'Sign in via Github', sign_in_path %></span>
           <%- end -%>
         </div>
       </div>
@@ -73,9 +72,9 @@
           Strano: Piss easy deployment! // &copy; <%= link_to 'Develop with Style', 'http://developwithstyle.com' %>. <%= Date.today.year %>
         </div>
         <div class="span8 right">
-          <%- if user_signed_in? -%>
+          <%- if signed_in? -%>
             Signed in via <%= link_to 'Github', current_user.html_url %> as <%= current_user %> //
-            <%= link_to 'sign out', destroy_user_session_path, :method => :delete, :confirm => "Are you sure you want to sign out?" %>
+            <%= link_to 'sign out', sign_out_path, :method => :delete, :confirm => "Are you sure you want to sign out?" %>
           <%- end -%>
         </div>
       </div>

@@ -14,7 +14,6 @@ end
 gem 'jquery-rails'
 gem 'twitter-bootstrap-rails'
 gem 'resque'
-gem 'devise', :git => "https://github.com/plataformatec/devise.git"
 gem 'omniauth-github'
 gem 'yajl-ruby'
 gem 'faraday'

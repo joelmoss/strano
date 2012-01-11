@@ -1,9 +1,9 @@
 Strano::Application.routes.draw do
 
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" } do
-    get 'sign_in', :to => 'users/sessions#new', :as => :new_user_session
-    delete 'sign_out', :to => 'users/sessions#destroy', :as => :destroy_user_session
-  end
+  match '/auth/:provider/callback' => 'sessions#create'
+  match '/auth/failure' => 'sessions#failure'
+  get 'sign_in', :to => 'sessions#new', :as => :sign_in
+  delete 'sign_out', :to => 'sessions#destroy', :as => :sign_out
 
   resources :projects do
     resources :jobs, :except => [:new,:index] do
@@ -14,6 +14,6 @@ Strano::Application.routes.draw do
   require 'resque/server'
   mount Resque::Server.new, :at => "/resque"
 
-  root :to => "projects#index"
+  root :to => "dashboard#index"
 
 end

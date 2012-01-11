@@ -1,20 +1,5 @@
-<%- title 'Dashboard' -%>
+<%- title 'Welcome' -%>
 
-<%- if @projects.empty? -%>
-  
-  <h4 align="center">You haven't created any projects yet! <%= link_to "Create a project now", new_project_path %>...</h4>
-  
-<% else %>
-
-  <table class="zebra-striped">
-    <thead>
-      <tr>
-        <th>Name</th>
-      </tr>
-    </thead>
-    <tbody>
-      <%= render @projects %>
-    </tbody>
-  </table>
-  
+<%- unless signed_in? -%>
+  <p>You are not signed in. <%= link_to "Please sign in now...", sign_in_path %></p>
 <%- end -%>

@@ -14,10 +14,10 @@ $.extend
     getProject = ->
       $.getJSON location, (data) ->
         if data.cloned_at == null
-          time_diff = new Date().getTime() - Date.parse(data.created_at)
+          time_diff = new Date() - new Date(data.created_at)
           
           # older than 15 minutes and cloning has still not completed.
-          if time_diff > 900
+          if time_diff > (1000 * 900)
             msg = "Cloning seems to have failed as it has been running for over 15 minutes now."
             $('#clone-msg').addClass('error').removeClass('info').text msg
           else

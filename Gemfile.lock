@@ -1,14 +1,4 @@
 GIT
-  remote: https://github.com/plataformatec/devise.git
-  revision: a43d1af23e33e0fff872aaba26118d4fa6308e71
-  specs:
-    devise (2.0.0.rc)
-      bcrypt-ruby (~> 3.0)
-      orm_adapter (~> 0.0.3)
-      railties (~> 3.1)
-      warden (~> 1.1)
-
-GIT
   remote: https://github.com/plataformatec/simple_form.git
   revision: 5ee3653f397382602e3ebb6f27558871ca136973
   specs:
@@ -49,7 +39,6 @@ GEM
       multi_json (~> 1.0)
     addressable (2.2.6)
     arel (2.2.1)
-    bcrypt-ruby (3.0.1)
     builder (3.0.0)
     capistrano (2.10.0.pre)
       highline
@@ -155,7 +144,6 @@ GEM
       oauth2 (~> 0.5.0)
       omniauth (~> 1.0)
     open4 (1.3.0)
-    orm_adapter (0.0.6)
     permanent_records (2.1.2)
       activerecord
     polyglot (0.3.3)
@@ -246,8 +234,6 @@ GEM
     vcr (1.11.3)
     vegas (0.1.8)
       rack (>= 1.0.0)
-    warden (1.1.0)
-      rack (>= 1.0)
     webmock (1.7.10)
       addressable (~> 2.2, > 2.2.5)
       crack (>= 0.1.7)
@@ -260,7 +246,6 @@ DEPENDENCIES
   capistrano (~> 2.10.0.pre)
   coffee-rails (~> 3.1.1)
   database_cleaner
-  devise!
   dotiw
   factory_girl_rails
   fakefs
