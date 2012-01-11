@@ -38,6 +38,9 @@ GEM
     activesupport (3.1.3)
       multi_json (~> 1.0)
     addressable (2.2.6)
+    airbrake (3.0.9)
+      activesupport
+      builder
     arel (2.2.1)
     builder (3.0.0)
     capistrano (2.10.0.pre)
@@ -243,6 +246,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  airbrake
   capistrano (~> 2.10.0.pre)
   coffee-rails (~> 3.1.1)
   database_cleaner

@@ -28,6 +28,8 @@ gem 'permanent_records'
 gem 'simple_form', :git => 'https://github.com/plataformatec/simple_form.git'
 gem 'open4'
 
+gem 'airbrake', :require => nil
+
 group :development, :test do
   gem 'guard'
   gem 'guard-rspec'

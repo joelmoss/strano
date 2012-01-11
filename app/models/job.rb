@@ -33,13 +33,15 @@ class Job < ActiveRecord::Base
 
   def run_task
     status, stdout_output, stderr_output = nil, "", ""
+    command = "bundle exec cap -f Capfile -Xx -l STDOUT #{stage} #{task}"
     
     FileUtils.chdir project.repo.path do
-      command = "bundle exec cap -f Capfile -Xx -l STDOUT #{stage} #{task}"
       status = Open4::popen4 command do |pid, stdin, stdout, stderr|
         stdin.close
-        stdout_output = stdout.read.strip
-        stderr_output = stderr.read.strip
+        
+        stdout_output += "Running: '#{command}'...\n\n"
+        stdout_output += stdout.read.strip
+        stderr_output += stderr.read.strip
       end
     end
     
