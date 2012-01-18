@@ -53,7 +53,7 @@ class Job < ActiveRecord::Base
   end
   
   def complete?
-    !results.blank?
+    !completed_at.nil?
   end
   
   
