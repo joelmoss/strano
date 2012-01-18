@@ -6,6 +6,7 @@ Strano::Application.routes.draw do
   delete 'sign_out', :to => 'sessions#destroy', :as => :sign_out
 
   resources :projects do
+    get :pull, :on => :member
     resources :jobs, :except => [:new,:index] do
       get 'new/:task', :action => :new, :on => :collection, :as => :new
     end

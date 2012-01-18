@@ -16,3 +16,18 @@
     
   </div>
 </div>
+
+<hr />
+
+<div class="row">
+  <div class="span3 right">
+    <p class="quiet">Repo updated:</p>
+    <p class="quiet">Created:</p>
+    <p class="quiet">Updated:</p>
+  </div>
+  <div class="span13">
+    <p><%= time_ago_in_words resource.pulled_at %> ago</p>
+    <p><%= resource.created_at.to_s :long_ordinal %></p>
+    <p><%= resource.updated_at.to_s :long_ordinal %></p>
+  </div>
+</div>

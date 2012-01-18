@@ -146,13 +146,13 @@ class Project < ActiveRecord::Base
   # Run git pull on the repo, as long as the last pull was more than 15 mins ago.
   def pull
     if !pull_in_progress? && !pulled_at.nil? && (Time.now - pulled_at) > 900
-      Resque.enqueue Project::PullRepo, id
+      Resque.enqueue PullRepo, id
     end
   end
   
   # Run git pull on the repo regardless of when it was last pulled.
   def pull!
-    Resque.enqueue Project::PullRepo, id unless pull_in_progress?
+    Resque.enqueue PullRepo, id unless pull_in_progress?
   end
 
 
@@ -163,11 +163,11 @@ class Project < ActiveRecord::Base
     end
 
     def clone_repo
-      Resque.enqueue Project::CloneRepo, id
+      Resque.enqueue CloneRepo, id
     end
 
     def remove_repo
-      Resque.enqueue Project::RemoveRepo, id
+      Resque.enqueue RemoveRepo, id
     end
 
     def update_github_data
