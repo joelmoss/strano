@@ -1,4 +1,5 @@
-== Strano
+Strano
+======
 
 The Capistrano and Github backed deployment management UI.
 
@@ -11,41 +12,34 @@ All tasks are recorded, so you can look back and see a full history of who did
 what and when.
 
 
-=== Installation
-
+Installation
+------------
 
 - Github Key and Secret
 
-  Create a Github application at https://github.com/account/applications and copy
-  the generated key and secret to:
-
-    ENV['STRANO_GITHUB_KEY']
-    ENV['STRANO_GITHUB_SECRET']
+  Create a [Github application](https://github.com/account/applications) and copy
+  the generated key and secret to: `ENV['STRANO_GITHUB_KEY']` and
+  `ENV['STRANO_GITHUB_SECRET']`.
 
 - Public SSH key
   
   In order to clone repositories from Github, it requires a public SSH key be
-  defined in:
-  
-    ENV['STRANO_PUBLIC_SSH_KEY']
+  defined in `ENV['STRANO_PUBLIC_SSH_KEY']`.
 
 - Repository clone location
 
   When creating a project in Strano, the Github repo is cloned locally to the path
-  defined in:
-  
-    ENV['STRANO_CLONE_PATH']
-    
-  Default is vendor/repos.
+  defined in `ENV['STRANO_CLONE_PATH']`. Default is vendor/repos.
 
 
-=== Background Processing
+Background Processing
+---------------------
 
 Background processing of task is taken care of by the Resque gem. Run the queue like this:
 
   bundle exec rake QUEUE=* resque:work
   
-You can then monitor your queue at http://YOUR-STRANO-APP/resque
+You can then monitor your queue at `http://YOUR-STRANO-APP/resque`
 
 
 Contributing
