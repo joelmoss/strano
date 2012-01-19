@@ -1,32 +1,62 @@
 == Strano
 
-The Capistrano backed deployment management UI.
+The Capistrano and Github backed deployment management UI.
 
-- Github auth
-- Create project from a Github repo
+Strano allows you to run capistrano tasks via a clean and simple web interface.
+Projects are created from your Github repositories, and use the Capistrano
+configuration within the repository itself. Which means you don't have to set up
+Capistrano twice.
 
-
-=== Workflow
-
-- Create project with a Github URL
-- Clone the project to a local internal space
-- Load in Cap files
-- TODO: Git pull to the local repo each time the project is accessed and/or on a schedule
+All tasks are recorded, so you can look back and see a full history of who did
+what and when.
 
 
-
-=== Public SSH Key
-
-Save your server's public SSH key to ENV['STRANO_PUBLIC_SSH_KEY']
+=== Installation
 
 
-=== Repository clone location
+- Github Key and Secret
 
-In vendor/repos, but can be changed by setting ENV['STRANO_CLONE_PATH']
+  Create a Github application at https://github.com/account/applications and copy
+  the generated key and secret to:
+
+    ENV['STRANO_GITHUB_KEY']
+    ENV['STRANO_GITHUB_SECRET']
+
+- Public SSH key
+  
+  In order to clone repositories from Github, it requires a public SSH key be
+  defined in:
+  
+    ENV['STRANO_PUBLIC_SSH_KEY']
+
+- Repository clone location
+
+  When creating a project in Strano, the Github repo is cloned locally to the path
+  defined in:
+  
+    ENV['STRANO_CLONE_PATH']
+    
+  Default is vendor/repos.
 
 
 === Background Processing
 
-Background processing is taken care of by the Qu gem, and should NOT be run via rake.
+Background processing of task is taken care of by the Resque gem. Run the queue like this:
 
-  rails r 'Qu::Worker.new(*["default"]).start'
+  bundle exec rake QUEUE=* resque:work
+  
+You can then monitor your queue at http://YOUR-STRANO-APP/resque
+
+
+Contributing
+------------
+
+Read the [Contributing][cb] wiki page first. 
+
+Once you've made your great commits:
+
+1. [Fork][1] Strano
+2. Create a topic branch - `git checkout -b my_branch`
+3. Push to your branch - `git push origin my_branch`
+4. Create a [Pull Request](http://help.github.com/pull-requests/) from your branch
+5. That's it!
