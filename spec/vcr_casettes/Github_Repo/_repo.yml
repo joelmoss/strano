@@ -1,79 +1,58 @@
 ---
-- !ruby/struct:VCR::HTTPInteraction
-  request: !ruby/struct:VCR::Request
-    method: :get
-    uri: https://api.github.com:443/repos/joelmoss/strano
-    body: 
+http_interactions:
+- request:
+    method: get
+    uri: https://api.github.com/repos/joelmoss/strano
+    body: ''
     headers:
-      user-agent:
+      User-Agent:
       - Strano
-      content-type:
+      Content-Type:
       - application/json
-      authorization:
+      Authorization:
       - token somerandomkey
-      accept-encoding:
+      Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-  response: !ruby/struct:VCR::Response
-    status: !ruby/struct:VCR::ResponseStatus
+  response:
+    status:
       code: 200
       message: OK
     headers:
-      server:
+      Server:
       - nginx/1.0.4
-      date:
+      Date:
       - Tue, 03 Jan 2012 22:05:15 GMT
-      content-type:
+      Content-Type:
       - application/json; charset=utf-8
-      transfer-encoding:
+      Transfer-Encoding:
       - chunked
-      connection:
+      Connection:
       - keep-alive
-      status:
+      Status:
       - 200 OK
-      x-ratelimit-limit:
+      X-Ratelimit-Limit:
       - '5000'
-      etag:
+      Etag:
       - ! '"a8087d8b7b8b60c8e6125ff4ffd7a9d6"'
-      x-oauth-scopes:
+      X-Oauth-Scopes:
       - repo, user
-      x-ratelimit-remaining:
+      X-Ratelimit-Remaining:
       - '4997'
-      x-accepted-oauth-scopes:
+      X-Accepted-Oauth-Scopes:
       - repo, public_repo
-    body: ! |-
-      {
-        "git_url": "git://github.com/joelmoss/strano.git",
-        "watchers": 1,
-        "ssh_url": "git@github.com:joelmoss/strano.git",
-        "has_downloads": true,
-        "mirror_url": null,
-        "svn_url": "https://github.com/joelmoss/strano",
-        "homepage": "",
-        "has_issues": true,
-        "clone_url": "https://github.com/joelmoss/strano.git",
-        "forks": 1,
-        "fork": false,
-        "has_wiki": true,
-        "updated_at": "2011-12-20T02:16:45Z",
-        "private": false,
-        "size": 312,
-        "master_branch": null,
-        "url": "https://api.github.com/repos/joelmoss/strano",
-        "language": "Ruby",
-        "owner": {
-          "login": "joelmoss",
-          "gravatar_id": "4fe35d76373429a6bdd9326b5ebbd515",
-          "url": "https://api.github.com/users/joelmoss",
-          "id": 4614,
-          "avatar_url": "https://secure.gravatar.com/avatar/4fe35d76373429a6bdd9326b5ebbd515?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png"
-        },
-        "name": "strano",
-        "open_issues": 0,
-        "id": 2676130,
-        "integrate_branch": null,
-        "html_url": "https://github.com/joelmoss/strano",
-        "description": "",
-        "pushed_at": "2011-12-20T02:16:45Z",
-        "created_at": "2011-10-30T17:25:33Z"
-      }
+    body: ! "{\n  \"git_url\": \"git://github.com/joelmoss/strano.git\",\n  \"watchers\":
+      1,\n  \"ssh_url\": \"git@github.com:joelmoss/strano.git\",\n  \"has_downloads\":
+      true,\n  \"mirror_url\": null,\n  \"svn_url\": \"https://github.com/joelmoss/strano\",\n
+      \ \"homepage\": \"\",\n  \"has_issues\": true,\n  \"clone_url\": \"https://github.com/joelmoss/strano.git\",\n
+      \ \"forks\": 1,\n  \"fork\": false,\n  \"has_wiki\": true,\n  \"updated_at\":
+      \"2011-12-20T02:16:45Z\",\n  \"private\": false,\n  \"size\": 312,\n  \"master_branch\":
+      null,\n  \"url\": \"https://api.github.com/repos/joelmoss/strano\",\n  \"language\":
+      \"Ruby\",\n  \"owner\": {\n    \"login\": \"joelmoss\",\n    \"gravatar_id\":
+      \"4fe35d76373429a6bdd9326b5ebbd515\",\n    \"url\": \"https://api.github.com/users/joelmoss\",\n
+      \   \"id\": 4614,\n    \"avatar_url\": \"https://secure.gravatar.com/avatar/4fe35d76373429a6bdd9326b5ebbd515?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png\"\n
+      \ },\n  \"name\": \"strano\",\n  \"open_issues\": 0,\n  \"id\": 2676130,\n  \"integrate_branch\":
+      null,\n  \"html_url\": \"https://github.com/joelmoss/strano\",\n  \"description\":
+      \"\",\n  \"pushed_at\": \"2011-12-20T02:16:45Z\",\n  \"created_at\": \"2011-10-30T17:25:33Z\"\n}"
     http_version: '1.1'
+  recorded_at: Tue, 03 Jan 2012 22:08:54 GMT
+recorded_with: VCR 2.0.0.rc1

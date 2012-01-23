@@ -13,7 +13,7 @@ describe "Authentication" do
     end
 
     it "should create a new User record" do
-      get "/users/auth/github"
+      get "/auth/github"
       follow_redirect!
       User.should have(1).record
     end
@@ -25,7 +25,7 @@ describe "Authentication" do
         user = FactoryGirl.create(:user)
         OmniAuth.config.mock_auth[:github][:extra][:raw_info][:email] = user.email
 
-        get "/users/auth/github"
+        get "/auth/github"
         follow_redirect!
         User.should have(1).record
       end
@@ -36,9 +36,9 @@ describe "Authentication" do
     it "does something" do
       OmniAuth.config.mock_auth[:github] = :invalid_credentials
 
-      get "/users/auth/github"
+      get "/auth/github"
       follow_redirect!
-      response.should redirect_to('/sign_in')
+      response.should redirect_to('/auth/failure?message=invalid_credentials')
     end
   end
 

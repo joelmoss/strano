@@ -2,48 +2,6 @@ require 'capistrano/cli'
 
 class Project < ActiveRecord::Base
 
-  class CloneRepo
-    @queue = :project
-    
-    def self.perform(project_id)
-      project = Project.find(project_id)
-      project.update_column :pull_in_progress, true
-      
-      Strano::Repo.clone project.url
-      
-      Project.update_all({:updated_at => Time.now,
-                          :cloned_at => Time.now,
-                          :pulled_at => Time.now,
-                          :pull_in_progress => false},
-                          :id => project_id)
-    end
-  end
-  
-  class PullRepo
-    @queue = :project
-    
-    def self.perform(project_id)
-      project = Project.find(project_id)
-      project.update_column :pull_in_progress, true
-      
-      Strano::Repo.pull project.url
-      
-      Project.update_all({:updated_at => Time.now,
-                          :pulled_at => Time.now,
-                          :pull_in_progress => false},
-                          :id => project_id)
-    end
-  end
-  
-  class RemoveRepo
-    @queue = :project
-    
-    def self.perform(project_id)
-      Strano::Repo.remove Project.unscoped.find(project_id).url
-    end
-  end
-
-
   # The github data will be serialzed as a Hash.
   serialize :github_data
 

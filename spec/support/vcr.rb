@@ -1,5 +1,11 @@
 require 'vcr'
-VCR.config do |c|
+
+VCR.configure do |c|
   c.cassette_library_dir = 'spec/vcr_casettes'
-  c.stub_with            :webmock
+  c.hook_into            :webmock
+  c.configure_rspec_metadata!
+end
+
+RSpec.configure do |c|
+  c.extend VCR::RSpec::Macros
 end

@@ -1,44 +1,46 @@
 ---
-- !ruby/struct:VCR::HTTPInteraction
-  request: !ruby/struct:VCR::Request
-    method: :post
-    uri: https://api.github.com:443/user/keys
+http_interactions:
+- request:
+    method: post
+    uri: https://api.github.com/user/keys
     body: ! '{"title":"Strano","key":"<%= ENV['STRANO_PUBLIC_SSH_KEY'] %>"}'
     headers:
-      user-agent:
+      User-Agent:
       - Strano
-      content-type:
+      Content-Type:
       - application/json
-      authorization:
+      Authorization:
       - token somerandomkey
-  response: !ruby/struct:VCR::Response
-    status: !ruby/struct:VCR::ResponseStatus
+  response:
+    status:
       code: 201
       message: Created
     headers:
-      server:
+      Server:
       - nginx/1.0.4
-      date:
+      Date:
       - Mon, 02 Jan 2012 16:18:57 GMT
-      content-type:
+      Content-Type:
       - application/json; charset=utf-8
-      connection:
+      Connection:
       - keep-alive
-      status:
+      Status:
       - 201 Created
-      x-ratelimit-limit:
+      X-Ratelimit-Limit:
       - '5000'
-      etag:
+      Etag:
       - ! '"a834f69a6ea9ffa71e8d62ba926dc850"'
-      location:
+      Location:
       - https://api.github.com/user/keys/1754048
-      x-oauth-scopes:
+      X-Oauth-Scopes:
       - repo, user
-      x-ratelimit-remaining:
+      X-Ratelimit-Remaining:
       - '4997'
-      x-accepted-oauth-scopes:
+      X-Accepted-Oauth-Scopes:
       - user
-      content-length:
+      Content-Length:
       - '469'
     body: ! '{"key":"<%= ENV['STRANO_PUBLIC_SSH_KEY'] %>","title":"Strano","url":"https://api.github.com/user/keys/1754048","id":1754048}'
     http_version: '1.1'
+  recorded_at: Mon, 23 Jan 2012 21:05:01 GMT
+recorded_with: VCR 2.0.0.rc1
