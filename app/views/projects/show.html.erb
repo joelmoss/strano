@@ -33,15 +33,25 @@
       <%- if params[:all_tasks] -%>
         <%= link_to 'hide hidden tasks', resource_path(:tab => "tasks"), :class => "btn small" %>
       <%- else -%>
-        <%= link_to 'show hidden tasks', resource_path(:tab => "tasks", :all_tasks => true), :class => "btn small" %>
+        <%= link_to 'show hidden tasks', resource_path(:tab => "hidden_tasks", :all_tasks => true), :class => "btn small" %>
       <%- end -%>
     </div>
+    <%- if params[:all_tasks] -%>
+    <div class="hide" id="tabwell-hidden_tasks">
+      <%= link_to 'hide hidden tasks', resource_path(:tab => "tasks"), :class => "btn small" %>
+    </div>
+    <%- end -%>
   </div>
 
   <li class="active"><a href="#info">Information</a></li>
 
   <%- if resource.cloned? -%>
-    <%- if resource.capified? -%><li><a href="#tasks">Tasks</a></li><%- end -%>
+    <%- if resource.capified? -%>
+      <li><a href="#tasks">Tasks</a></li>
+      <%- if params[:all_tasks] -%>
+        <li><a href="#hidden_tasks">Hidden Tasks</a></li>
+      <%- end -%>
+    <%- end -%>
     <%- unless resource.jobs.empty? -%><li><a href="#history">History</a></li><%- end -%>
   <%- end -%>
 
@@ -58,7 +68,10 @@
   <div class="tab-pane active" id="info"><%= render 'projects/show/info' %></div>
 
   <%- if resource.cloned? -%>
-    <%= render 'projects/show/tasks' if resource.capified? %>
+    <%- if resource.capified? -%>
+      <%= render 'projects/show/tasks' %>
+      <%= render 'projects/show/hidden_tasks' if params[:all_tasks] %>
+    <%- end -%>
     <%= render 'projects/show/history' unless resource.jobs.empty? %>
   <%- end -%>
 </div>

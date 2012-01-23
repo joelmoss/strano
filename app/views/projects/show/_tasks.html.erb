@@ -3,9 +3,5 @@
   <%- resource.public_tasks.each do |task| -%>
     <%= render :partial => "task", :locals => { :task => task, :hidden => false } %>
   <%- end -%>
-  
-  <%- resource.hidden_tasks.each do |task| -%>
-    <%= render :partial => "task", :locals => { :task => task, :hidden => true } %>
-  <%- end if params[:all_tasks] -%>
 
 </div>
