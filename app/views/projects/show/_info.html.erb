@@ -21,13 +21,38 @@
 
 <div class="row">
   <div class="span3 right">
+    <p class="quiet">Latest task:</p>
     <p class="quiet">Repo updated:</p>
-    <p class="quiet">Created:</p>
-    <p class="quiet">Updated:</p>
   </div>
   <div class="span13">
-    <p><%= resource.pulled_at ? time_ago_in_words(resource.pulled_at) : '' %> ago</p>
-    <p><%= resource.created_at.to_s :long_ordinal %></p>
-    <p><%= resource.updated_at.to_s :long_ordinal %></p>
+    <p>
+      <%- if last_run = resource.jobs.first -%>
+        <%= link_to last_run.task, [resource, last_run] %>
+        &nbsp;&nbsp;&nbsp;
+        <span class="quieter small">
+          <%= time_ago_in_words last_run.created_at %> ago
+          <span class="small padding-left">(<%= last_run.created_at.to_s :short %>)</span>
+        </span>
+      <%- else -%>
+        <code class="no-bg">n/a</code>
+      <%- end -%>
+    </p>
+    <p>
+      <%= resource.pulled_at ? "#{time_ago_in_words(resource.pulled_at)} ago" : raw('<code class="no-bg">n/a</code>') %>
+      &nbsp;&nbsp;<%= link_to 'update now!', [:pull, resource], :class => "small" %>
+    </p>
+  </div>
+</div>
+
+<hr />
+
+<div class="row">
+  <div class="span3 right">
+    <p class="quieter small">Created:</p>
+    <p class="quieter small">Updated:</p>
+  </div>
+  <div class="span13">
+    <p class="quieter small"><%= resource.created_at.to_s :long_ordinal %></p>
+    <p class="quieter small"><%= resource.updated_at.to_s :long_ordinal %></p>
   </div>
 </div>

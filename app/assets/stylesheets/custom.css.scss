@@ -21,6 +21,9 @@ footer {
   text-align: left;
 }
 .small {
+  font-size: 0.90em;
+}
+.smaller {
   font-size: 0.85em;
 }
 .strike {
@@ -31,7 +34,11 @@ footer {
   color: #666;
 }
 .quieter {
-  color: #BBB;
+  color: #999;
+}
+
+.no-bg {
+  background-color: inherit;
 }
 
 .topbar {
