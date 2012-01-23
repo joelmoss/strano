@@ -28,6 +28,12 @@
 
 <ul class="tabs" data-tabs="tabs">
 
+  <div class="pull-right margin-left">
+    <%- if task = resource.cap.find_task(:deploy) %>
+      <%= link_to 'DEPLOY NOW...', new_project_jobs_path(resource, task.fully_qualified_name), :class => "btn success" %>
+    <%- end -%>
+  </div>
+
   <div class="pull-right" id="tabwell">
     <div class="hide" id="tabwell-tasks">
       <%- if params[:all_tasks] -%>
