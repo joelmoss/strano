@@ -22,7 +22,7 @@ class JobsController < InheritedResources::Base
     def begin_of_association_chain
       params[:job] ||= {}
       params[:job][:task] ||= params[:task]
-      params[:job][:user_id] ||= current_user
+      params[:job][:user] = current_user
 
       super
     end
