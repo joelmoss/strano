@@ -5,6 +5,22 @@ $ ->
     $(this).text if $(this).text().indexOf('hide') < 0 then 'hide full description >' else 'show full description >'
     
     false
+
+
+  $('#toggle_other_tasks').click ->
+    div = $ '#other_tasks'
+    icon = $(this).find 'span'
+
+    if div.is(':visible')
+      $(this).find('small').text 'show'
+      icon.addClass 'ui-icon-circle-triangle-s'
+      icon.removeClass 'ui-icon-circle-triangle-n'
+    else
+      $(this).find('small').text 'hide'
+      icon.addClass 'ui-icon-circle-triangle-n'
+      icon.removeClass 'ui-icon-circle-triangle-s'
+    
+    div.toggle()
     
     
 # Check that the current project has completed cloning

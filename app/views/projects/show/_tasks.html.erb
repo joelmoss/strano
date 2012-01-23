@@ -1,7 +1,31 @@
 <div class="tab-pane" id="tasks">
 
-  <%- resource.public_tasks.each do |task| -%>
-    <%= render :partial => "task", :locals => { :task => task, :hidden => false } %>
+  <%- if @recent_tasks -%>
+
+    <div class="page-header">
+      <h6>Most recent</h6>
+    </div>
+
+    <%- @recent_tasks.each do |job| -%>
+      <%= render :partial => "task", :locals => { :task => resource.cap.find_task(job.task), :hidden => false } %>
+    <%- end -%>
+
+    <div class="page-header margin-top6">
+      <h6>
+        <a href="#" class="inherit-color" id="toggle_other_tasks">
+          Other tasks <span class="icon ui-icon-circle-triangle-s"></span><small class="margin-left10 smaller">show</small>
+        </a>
+      </h6>
+    </div>
+  
   <%- end -%>
+
+  <div id="other_tasks" class="<%= 'hide' if @recent_tasks %>">
+    <%- resource.public_tasks.each do |task| -%>
+      <%- unless resource.jobs.where(:task => task.fully_qualified_name).first -%>
+        <%= render :partial => "task", :locals => { :task => task, :hidden => false } %>
+      <%- end -%>
+    <%- end -%>
+  </div>
 
 </div>

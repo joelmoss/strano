@@ -9,6 +9,12 @@ class ProjectsController < InheritedResources::Base
   custom_actions :resource => :pull
   
   
+  def show
+    show! do
+      @recent_tasks = resource.jobs.group(:task).order(:created_at).limit(5)
+    end
+  end
+  
   def pull
     resource.pull!
     redirect_to resource, :notice => "Local repository is being updated..."

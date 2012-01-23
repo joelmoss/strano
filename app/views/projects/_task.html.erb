@@ -13,7 +13,7 @@
         </h3>
       </div>
       <div class="span3 right margin-top2">
-        <%= link_to raw("show full description >"), '#', :class => "show-task-description label" unless task.description.blank? %>
+        <%= link_to raw("show full description &raquo;"), '#', :class => "show-task-description smaller" unless task.description.blank? %>
       </div>
     </div>
     
@@ -21,7 +21,7 @@
       <div class="span14 quiet">
         <%- if last_run = resource.jobs.where(:task => task.fully_qualified_name).first -%>
           last run <%= link_to "#{time_ago_in_words(last_run.created_at)} ago", [resource, last_run] %>
-          <span class="small padding-left">(<%= last_run.created_at.to_s :short %>)</span>
+          <span class="smaller quieter padding-left">(<%= last_run.created_at.to_s :short %>)</span>
         <%- end -%>
       </div>
     </div>

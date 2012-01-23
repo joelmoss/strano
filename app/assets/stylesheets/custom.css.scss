@@ -58,6 +58,11 @@ footer {
   }
 }
 
+
+.inherit-color {
+  color: inherit;
+}
+
 .org-avatar {
   position: relative;
   top: 2px;
@@ -71,4 +76,26 @@ footer {
   overflow-x: auto;
   white-space: pre;
   word-wrap: normal;
+}
+
+
+/* Icons
+/* ---------------------------------------------------------------------------- */
+
+.icon {
+  background-image: url('/assets/jquery-ui/ui-icons_888888_256x240.png');
+  background-repeat: no-repeat;
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  text-indent: -99999px;
+  overflow: hidden;
+  top: 3px;
+  position: relative;
+  &:hover {
+    background-image: url('/assets/jquery-ui/ui-icons_454545_256x240.png');
+  }
+}
+table .icon {
+  vertical-align: top;
 }
