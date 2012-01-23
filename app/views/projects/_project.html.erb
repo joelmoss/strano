@@ -1,5 +1,17 @@
 <%- return unless project.accessible_by? current_user -%>
 
 <tr>
-  <td><%= link_to project, project %></td>
+  <td><strong><%= link_to project, project %></strong></td>
+  <td>
+    <%- if last_run = project.jobs.first -%>
+      <%= link_to last_run.task, [project, last_run] %>
+      &nbsp;&nbsp;&nbsp;
+      <span class="quieter smaller"><%= time_ago_in_words last_run.created_at %> ago</span>
+    <%- else -%>
+      <code class="no-bg">n/a</code>
+    <%- end -%>
+  </td>
+  <td class="small quiet">
+    <%= project.pulled_at ? "#{time_ago_in_words(project.pulled_at)} ago" : raw('<code class="no-bg">n/a</code>') %>
+  </td>
 </tr>
