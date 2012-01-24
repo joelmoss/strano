@@ -1,5 +1,15 @@
 $ ->
   
+  $("#slider").slider
+    value: 1
+    min: 1
+    max: 3
+    slide: (event, ui) ->
+      num = ui.value+1
+      verbosity = while num -= 1 then 'v'
+      $("#job_verbosity").val verbosity.join('')
+	
+  
   if $('#job-results').size() > 0
   
     div = $ '#job-results'

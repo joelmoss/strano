@@ -45,7 +45,7 @@ class Job < ActiveRecord::Base
   private
 
     def full_command
-      "bundle exec cap -f #{Rails.root.join('Capfile.repos')} -f Capfile -Xx -l STDOUT #{command}"
+      "bundle exec cap -f #{Rails.root.join('Capfile.repos')} -f Capfile -Xx#{verbosity} -l STDOUT #{command}"
     end
 
     def execute_task

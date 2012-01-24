@@ -17,7 +17,15 @@
     <%= f.input :stage, :as => :select, :collection => parent.cap.stages, :include_blank => false %>
   <%- end -%>
   
-  <%= f.input :notes, :input_html => { :class => "span8", :rows => 5 } %>
+  <%= f.input :notes, :input_html => { :class => "span8", :rows => 5, :style => "height:80px;" } %>
+
+  <div class="clearfix text optional">
+    <label class="text optional" for="job_notes">Verbosity</label>
+    <div class="input">
+      <div id="slider"></div>
+    </div>
+  </div>
+  <%= f.input :verbosity, :as => :hidden %>
 
   <div class="actions">
     <%= f.button :submit, :class => 'primary' %>
