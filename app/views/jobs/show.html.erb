@@ -35,7 +35,7 @@
       <h3>
         Task '<%= resource.command.strip %>' &nbsp;&nbsp;<small>completed <%= resource.completed_at.to_s :short %></small>
       </h3>
-      <pre id="job-results"><%= raw simple_format(resource.results) %></pre>
+      <pre id="job-results"><%= raw resource.results %></pre>
       
     <%- else -%>
     

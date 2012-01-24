@@ -59,6 +59,11 @@ footer {
 }
 
 
+.tabs > .pull-right .label {
+  position: relative;
+  top: 8px;
+}
+
 .inherit-color {
   color: inherit;
 }
@@ -85,7 +90,7 @@ footer {
 #job-results {
   background-color: #000;
   color: #FFF;
-  line-height: 1.5em;
+  line-height: 1.8em;
   font-size: 12px;
   
   .ansible_1        { font-weight: bold; }

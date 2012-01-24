@@ -1,8 +1,11 @@
 class JobsController < InheritedResources::Base
-  before_filter :authenticate_user!
+
   belongs_to :project
   actions :all, :except => :index
   respond_to :json, :only => :show
+
+  before_filter :authenticate_user!  
+  before_filter :ensure_unlocked_project, :only => [:new, :create, :delete]
 
 
   def new
@@ -25,6 +28,12 @@ class JobsController < InheritedResources::Base
       params[:job][:user] = current_user
 
       super
+    end
+
+    def ensure_unlocked_project
+      if parent.job_in_progress?
+        redirect_to parent, :alert => "Unable to run tasks while a job is in progress." and return
+      end
     end
 
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120124191129) do
+ActiveRecord::Schema.define(:version => 20120124200626) do
 
   create_table "jobs", :force => true do |t|
     t.string   "task"
@@ -34,8 +34,9 @@ ActiveRecord::Schema.define(:version => 20120124191129) do
     t.text     "github_data"
     t.datetime "cloned_at"
     t.datetime "deleted_at"
-    t.boolean  "pull_in_progress", :default => false
+    t.boolean  "pull_in_progress",   :default => false
     t.datetime "pulled_at"
+    t.integer  "job_in_progress_id"
   end
 
   create_table "users", :force => true do |t|

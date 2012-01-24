@@ -6,6 +6,7 @@ class Project < ActiveRecord::Base
   serialize :github_data
 
   has_many :jobs, :dependent => :destroy
+  has_one :job_in_progress, :class_name => "Job"
 
   validate :url, :presence => true, :uniqueness => { :case_sensitive => false }
 
@@ -26,6 +27,11 @@ class Project < ActiveRecord::Base
 
   def to_s
     "#{user_name}/#{repo_name}"
+  end
+
+  # Returns a Boolean true if this project has a job in progress.
+  def job_in_progress?
+    !job_in_progress_id.nil?
   end
 
   # Is this project part of a Github organisation profile?
