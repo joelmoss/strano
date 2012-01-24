@@ -8,7 +8,7 @@ class Job
       job = Job.find(job_id)
       
       # Make sure the local repo is up to date.
-      PullRepo.perform(job.project.id) unless job.project.pull_in_progress?
+      Project::PullRepo.perform(job.project.id) unless job.project.pull_in_progress?
       
       result = begin
         success = true
