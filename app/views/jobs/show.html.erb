@@ -5,6 +5,16 @@
 
 
 <ul class="tabs" data-tabs="tabs">
+  <div class="pull-right">
+    <%- if resource.complete? -%>
+      <%- if resource.success? -%>
+        <span class="label success">SUCCESS</span>
+      <%- else -%>
+        <span class="label important">FAILED</span>
+      <%- end -%>
+    <%- end -%>
+  </div>
+  
   <li class="active"><a href="#results">Results</a></li>
   <%- if resource.notes.present? -%><li><a href="#notes">Notes</a></li><%- end -%>
 
@@ -20,12 +30,18 @@
 <div class="tab-content">
   <div class="tab-pane active" id="results">
     
-    <h3>Running '<%= resource.command.strip %>' ...</h3>
-    
     <%- if resource.complete? -%>
-      <pre id="task_results"><%= raw simple_format(resource.formatted_results) %></pre>
+    
+      <h3>
+        Task '<%= resource.command.strip %>' &nbsp;&nbsp;<small>completed <%= resource.completed_at.to_s :short %></small>
+      </h3>
+      <pre id="job-results"><%= raw simple_format(resource.results) %></pre>
+      
     <%- else -%>
-      <pre id="job-results" data-job_id="<%= resource.id %>" data-project_id="<%= parent.id %>"><%= image_tag("loading.gif", :size => "16x16") %></pre>
+    
+      <h3><%= image_tag("loading.gif", :size => "16x16") %> Running '<%= resource.command.strip %>' ...</h3>
+      <pre id="job-results" class="hide" data-job_id="<%= resource.id %>" data-project_id="<%= parent.id %>"></pre>
+      
     <%- end -%>
     
   </div>

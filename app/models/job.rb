@@ -1,6 +1,5 @@
 require 'kernel'
 class Job < ActiveRecord::Base
-  include Ansible
 
   belongs_to :project
   belongs_to :user
@@ -28,7 +27,7 @@ class Job < ActiveRecord::Base
     end
 
     if status.exitstatus != 0
-      stderr_output
+      raise Exception, stderr_output
     else
       stdout_output
     end
@@ -40,10 +39,6 @@ class Job < ActiveRecord::Base
   
   def command
     "#{stage} #{task}"
-  end
-
-  def formatted_results
-    ansi_escaped results
   end
 
 

@@ -82,9 +82,11 @@ footer {
 /* ANSI color conversions
 /* ---------------------------------------------------------------------------- */
 
-#task_results {
+#job-results {
   background-color: #000;
   color: #FFF;
+  line-height: 1.5em;
+  font-size: 12px;
   
   .ansible_1        { font-weight: bold; }
   .ansible_4        { text-decoration: underline; }
@@ -98,11 +100,6 @@ footer {
   .ansible_37       { color: white;}
   .ansible_90       { color: dimgray; }
   .ansible_none     { color: none; }
-  
-  p {
-    line-height: 1em;
-    font-size: 12px;
-  }
 }
 
 

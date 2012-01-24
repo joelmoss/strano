@@ -11,6 +11,19 @@ $ ->
         if data.results == null
           setTimeout get_job_status, 3000
         else
-          div.text data.results
+          div.removeClass('hide').html data.results
+          
+          title = div.siblings('h3')
+          title.find('img').remove()
+          text = title.text().replace /Running/, 'Task'
+          text = text.replace /\.\.\./, 'completed'
+          title.text text
+          
+          $('.alert-message').remove()
+          
+          if data.success
+            $('.tabs .pull-right').html '<span class="label success">SUCCESS</span>'
+          else
+            $('.tabs .pull-right').html '<span class="label important">FAILED</span>'
     
     setTimeout get_job_status, 3000
