@@ -79,6 +79,33 @@ footer {
 }
 
 
+/* ANSI color conversions
+/* ---------------------------------------------------------------------------- */
+
+#task_results {
+  background-color: #000;
+  color: #FFF;
+  
+  .ansible_1        { font-weight: bold; }
+  .ansible_4        { text-decoration: underline; }
+  .ansible_30       { color: black; }
+  .ansible_31       { color: red; }
+  .ansible_32       { color: limegreen; }
+  .ansible_33       { color: yellow;}
+  .ansible_34       { color: aqua;}
+  .ansible_35       { color: magenta;}
+  .ansible_36       { color: cyan;}
+  .ansible_37       { color: white;}
+  .ansible_90       { color: dimgray; }
+  .ansible_none     { color: none; }
+  
+  p {
+    line-height: 1em;
+    font-size: 12px;
+  }
+}
+
+
 /* Icons
 /* ---------------------------------------------------------------------------- */
 

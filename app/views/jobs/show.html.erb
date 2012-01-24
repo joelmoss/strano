@@ -1,5 +1,5 @@
 <% title "Job ##{resource.id}" %>
-<% subtitle "task: #{resource.task}" %>
+<% subtitle "task: #{resource.task} by #{resource.user}" %>
 <% breadcrumb "Projects", projects_path %>
 <% breadcrumb parent, parent %>
 
@@ -20,8 +20,10 @@
 <div class="tab-content">
   <div class="tab-pane active" id="results">
     
+    <h3>Running '<%= resource.command.strip %>' ...</h3>
+    
     <%- if resource.complete? -%>
-      <pre><%= resource.results %></pre>
+      <pre id="task_results"><%= raw simple_format(resource.formatted_results) %></pre>
     <%- else -%>
       <pre id="job-results" data-job_id="<%= resource.id %>" data-project_id="<%= parent.id %>"><%= image_tag("loading.gif", :size => "16x16") %></pre>
     <%- end -%>

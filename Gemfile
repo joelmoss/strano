@@ -21,6 +21,7 @@ gem 'faraday'
 gem 'faraday-stack'
 gem 'faraday_middleware'
 gem 'capistrano', '~> 2.10.0.pre'
+gem 'capistrano_colors'
 gem 'grit'
 gem 'dotiw'
 gem 'inherited_resources'
@@ -28,6 +29,7 @@ gem 'kaminari'
 gem 'permanent_records'
 gem 'simple_form', :git => 'https://github.com/plataformatec/simple_form.git'
 gem 'open4'
+gem 'ansible'
 
 gem 'airbrake', :require => nil
 

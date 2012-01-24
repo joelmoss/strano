@@ -1,5 +1,6 @@
 require 'kernel'
 class Job < ActiveRecord::Base
+  include Ansible
 
   belongs_to :project
   belongs_to :user
@@ -16,13 +17,11 @@ class Job < ActiveRecord::Base
 
   def run_task
     status, stdout_output, stderr_output = nil, "", ""
-    command = "bundle exec cap -f Capfile -Xx -l STDOUT #{stage} #{task}"
 
     FileUtils.chdir project.repo.path do
-      status = Open4::popen4 command do |pid, stdin, stdout, stderr|
+      status = Open4::popen4 full_command do |pid, stdin, stdout, stderr|
         stdin.close
 
-        stdout_output += "Running: '#{command}'...\n\n"
         stdout_output += stdout.read.strip
         stderr_output += stderr.read.strip
       end
@@ -38,9 +37,21 @@ class Job < ActiveRecord::Base
   def complete?
     !completed_at.nil?
   end
+  
+  def command
+    "#{stage} #{task}"
+  end
+
+  def formatted_results
+    ansi_escaped results
+  end
 
 
   private
+
+    def full_command
+      "bundle exec cap -f #{Rails.root.join('Capfile.repos')} -f Capfile -Xx -l STDOUT #{command}"
+    end
 
     def execute_task
       Resque.enqueue CapExecute, id

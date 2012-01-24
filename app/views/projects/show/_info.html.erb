@@ -27,7 +27,7 @@
   <div class="span13">
     <p>
       <%- if last_run = resource.jobs.first -%>
-        <%= link_to last_run.task, [resource, last_run] %>
+        <%= link_to last_run.task, [resource, last_run] %> by <%= last_run.user %>
         &nbsp;&nbsp;&nbsp;
         <span class="quieter small">
           <%= time_ago_in_words last_run.created_at %> ago
