@@ -1,9 +1,7 @@
 FactoryGirl.define do
 
   factory :user do
-    sequence :email do |n|
-      "person#{n}@example.com"
-    end
+    username Faker::Internet.user_name
     github_access_token 'somerandomstring'
   end
 

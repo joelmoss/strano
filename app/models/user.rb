@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   cattr_accessor :disable_ssh_github_upload
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :github_data, :github_access_token
+  attr_accessible :username, :github_data, :github_access_token
 
   # The github data will be serialzed as a Hash.
   serialize :github_data
@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
 
 
   def to_s
-    login
+    username
   end
 
   # Convert the github data into a Hashie::Mash object, so that delegation works.

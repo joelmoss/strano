@@ -9,7 +9,7 @@ describe "Authentication" do
       OmniAuth.config.mock_auth[:github] = { :credentials => { :token => "65r6w5er1w6er5w65ef1" },
                                              :extra => {
                                                :raw_info => {
-                                                 :email => "test@test.com" } } }
+                                                 :login => "testuser" } } }
     end
 
     it "should create a new User record" do
@@ -23,7 +23,7 @@ describe "Authentication" do
 
       it "should use the existing record" do
         user = FactoryGirl.create(:user)
-        OmniAuth.config.mock_auth[:github][:extra][:raw_info][:email] = user.email
+        OmniAuth.config.mock_auth[:github][:extra][:raw_info][:login] = user.username
 
         get "/auth/github"
         follow_redirect!
