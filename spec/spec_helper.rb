@@ -10,8 +10,8 @@ require 'fakefs/spec_helpers'
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 OmniAuth.config.test_mode = true
-ENV['STRANO_PUBLIC_SSH_KEY'] = 'stranoshakey'
-ENV['STRANO_CLONE_PATH'] = File.join(::Rails.root, '/spec/repos')
+Strano.public_ssh_key = 'stranoshakey'
+Strano.clone_path     = File.join(::Rails.root, '/spec/repos')
 REPO_ROOT = File.expand_path("../repos", __FILE__)
 
 RSpec.configure do |config|

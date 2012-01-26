@@ -54,7 +54,7 @@ class User < ActiveRecord::Base
     # User must also be authorized for Github API access.
     def upload_ssh_key_to_github
       if !ssh_key_uploaded_to_github? && !self.class.disable_ssh_github_upload && authorized_for_github?
-        github.key.create("Strano", ENV['STRANO_PUBLIC_SSH_KEY'])
+        github.key.create "Strano", Strano.public_ssh_key
         self.toggle! :ssh_key_uploaded_to_github
       end
     rescue

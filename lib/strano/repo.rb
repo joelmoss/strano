@@ -45,7 +45,7 @@ module Strano
     end
 
     def root_path
-      ENV['STRANO_CLONE_PATH'] || Rails.root.join("vendor/repos")
+      Strano.clone_path
     end
 
     def path
@@ -54,6 +54,10 @@ module Strano
 
     def git
       @git ||= Grit::Git.new(path)
+    end
+
+    def exists?
+      git.fs_exist? '.'
     end
 
     # Is this repo cloned to the local file system?

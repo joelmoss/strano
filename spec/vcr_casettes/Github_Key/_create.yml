@@ -3,7 +3,7 @@ http_interactions:
 - request:
     method: post
     uri: https://api.github.com/user/keys
-    body: ! '{"title":"Strano","key":"<%= ENV['STRANO_PUBLIC_SSH_KEY'] %>"}'
+    body: ! '{"title":"Strano","key":"<%= Strano.public_ssh_key %>"}'
     headers:
       User-Agent:
       - Strano
@@ -40,7 +40,7 @@ http_interactions:
       - user
       Content-Length:
       - '469'
-    body: ! '{"key":"<%= ENV['STRANO_PUBLIC_SSH_KEY'] %>","title":"Strano","url":"https://api.github.com/user/keys/1754048","id":1754048}'
+    body: ! '{"key":"<%= Strano.public_ssh_key %>","title":"Strano","url":"https://api.github.com/user/keys/1754048","id":1754048}'
     http_version: '1.1'
   recorded_at: Mon, 23 Jan 2012 21:05:01 GMT
 recorded_with: VCR 2.0.0.rc1

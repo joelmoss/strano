@@ -22,7 +22,7 @@
 
 <%- if resource.cloned? && !resource.capified? -%>
   <div class="alert-message error">
-    <p>This project has not been capified as it does not contain a Capfile, which means we cannot deploy it or run any Capistrano commands against it.</p>
+    <p>This project has not been capified as it does not contain a Capfile or the local repository does not exist, which means we cannot deploy it or run any Capistrano commands against it.</p>
   </div>
 <%- end -%>
 
@@ -32,7 +32,7 @@
     <%- if resource.job_in_progress? -%>
       <%= link_to 'JOB IN PROGRESS', [resource, resource.job_in_progress], :class => "label warning" %>
     <%- else -%>
-      <%- if task = resource.cap.find_task(:deploy) %>
+      <%- if resource.cloned? && resource.repo.exists? && task = resource.cap.find_task(:deploy) %>
         <%= link_to 'DEPLOY NOW...', new_project_jobs_path(resource, task.fully_qualified_name), :class => "btn success" %>
       <%- end -%>
     <%- end -%>

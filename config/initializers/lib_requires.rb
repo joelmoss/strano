@@ -1,2 +1,0 @@
-require "github"
-require "strano"

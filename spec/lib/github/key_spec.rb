@@ -7,7 +7,7 @@ describe Github::Key do
   describe "#create" do
     use_vcr_cassette :erb => true
 
-    it { github.key.create("Strano", ENV['STRANO_PUBLIC_SSH_KEY']) }
+    it { github.key.create("Strano", Strano.github_key) }
   end
 
 end

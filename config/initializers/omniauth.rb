@@ -1,3 +1,3 @@
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :github, ENV['STRANO_GITHUB_KEY'], ENV['STRANO_GITHUB_SECRET'], :scope => "user,repo"
+  provider :github, Strano.github_key, Strano.github_secret, :scope => "user,repo"
 end

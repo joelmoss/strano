@@ -1,0 +1,11 @@
+defaults: &defaults
+  public_ssh_key: MYPUBLICKEY
+  github_key: github-application-key
+  github_secret: github-application-secret
+  # clone_path: vendor/repos # default
+
+development:
+  <<: *defaults
+    
+production:
+  <<: *defaults

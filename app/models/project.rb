@@ -98,13 +98,15 @@ class Project < ActiveRecord::Base
   #
   # args - An Array of arguments which will be passed to the Cap command.
   def cap(args = [])
-    @_cap = nil
-    
-    FileUtils.chdir repo.path do
-      @_cap = Capistrano::CLI.parse(%W(-f Capfile -Xx -l STDOUT) + args).execute!
+    unless Dir.exists?(repo.path)
+      raise Strano::RepositoryPathNotFound, "Path to local repository: #{repo.path} does not exist"
     end
     
-    @_cap
+    _cap = nil
+    FileUtils.chdir repo.path do
+      _cap = Capistrano::CLI.parse(%W(-f Capfile -Xx -l STDOUT) + args).execute!
+    end
+    _cap
   end
   
   # Run git pull on the repo, as long as the last pull was more than 15 mins ago.
