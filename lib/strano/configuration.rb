@@ -52,7 +52,7 @@ module Strano
       if @allow_users.is_a?(String) || @allow_users.is_a?(Symbol)
         [@allow_users.to_s]
       else
-        @allow_users.map(&:to_s)
+        @allow_users.is_a?(Array) ? @allow_users.map(&:to_s) : @allow_users
       end
     end
 
@@ -72,7 +72,7 @@ module Strano
       if @allow_organizations.is_a?(String) || @allow_organizations.is_a?(Symbol)
         [@allow_organizations.to_s]
       else
-        @allow_organizations.map(&:to_s)
+        @allow_organizations.is_a?(Array) ? @allow_organizations.map(&:to_s) : @allow_organizations
       end
     end
     
