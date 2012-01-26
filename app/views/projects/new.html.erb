@@ -3,34 +3,38 @@
 <%- breadcrumb 'Projects', collection_path -%>
 
 <ul class="tabs" data-tabs="tabs">
-  <li class="active"><a href="#repos">My Repositories</a></li>
+  <%- if Strano.allow_users_include?(current_user.username) -%>
+    <li class="active"><a href="#repos">My Repositories</a></li>
+  <%- end -%>
 
-  <li class="dropdown" data-dropdown="dropdown">
-    <a href="#" class="dropdown-toggle">Organisations...</a>
-    <ul class="dropdown-menu">
-      <%- current_user.github.orgs.each do |org| -%>
-        <li><a href="#<%= org.login %>"><%= org.login %></a></li>
-      <%- end -%>
-    </ul>
-  </li>
+  <%- if Strano.allow_organizations? -%>
+    <li class="dropdown" data-dropdown="dropdown">
+      <a href="#" class="dropdown-toggle">Organisations...</a>
+      <ul class="dropdown-menu">
+        <%- current_user.github.orgs.each do |org| -%>
+          <li><a href="#<%= org.login %>"><%= org.login %></a></li>
+        <%- end -%>
+      </ul>
+    </li>
+  <%- end -%>
 </ul>
 
 <div class="tab-content">
-  <div class="tab-pane active" id="repos"><%= render 'repos', :repos => current_user.github.repos %></div>
+  <%- if Strano.allow_users_include?(current_user.username) -%>
+    <div class="tab-pane active" id="repos"><%= render 'repos', :repos => current_user.github.repos %></div>
+  <%- end -%>
 
   <%- current_user.github.orgs.each do |org| -%>
 
     <div class="tab-pane" id="<%= org.login %>">
-
       <h2 class="page-header">
         <%= image_tag org.avatar_url, :size => "26x26", :class => "org-avatar" %>
         <span class="padding-bottom3"><%= org.login %></span>
       </h2>
 
       <%= render 'repos', :repos => org.repos %>
-
     </div>
 
-  <%- end -%>
+  <%- end if Strano.allow_organizations? -%>
 
 </div>

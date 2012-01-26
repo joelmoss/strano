@@ -1,8 +1,41 @@
 defaults: &defaults
+  
+  # Strano's public SSH key with which it will attempt to clone Github repos via.
   public_ssh_key: MYPUBLICKEY
+  
+  # Strano's Github application access key. See https://github.com/account/applications
   github_key: github-application-key
+  
+  # Strano's Github application access secret. See https://github.com/account/applications
   github_secret: github-application-secret
-  # clone_path: vendor/repos # default
+  
+  # The path to where Strano will clone your project's repos.
+  # 
+  # clone_path: vendor/repos
+  
+  # Allow project creation from repos for Github organization accounts.
+  # Default value is true, which allows any and all organizations. Set to
+  # false to disallow creating projects from organizations completely.
+  # Pass an array of Github organization usernames to restrict which
+  # projects Strano can create new projects for.
+  # 
+  # allow_organizations: true
+  # 
+  # To restrict project creation from repos belonging to the 'rails' and
+  # 'carlhuda' organizations:
+  # 
+  # allow_organizations: rails, carlhuda
+  
+  # Allow project creation from repos for Github user accounts. Default
+  # value is true, which allows any and all users. Set to false to disallow
+  # creating projects from users completely. Pass an array of Github
+  # usernames to restrict which projects Strano can create new projects for.
+  # 
+  # allow_users: true
+  # 
+  # To only allow project creation from your own repos:
+  # 
+  # allow_users: my_github_username
 
 development:
   <<: *defaults

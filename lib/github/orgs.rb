@@ -6,7 +6,10 @@ class Github
     end
     
     def each
-      all.each { |org| yield Github::Org.new(@access_token, org) }
+      all.each do |org|
+        next unless Strano.allow_organizations_include?(org.login)
+        yield Github::Org.new(@access_token, org)
+      end
     end
   
   end

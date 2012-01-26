@@ -44,10 +44,12 @@ to a local directory in your app at `vendors/repos`.
 Configuration
 -------------
 
-Strano requires that you define only three configuration variables. The fourth
-(`clone_path`) is set for you, but can be overridden. You can either create a
-config/strano.yml configuration file and define them in there, or you can define
-them in the `ENV` variable. see `config/strano.example.yml` for an example.
+Strano requires that you define only three configuration variables. The rest are
+optional, but can be overridden. You can either create a config/strano.yml
+configuration file and define them in there, or you can define them in the `ENV`
+variable. See `config/strano.example.yml` for all possible configuration variables.
+
+The following are required and should be defined before running Strano.
 
 - Github Key and Secret
 
@@ -58,11 +60,6 @@ them in the `ENV` variable. see `config/strano.example.yml` for an example.
   
   In order to clone repositories from Github, it requires a public SSH key be
   defined in `public_ssh_key`.
-
-- Repository clone location
-
-  When creating a project in Strano, the Github repo is cloned locally to the path
-  defined in `clone_path`. Default is vendor/repos.
 
 
 Background Processing

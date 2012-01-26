@@ -10,6 +10,7 @@ class Project < ActiveRecord::Base
 
   validate :url, :presence => true, :uniqueness => { :case_sensitive => false }
 
+  before_create :ensure_allowed_repo
   after_create :clone_repo
   before_save :update_github_data
   after_destroy :remove_repo
@@ -19,7 +20,7 @@ class Project < ActiveRecord::Base
   delegate :html_url, :description, :organization, :to => :github_data
   
   default_scope where(:deleted_at => nil)
-
+  
 
   def self.deleted
     self.unscoped.where 'deleted_at IS NOT NULL'
@@ -34,9 +35,9 @@ class Project < ActiveRecord::Base
     !job_in_progress_id.nil?
   end
 
-  # Is this project part of a Github organisation profile?
+  # Is this project part of a Github organization profile?
   #
-  # Returns a Boolean true if it is part of an organisation.
+  # Returns a Boolean true if it is part of an organization.
   def organization?
     organization.present?
   end
@@ -138,6 +139,18 @@ class Project < ActiveRecord::Base
 
     def update_github_data
       self.github_data = github.to_hash
+    end
+
+    def ensure_allowed_repo
+      if organization?
+        unless Strano.allow_organizations_include?(organization.login)
+          errors.add :base, "Not allowed to create a project from this organization (#{organization.login})"
+        end
+      else
+        unless Strano.allow_users_include?(user_name)
+          errors.add :base, "Not allowed to create a project from this user (#{user_name})"
+        end
+      end
     end
 
 end
