@@ -6,6 +6,7 @@ unless config_file.file?
 
   Strano.configure do |config|
     Strano::Configuration::VALID_OPTIONS_KEYS.each do |k|
+      k = k.to_s
       config.send :"#{k}=", ENV["STRANO_#{k.upcase}"] if ENV.has_key?("STRANO_#{k.upcase}")
     end
   end
@@ -16,6 +17,7 @@ else
   if settings.present?
     Strano.configure do |config|
       Strano::Configuration::VALID_OPTIONS_KEYS.each do |k|
+        k = k.to_s
         if settings.has_key?(k)
           config.send :"#{k}=", settings[k]
         elsif ENV.has_key?("STRANO_#{k.upcase}")
