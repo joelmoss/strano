@@ -31,7 +31,7 @@ module Strano
     # false to disallow creating projects from organizations completely.
     # Pass an array of Github organization usernames to restrict which
     # projects Strano can create new projects for.
-    DEFAULT_ALLOW_ORGANISATIONS = true
+    DEFAULT_ALLOW_ORGANIZATIONS = true
     
     # Allow project creation from repos for Github user accounts. Default
     # value is true, which allows any and all users. Set to false to disallow
@@ -117,7 +117,7 @@ module Strano
       self.clone_path           = DEFAULT_CLONE_PATH
       self.github_key           = DEFAULT_GITHUB_KEY
       self.github_secret        = DEFAULT_GITHUB_SECRET
-      self.allow_organizations  = DEFAULT_ALLOW_ORGANISATIONS
+      self.allow_organizations  = DEFAULT_ALLOW_ORGANIZATIONS
       self.allow_users          = DEFAULT_ALLOW_USERS
       self
     end
