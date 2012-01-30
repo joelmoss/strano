@@ -1,6 +1,17 @@
 class Job
+  module ReportFailure
+    def on_failure_retry(e, job_id)
+      job = Job.find(job_id)
+    
+      job.update_attributes :results => e.message,
+                            :completed_at => Time.now,
+                            :success => false
+    end
+  end
+
   class CapExecute
     include Ansible
+    extend ReportFailure
     
     @queue = :job
     
@@ -22,5 +33,6 @@ class Job
                             :completed_at => Time.now,
                             :success => success
     end
+    
   end
 end
