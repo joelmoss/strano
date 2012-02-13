@@ -16,3 +16,5 @@
 
 config/database.yml
 .powenv
+
+vendor/repos

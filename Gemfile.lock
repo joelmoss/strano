@@ -50,6 +50,7 @@ GEM
       net-ssh (>= 2.0.14)
       net-ssh-gateway (>= 1.1.0)
     capistrano_colors (0.5.5)
+    chronic (0.6.7)
     coffee-rails (3.2.1)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0.beta)
@@ -243,6 +244,9 @@ GEM
     webmock (1.7.10)
       addressable (~> 2.2, > 2.2.5)
       crack (>= 0.1.7)
+    whenever (0.7.2)
+      activesupport (>= 2.3.4)
+      chronic (~> 0.6.3)
     yajl-ruby (1.1.0)
 
 PLATFORMS
@@ -289,4 +293,5 @@ DEPENDENCIES
   uglifier (>= 1.0.3)
   vcr (~> 2.0.0.rc)
   webmock
+  whenever
   yajl-ruby

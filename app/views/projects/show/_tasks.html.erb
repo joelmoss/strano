@@ -1,6 +1,6 @@
 <div class="tab-pane" id="tasks">
 
-  <%- if @recent_tasks -%>
+  <%- unless @recent_tasks.empty? -%>
 
     <div class="page-header">
       <h6>Most recent</h6>
@@ -20,7 +20,7 @@
   
   <%- end -%>
 
-  <div id="other_tasks" class="<%= 'hide' if @recent_tasks %>">
+  <div id="other_tasks" class="<%= 'hide' unless @recent_tasks.empty? %>">
     <%- resource.public_tasks.each do |task| -%>
       <%- unless resource.jobs.where(:task => task.fully_qualified_name).first -%>
         <%= render :partial => "task", :locals => { :task => task, :hidden => false } %>
