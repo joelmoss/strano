@@ -1,7 +1,7 @@
 $ ->
   
   $("#slider").slider
-    value: 1
+    value: 3
     min: 1
     max: 3
     slide: (event, ui) ->
