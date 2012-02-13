@@ -31,6 +31,7 @@ gem 'simple_form', :git => 'https://github.com/plataformatec/simple_form.git'
 gem 'open4'
 gem 'ansible'
 
+gem 'whenever', :require => nil
 gem 'airbrake', :require => nil
 
 group :development, :test do
