@@ -16,8 +16,8 @@ command line task activity with Strano. Which means your task history will also
 include the tasks that you ran on the command line.
 
 Strano is in production use at ShermansTravel, but is still in active development.
-So I need your help to improve and ensure the code is top quality. So I enncourage
-any and all pull requests. So fork away!
+So I need your help to improve and ensure the code is top quality. So I encourage
+any and all pull requests. Fork away!
 
 ![Task History](https://img.skitch.com/20120119-rk61yn6u4gt73s9kic829513py.jpg)
 

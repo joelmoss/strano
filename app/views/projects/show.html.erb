@@ -1,6 +1,5 @@
-<%- title "Project: ##{resource.id}" -%>
-<%- breadcrumb 'Projects', root_path(:anchor => "projects") -%>
-<%- subtitle "#{resource.user_name}/#{resource.repo_name}" -%>
+<%- title "#{resource.user_name}/#{resource.repo_name}" -%>
+<%- breadcrumb 'Projects', collection_path -%>
 
 <%- unless resource.cloned? -%>
 
