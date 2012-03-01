@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+bundle install --binstubs --path vendor --without production
+
+bin/rake db:create
+bin/rake db:migrate
