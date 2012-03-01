@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~> 3.2'
+gem 'rails', '3.2.2'
 gem 'mysql2'
 gem 'sqlite3'
 
@@ -14,13 +14,13 @@ end
 
 gem 'jquery-rails'
 gem 'twitter-bootstrap-rails'
-gem 'resque'
+gem 'resque', '~> 1.20.0'
 gem 'omniauth-github'
 gem 'yajl-ruby'
 gem 'faraday'
 gem 'faraday-stack'
 gem 'faraday_middleware'
-gem 'capistrano', '~> 2.10.0.pre'
+gem 'capistrano', '~> 2.11.2'
 gem 'capistrano_colors'
 gem 'grit'
 gem 'dotiw'
@@ -35,23 +35,25 @@ gem 'whenever', :require => nil
 gem 'airbrake', :require => nil
 
 group :development, :test do
+  gem 'rspec-rails'
+end
+
+group :development do
   gem 'guard'
   gem 'guard-rspec'
   gem 'guard-bundler'
   gem 'guard-pow'
   gem 'rb-fsevent'
   gem 'growl'
-
-  gem 'rspec-rails'
-  gem 'factory_girl_rails'
-  gem 'shoulda-matchers'
-  gem "database_cleaner"
-  gem 'marked'
-  gem 'ffaker'
-  gem 'vcr', '~> 2.0.0.rc'
 end
 
 group :test do
+  gem 'shoulda-matchers'
+  gem 'database_cleaner'
+  gem 'marked'
+  gem 'vcr', '~> 2.0.0.rc'
+  gem 'ffaker'
+  gem 'factory_girl_rails'
   gem 'webmock'
   gem 'resque_spec'
   gem "fakefs", :require => "fakefs/safe"
