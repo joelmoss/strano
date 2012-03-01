@@ -73,6 +73,14 @@ the queue like this:
 You can then monitor your queue at `http://YOUR-STRANO-APP/resque`
 
 
+License
+-------
+
+Strano is released under the MIT license:
+
+* http://www.opensource.org/licenses/MIT
+
+
 Contributing
 ------------
 
