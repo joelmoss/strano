@@ -27,19 +27,15 @@ Installation
 Strano is simply a Rails app with a Resque backend for processing background jobs.
 Clone the repo from [Github](https://github.com/joelmoss/strano) and run:
 
-    bundle install
-    
-Then create the DB:
+    script/bootstrap
 
-    bundle exec rake db:setup
-    
 Then start the app:
 
     bundle exec rails s
-    
+
 **NOTE** Strano cannot be run on Heroku, as the project repositories have to cloned
 to a local directory in your app at `vendors/repos`.
-    
+
 
 Configuration
 -------------
@@ -57,7 +53,7 @@ The following are required and should be defined before running Strano.
   the generated key and secret to: `github_key` and `github_secret`.
 
 - Public SSH key
-  
+
   In order to clone repositories from Github, it requires a public SSH key be
   defined in `public_ssh_key`.
 
@@ -69,7 +65,7 @@ Background processing of tasks and repo management is taken care of by [Resque](
 the queue like this:
 
     bundle exec rake QUEUE=* resque:work
-  
+
 You can then monitor your queue at `http://YOUR-STRANO-APP/resque`
 
 
@@ -84,7 +80,7 @@ Strano is released under the MIT license:
 Contributing
 ------------
 
-Read the [Contributing][cb] wiki page first. 
+Read the [Contributing][cb] wiki page first.
 
 Once you've made your great commits:
 
