@@ -4,14 +4,16 @@ class JobsController < InheritedResources::Base
   actions :all, :except => :index
   respond_to :json, :only => :show
 
-  before_filter :authenticate_user!  
+  before_filter :authenticate_user!
   before_filter :ensure_unlocked_project, :only => [:new, :create, :delete]
 
 
   def new
     @job = parent.jobs.build params[:job]
+    # TODO write in the README that all the projects that use multistage need one
+    # default_stage configuration
     @job.stage = parent.cap.default_stage if parent.cap.namespaces.keys.include?(:multistage)
-    
+
     new!
   end
 

@@ -15,6 +15,7 @@
 /tmp
 
 config/database.yml
+config/strano.yml
 .powenv
 
 vendor/repos
