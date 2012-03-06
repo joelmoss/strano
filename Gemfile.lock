@@ -87,8 +87,8 @@ GEM
     guard-bundler (0.1.3)
       bundler (>= 1.0.0)
       guard (>= 0.2.2)
-    guard-pow (0.2.1)
-      guard (>= 0.3.0)
+    guard-rails (0.1.0)
+      guard (>= 0.2.2)
     guard-rspec (0.6.0)
       guard (>= 0.10.0)
     has_scope (0.5.1)
@@ -265,7 +265,7 @@ DEPENDENCIES
   grit
   guard
   guard-bundler
-  guard-pow
+  guard-rails
   guard-rspec
   inherited_resources
   jquery-rails

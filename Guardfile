@@ -26,14 +26,8 @@ guard 'rspec' do
   watch('Gemfile.lock')         { "spec" }
 end
 
-guard 'pow' do
-  watch('.powrc')
-  watch('.powenv')
-  watch('.rvmrc')
-  watch('Gemfile')
+guard 'rails' do
   watch('Gemfile.lock')
-  watch('config/application.rb')
-  watch('config/environment.rb')
-  watch(%r{^config/environments/.*\.rb$})
-  watch(%r{^config/initializers/.*\.rb$})
+  watch(%r{^(config|lib)/.*})
 end
+
