@@ -76,3 +76,8 @@ $ ->
 
   # Select the first tab that contains an asterisk (has form errors)
   tabs.parents('ul').find('li a:contains(*):first').trigger 'click'
+
+
+  # Handle clicks on cancel buttons
+  $('button[type=button].cancel').click ->
+    window.location = $(this).data('url')

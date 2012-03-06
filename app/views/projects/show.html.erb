@@ -34,7 +34,7 @@
         <%= link_to 'JOB IN PROGRESS', [resource, resource.job_in_progress], :class => "label warning" %>
       <%- else -%>
         <%- if resource.cloned? && resource.repo.exists? && resource.capified? && task = resource.cap.find_task(:deploy) %>
-          <%= link_to 'DEPLOY NOW...', new_project_jobs_path(resource, task.fully_qualified_name), :class => "btn btn-success" %>
+          <%= link_to 'DEPLOY NOW...', new_project_jobs_path(resource, task.fully_qualified_name), :class => "btn btn-success", :data => { :toggle => "button" } %>
         <%- end -%>
       <%- end -%>
     </div>

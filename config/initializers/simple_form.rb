@@ -174,3 +174,6 @@ SimpleForm.setup do |config|
   # Cache SimpleForm inputs discovery
   # config.cache_discovery = !Rails.env.development?
 end
+
+require 'simple_form/inputs/submit_button.rb'
+require 'simple_form/inputs/cancel_button.rb'

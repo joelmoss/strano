@@ -28,8 +28,8 @@
   <%= f.input :verbosity, :as => :hidden %>
 
   <div class="form-actions">
-    <%= f.button :submit, :class => 'btn-primary' %>
-    <%= button_tag 'Cancel', :type => :reset, :class => "btn" %>
+    <%= f.button :submit, :disable_with => "Starting task..." %>
+    <%= f.button :cancel, :url => parent_path %>
   </div>
 
 <%- end %>
