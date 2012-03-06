@@ -44,6 +44,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'marked'
+  gem 'ffaker'
 end
 
 group :development do
@@ -57,7 +58,6 @@ group :test do
   gem 'shoulda-matchers'
   gem 'database_cleaner'
   gem 'vcr', '~> 2'
-  gem 'ffaker'
   gem 'webmock'
   gem 'resque_spec'
   gem "fakefs", :require => "fakefs/safe"
