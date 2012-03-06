@@ -3,19 +3,19 @@
   <%- unless @recent_tasks.empty? -%>
 
     <div class="page-header">
-      <h6>Most recent</h6>
+      <h4>Most recent</h4>
     </div>
 
     <%- @recent_tasks.each do |job| -%>
       <%= render :partial => "task", :locals => { :task => resource.cap.find_task(job.task), :hidden => false } %>
     <%- end -%>
 
-    <div class="page-header margin-top6">
-      <h6>
+    <div class="page-header margin-top8">
+      <h4>
         <a href="#" class="inherit-color" id="toggle_other_tasks">
           Other tasks <span class="icon ui-icon-circle-triangle-s"></span><small class="margin-left10 smaller">show</small>
         </a>
-      </h6>
+      </h4>
     </div>
   
   <%- end -%>

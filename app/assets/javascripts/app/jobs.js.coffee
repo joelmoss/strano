@@ -29,11 +29,11 @@ $ ->
           text = text.replace /\.\.\./, 'completed'
           title.text text
           
-          $('.alert-message').remove()
+          $('.alert').remove()
           
           if data.success
-            $('.tabs .pull-right').html '<span class="label success">SUCCESS</span>'
+            $('.tabs .pull-right').html '<span class="label label-success">SUCCESS</span>'
           else
-            $('.tabs .pull-right').html '<span class="label important">FAILED</span>'
+            $('.tabs .pull-right').html '<span class="label label-important">FAILED</span>'
     
     setTimeout get_job_status, 3000

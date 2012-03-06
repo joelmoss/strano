@@ -4,8 +4,8 @@
   <td width="10">
     <%= form_for resource, :html => { :style => 'margin-bottom:0;' } do |f| %>
       <%= f.hidden_field :url, :value => repo.ssh_url %>
-      <%= f.submit 'Create', :class => "btn primary" %>
+      <%= f.submit 'Create', :class => "btn btn-primary" %>
     <%- end -%>
   </td>
-  <td><h5><%= link_to repo.name, repo.html_url, :target => "_blank" %></h5></td>
+  <td><h4 class="padding-top"><%= link_to repo.name, repo.html_url, :target => "_blank" %></h4></td>
 </tr>

@@ -1,7 +1,7 @@
 <%- title 'Projects' -%>
 
 <div class="well">
-  <%= link_to 'Create project...', new_resource_path, :class => "btn primary" %>
+  <%= link_to 'Create project...', new_resource_path, :class => "btn btn-primary" %>
 </div>
 
 <%- if collection.empty? -%>
@@ -10,7 +10,7 @@
   
 <% else %>
 
-  <table class="zebra-striped">
+  <table class="table table-striped">
     <thead>
       <tr>
         <th>Name</th>

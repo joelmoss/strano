@@ -3,33 +3,33 @@
 <% breadcrumb "Projects", projects_path %>
 <% breadcrumb parent, parent %>
 
-<%= simple_form_for resource, :url => [parent, resource] do |f| %>
+<%= simple_form_for resource, :url => [parent, resource], :html => { :class => 'form-horizontal' } do |f| %>
 
-  <div class="clearfix">
-    <label>Task</label>
-    <div class="input">
-      <span class="uneditable-input"><%= resource.task %></span>
+  <div class="control-group">
+    <label class="control-label">Task</label>
+    <div class="controls">
+      <span class="input-xlarge uneditable-input"><%= resource.task %></span>
       <%= f.hidden_field :task %>
     </div>
   </div>
-  
+
   <%- if parent.cap.namespaces.keys.include?(:multistage) -%>
     <%= f.input :stage, :as => :select, :collection => parent.cap.stages, :include_blank => false %>
   <%- end -%>
   
   <%= f.input :notes, :input_html => { :class => "span8", :rows => 5, :style => "height:80px;" } %>
 
-  <div class="clearfix text optional">
-    <label class="text optional" for="job_notes">Verbosity</label>
-    <div class="input">
+  <div class="control-group">
+    <label class="control-label" for="job_notes">Verbosity</label>
+    <div class="controls">
       <div id="slider"></div>
     </div>
   </div>
   <%= f.input :verbosity, :as => :hidden %>
 
-  <div class="actions">
-    <%= f.button :submit, :class => 'primary' %>
-    <%= button_tag 'Cancel', :type => :reset, :class => "btn" %>
+  <div class="form-actions">
+    <%= f.button :submit, :disable_with => "Starting task..." %>
+    <%= f.button :cancel, :url => parent_path %>
   </div>
 
 <%- end %>

@@ -103,6 +103,10 @@ class Project < ActiveRecord::Base
       raise Strano::RepositoryPathNotFound, "Path to local repository: #{repo.path} does not exist"
     end
     
+    unless File.exists?(File.join(repo.path, 'Capfile'))
+      raise Strano::CapfileNotFound, "Capfile cannot be found in repository"
+    end
+    
     _cap = nil
     FileUtils.chdir repo.path do
       _cap = Capistrano::CLI.parse(%W(-f Capfile -Xx -l STDOUT) + args).execute!
