@@ -6,7 +6,7 @@
   
   <% else %>
 
-    <table class="zebra-striped">
+    <table class="table table-striped">
       <thead>
         <tr>
           <th width="220">Date</th>
@@ -28,8 +28,8 @@
             <td><%= job.user %></td>
             <td class="small"><%= distance_of_time_in_words(job.created_at, job.completed_at, true) if job.completed_at %></td>
             <td>
-              <%= link_to "view results", [resource, job], :class => 'label notice' %>
-              <%= link_to "delete", [resource, job], :class => 'label error', :method => :delete, :confirm => "Are you sure?" %>
+              <%= link_to "view results", [resource, job], :class => 'label label-info' %>
+              <%= link_to "delete", [resource, job], :class => 'label label-important', :method => :delete, :confirm => "Are you sure?" %>
             </td>
           </tr>
         <%- end -%>
