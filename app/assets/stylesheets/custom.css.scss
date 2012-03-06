@@ -5,9 +5,11 @@ body {
   padding: 60px 0;
 }
 footer {
+  border-top: 1px solid #EEE;
   color: #AAA;
   margin-top: 65px;
   font-size: 11px;
+  padding-top: 10px;
   
   a {
     color: #666;
@@ -41,17 +43,10 @@ footer {
   background-color: inherit;
 }
 
-.topbar {
-  .pull-right > span {
-    top: 10px;
-    position: relative;
-  }
+.navbar {
   #user_display_bar {
     img {
-      margin: 6px 0 0 5px;
-    }
-    span {
-      top: -10px;
+      top: 6px;
       position: relative;
     }
     color: #FFF;

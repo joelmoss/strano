@@ -19,21 +19,21 @@ $ ->
   # Miscellaneous
   # ---------------------------------------------------------------------------
   
-  $("a[rel=twipsy]").twipsy live: true  
+  $("a[rel=twipsy]").tooltip live: true  
   $("a[rel=popover]").popover offset: 10
-  $(".alert-message").alert()
+  $(".alert").alert()
 
 
   # Tabs Initialization
   # ---------------------------------------------------------------------------
 
-  tabs = $('ul[data-tabs], ul[data-pills]')
+  tabs = $('[data-toggle=tab], [data-toggle=pill]')
 
 
   # Handle the right well for tabs if one exists.
   if $('#tabwell').size() > 0
     
-    tabs.bind 'change', (e) ->
+    tabs.on 'shown', (e) ->
       activated = $(e.target) # activated tab
       previous = $(e.relatedTarget) # previous tab
 
@@ -51,7 +51,7 @@ $ ->
 
 
   # Set the location hash on tab click
-  tabs.find('li > a').change ->
+  tabs.on 'show', ->
     tab = $(this).attr('href').replace /#/, ''
     params = $.getUrlVars()
     params['tab'] = tab
@@ -60,10 +60,10 @@ $ ->
 
   if History.getState().data.tab != undefined
     # Set selected tab as active
-    tabs.find("li a[href=##{History.getState().data.tab}]").trigger 'click'
+    tabs.parents('ul').find("li a[href=##{History.getState().data.tab}]").trigger 'click'
 
   else if (tab = $.getUrlVar('tab')) != undefined
-    tabs.find("li a[href=##{tab}]").trigger 'click'
+    tabs.parents('ul').find("li a[href=##{tab}]").trigger 'click'
   
   else
   
@@ -75,4 +75,4 @@ $ ->
       active_tab.trigger 'click'
 
   # Select the first tab that contains an asterisk (has form errors)
-  tabs.find('li a:contains(*):first').trigger 'click'
+  tabs.parents('ul').find('li a:contains(*):first').trigger 'click'

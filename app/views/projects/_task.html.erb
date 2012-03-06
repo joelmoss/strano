@@ -1,24 +1,24 @@
 <div class="row margin-top">
 
-  <div class="span2 margin-top">
-    <%= link_to 'Run this...', new_project_jobs_path(resource, task.fully_qualified_name), :class => "btn primary" %>
+  <div class="span1 margin-top right">
+    <%= link_to 'Run...', new_project_jobs_path(resource, task.fully_qualified_name), :class => "btn btn-primary" %>
   </div>
   
-  <div class="span14 bordered-bottom padding-bottom2">
+  <div class="span11 bordered-bottom padding-bottom2 padding-top">
     <div class="row">
-      <div class="span11">
+      <div class="span9">
         <h3 class="<%= 'quieter' if hidden %>">
           <%= task.fully_qualified_name %>
           <small class="padding-left"><%= task.brief_description %></small>
         </h3>
       </div>
-      <div class="span3 right margin-top2">
+      <div class="span2 right margin-top2">
         <%= link_to raw("show full description &raquo;"), '#', :class => "show-task-description smaller" unless task.description.blank? %>
       </div>
     </div>
     
     <div class="row">
-      <div class="span14 quiet">
+      <div class="span9 quiet">
         <%- if last_run = resource.jobs.where(:task => task.fully_qualified_name).first -%>
           last run <%= link_to "#{time_ago_in_words(last_run.created_at)} ago", [resource, last_run] %>
           by <%= last_run.user %>
@@ -29,7 +29,7 @@
     
     <%- unless task.description.blank? -%>
       <div class="row hide">
-        <div class="span14">
+        <div class="span9">
           <pre><%= task.description %></pre>
         </div>
       </div>

@@ -8,9 +8,9 @@
     
     <%- repos.in_groups(2) do |group| -%>
     
-      <div class="span8">
+      <div class="span6">
       
-        <table class="zebra-striped">
+        <table class="table table-striped">
           <tbody>
             <%= render :partial => 'projects/repo', :collection => group %>
           </tbody>

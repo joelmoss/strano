@@ -1,7 +1,7 @@
 <%- return unless project.accessible_by? current_user -%>
 
 <tr>
-  <td><strong><%= link_to project, project %></strong></td>
+  <td><h4><%= link_to project, project %></h4></td>
   <td>
     <%- if last_run = project.jobs.first -%>
       <%= link_to last_run.task, [project, last_run] %> by <%= last_run.user %>
