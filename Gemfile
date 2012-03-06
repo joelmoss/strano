@@ -20,27 +20,31 @@ gem 'yajl-ruby'
 gem 'faraday'
 gem 'faraday-stack'
 gem 'faraday_middleware'
-gem 'capistrano', '~> 2.10.0.pre'
+gem 'capistrano', '~> 2.11'
 gem 'capistrano_colors'
 gem 'grit'
 gem 'dotiw'
 gem 'inherited_resources'
 gem 'kaminari'
 gem 'permanent_records'
-gem 'simple_form', :git => 'https://github.com/plataformatec/simple_form.git'
+gem 'simple_form', '~> 2'
 gem 'open4'
 gem 'ansible'
 
+# While these are not needed by Strano itself, without them installed, any project
+# that requires them will die when Strano tries to run a cap task. By using
+# :require => nil, these don't get required/loaded into Strano, but are installed
+# for projects to use if needed.
+gem 'delayed_job', :require => nil
 gem 'whenever', :require => nil
 gem 'airbrake', :require => nil
+gem 'newrelic_rpm', :require => nil
 
 group :development, :test do
   gem 'guard'
   gem 'guard-rspec'
   gem 'guard-bundler'
   gem 'guard-pow'
-  gem 'rb-fsevent'
-  gem 'growl'
 
   gem 'rspec-rails'
   gem 'factory_girl_rails'
@@ -48,7 +52,7 @@ group :development, :test do
   gem "database_cleaner"
   gem 'marked'
   gem 'ffaker'
-  gem 'vcr', '~> 2.0.0.rc'
+  gem 'vcr', '~> 2'
 end
 
 group :test do

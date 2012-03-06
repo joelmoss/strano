@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120125225412) do
+ActiveRecord::Schema.define(:version => 20120213093204) do
 
   create_table "jobs", :force => true do |t|
     t.string   "task"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(:version => 20120125225412) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
+    t.string   "token"
   end
 
   add_index "users", ["username"], :name => "index_users_on_username"
