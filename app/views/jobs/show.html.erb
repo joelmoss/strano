@@ -3,48 +3,49 @@
 <% breadcrumb "Projects", projects_path %>
 <% breadcrumb parent, parent %>
 
-
-<ul class="tabs" data-tabs="tabs">
-  <div class="pull-right">
-    <%- if resource.complete? -%>
-      <%- if resource.success? -%>
-        <span class="label success">SUCCESS</span>
-      <%- else -%>
-        <span class="label important">FAILED</span>
+<div class="tabbable">
+  <ul class="nav nav-tabs">
+    <div class="pull-right">
+      <%- if resource.complete? -%>
+        <%- if resource.success? -%>
+          <span class="label label-success">SUCCESS</span>
+        <%- else -%>
+          <span class="label label-important">FAILED</span>
+        <%- end -%>
       <%- end -%>
-    <%- end -%>
-  </div>
+    </div>
   
-  <li class="active"><a href="#results">Results</a></li>
-  <%- if resource.notes.present? -%><li><a href="#notes">Notes</a></li><%- end -%>
+    <li class="active"><a href="#results" data-toggle="tab">Results</a></li>
+    <%- if resource.notes.present? -%><li><a href="#notes" data-toggle="tab">Notes</a></li><%- end -%>
 
-  <li class="dropdown" data-dropdown="dropdown">
-    <a href="#" class="dropdown-toggle">Actions</a>
-    <ul class="dropdown-menu">
-      <li><%= link_to 'Repeat...', new_project_jobs_path(parent, resource.task) %></li>
-      <li><%= link_to 'Delete!', [parent, resource], :method => :delete, :confirm => "Are you sure you want to delete this?" %></li>
-    </ul>
-  </li>
-</ul>
+    <li class="dropdown" data-dropdown="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Actions <b class="caret"></b></a>
+      <ul class="dropdown-menu">
+        <li><%= link_to 'Repeat...', new_project_jobs_path(parent, resource.task) %></li>
+        <li><%= link_to 'Delete!', [parent, resource], :method => :delete, :confirm => "Are you sure you want to delete this?" %></li>
+      </ul>
+    </li>
+  </ul>
 
-<div class="tab-content">
-  <div class="tab-pane active" id="results">
+  <div class="tab-content">
+    <div class="tab-pane active" id="results">
     
-    <%- if resource.complete? -%>
+      <%- if resource.complete? -%>
     
-      <h3>
-        Task '<%= resource.command.strip %>' &nbsp;&nbsp;<small>completed <%= resource.completed_at.to_s :short %></small>
-      </h3>
-      <pre id="job-results"><%= raw resource.results %></pre>
+        <h3>
+          Task '<%= resource.command.strip %>' &nbsp;&nbsp;<small>completed <%= resource.completed_at.to_s :short %></small>
+        </h3>
+        <pre id="job-results"><%= raw resource.results %></pre>
       
-    <%- else -%>
+      <%- else -%>
     
-      <h3><%= image_tag("loading.gif", :size => "16x16") %> Running '<%= resource.command.strip %>' ...</h3>
-      <pre id="job-results" class="hide" data-job_id="<%= resource.id %>" data-project_id="<%= parent.id %>"></pre>
+        <h3><%= image_tag("loading.gif", :size => "16x16") %> Running '<%= resource.command.strip %>' ...</h3>
+        <pre id="job-results" class="hide" data-job_id="<%= resource.id %>" data-project_id="<%= parent.id %>"></pre>
       
-    <%- end -%>
+      <%- end -%>
     
-  </div>
+    </div>
   
-  <%- if resource.notes.present? -%><div class="tab-pane" id="notes"><%= resource.notes %></div><%- end -%>
+    <%- if resource.notes.present? -%><div class="tab-pane" id="notes"><%= resource.notes %></div><%- end -%>
+  </div>
 </div>
