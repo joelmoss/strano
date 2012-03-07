@@ -37,9 +37,14 @@
         <code class="no-bg">n/a</code>
       <%- end -%>
     </p>
-    <p>
-      <%= resource.pulled_at ? "#{time_ago_in_words(resource.pulled_at)} ago" : raw('<code class="no-bg">n/a</code>') %>
-      &nbsp;&nbsp;<%= link_to 'update now!', [:pull, resource], :class => "small" %>
+    <p id="repo-update">
+      <%- if resource.pulled_at -%>
+        <abbr class="timeago" title="<%= resource.pulled_at.iso8601 %>"><%= resource.pulled_at %></abbr>
+      <%- else -%>
+        <code class="no-bg">n/a</code>
+      <%- end -%>
+      
+      &nbsp;&nbsp;<%= link_to 'update now!', [:pull, resource], :class => "small", :remote => true %>
     </p>
   </div>
 </div>

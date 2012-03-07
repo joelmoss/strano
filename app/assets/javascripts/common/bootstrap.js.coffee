@@ -23,6 +23,7 @@ $ ->
   $("a[rel=popover]").popover offset: 10
   $(".alert").alert()
 
+  $("abbr.timeago").timeago()
 
   # Tabs Initialization
   # ---------------------------------------------------------------------------
