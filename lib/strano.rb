@@ -1,3 +1,4 @@
+require "strano/version"
 require "strano/configuration"
 require "strano/repo"
 
