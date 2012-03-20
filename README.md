@@ -49,7 +49,7 @@ The following are required and should be defined before running Strano.
 
 - Github Key and Secret
 
-  Create a [Github application](https://github.com/account/applications) and copy
+  Create a [Github application](https://github.com/settings/applications) and copy
   the generated key and secret to: `github_key` and `github_secret`.
 
 - Public SSH key
