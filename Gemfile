@@ -39,7 +39,7 @@ gem 'ansible'
 # for projects to use if needed.
 gem 'delayed_job', :require => nil
 gem 'whenever', :require => nil
-# gem 'airbrake', :require => nil
+gem 'airbrake', :require => nil
 gem 'newrelic_rpm', :require => nil
 
 group :development, :test do
@@ -61,6 +61,5 @@ group :test do
   gem 'database_cleaner'
   gem 'vcr', '~> 2'
   gem 'webmock'
-  gem 'resque_spec'
   gem "fakefs", :require => "fakefs/safe"
 end
