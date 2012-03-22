@@ -1,4 +1,5 @@
 require 'capistrano/cli'
+require 'capistrano_monkey/configuration/namespaces'
 
 class Project < ActiveRecord::Base
 
@@ -18,9 +19,9 @@ class Project < ActiveRecord::Base
   # Lets do some delegation so that we can access some common methods directly.
   delegate :user_name, :repo_name, :cloned?, :capified?, :to => :repo
   delegate :html_url, :description, :organization, :to => :github_data
-  
+
   default_scope where(:deleted_at => nil)
-  
+
 
   def self.deleted
     self.unscoped.where 'deleted_at IS NOT NULL'
@@ -81,18 +82,14 @@ class Project < ActiveRecord::Base
   #
   # Returns an Array of tasks.
   def public_tasks
-    @public_tasks ||= begin
-      tasks.reject { |t| t.description.empty? || t.description =~ /^\[internal\]/ }
-    end
+    @public_tasks ||= tasks.reject { |t| t.description.empty? || t.description =~ /^\[internal\]/ }
   end
 
   # The hidden and internal task list for this project's repository.
   #
   # Returns an Array of tasks.
   def hidden_tasks
-    @hidden_tasks ||= begin
-      tasks.select { |t| t.description.empty? || t.description =~ /^\[internal\]/ }
-    end
+    @hidden_tasks ||= tasks.select { |t| t.description.empty? || t.description =~ /^\[internal\]/ }
   end
 
   # Execute a capistrano command.
@@ -102,28 +99,30 @@ class Project < ActiveRecord::Base
     unless Dir.exists?(repo.path)
       raise Strano::RepositoryPathNotFound, "Path to local repository: #{repo.path} does not exist"
     end
-    
+
     unless File.exists?(File.join(repo.path, 'Capfile'))
       raise Strano::CapfileNotFound, "Capfile cannot be found in repository"
     end
-    
+
     _cap = nil
     FileUtils.chdir repo.path do
-      _cap = Capistrano::CLI.parse(%W(-f Capfile -Xx -l STDOUT) + args).execute!
+      query = %W(-f Capfile -Xx -l STDOUT) + args
+      Rails.logger.debug "  Capistrano command: #{query.join(' ')}"
+      _cap = Capistrano::CLI.parse(query).execute!
     end
     _cap
   end
-  
+
   # Run git pull on the repo, as long as the last pull was more than 15 mins ago.
   def pull
     if !pull_in_progress? && !pulled_at.nil? && (Time.now - pulled_at) > 900
-      Resque.enqueue PullRepo, id
+      PullRepo.perform_async id
     end
   end
-  
+
   # Run git pull on the repo regardless of when it was last pulled.
   def pull!
-    Resque.enqueue PullRepo, id unless pull_in_progress?
+    PullRepo.perform_async(id) unless pull_in_progress?
   end
 
 
@@ -134,11 +133,11 @@ class Project < ActiveRecord::Base
     end
 
     def clone_repo
-      Resque.enqueue CloneRepo, id
+      CloneRepo.perform_async id
     end
 
     def remove_repo
-      Resque.enqueue RemoveRepo, id
+      RemoveRepo.perform_async id
     end
 
     def update_github_data

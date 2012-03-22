@@ -15,28 +15,21 @@ class Job < ActiveRecord::Base
 
 
   def run_task
-    status, stdout_output, stderr_output = nil, "", ""
-
     FileUtils.chdir project.repo.path do
-      status = Open4::popen4 full_command do |pid, stdin, stdout, stderr|
-        stdin.close
-
-        stdout_output += stdout.read.strip
-        stderr_output += stderr.read.strip
+      out = capture_stdout do
+        Strano::CLI.parse(Strano::Logger.new(self), full_command).execute!
       end
-    end
 
-    if status.exitstatus != 0
-      raise Exception, stderr_output
-    else
-      stdout_output
+      unless out.string.blank?
+        update_attribute(:results, (results || '') + "\n  > #{out.string}")
+      end
     end
   end
 
   def complete?
     !completed_at.nil?
   end
-  
+
   def command
     "#{stage} #{task}"
   end
@@ -45,11 +38,11 @@ class Job < ActiveRecord::Base
   private
 
     def full_command
-      "bundle exec cap -f #{Rails.root.join('Capfile.repos')} -f Capfile -Xx#{verbosity} -l STDOUT #{command}"
+      %W(-f #{Rails.root.join('Capfile.repos')} -f Capfile -Xx#{verbosity}) + command.split(' ')
     end
 
     def execute_task
-      Resque.enqueue CapExecute, id
+      CapExecute.perform_async id
     end
 
 end

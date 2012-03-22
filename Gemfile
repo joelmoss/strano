@@ -14,7 +14,9 @@ end
 
 gem 'jquery-rails'
 gem 'twitter-bootstrap-rails'
-gem 'resque', '~> 1.20.0'
+gem 'sidekiq'
+gem 'slim'
+gem 'sinatra'
 gem 'omniauth-github'
 gem 'yajl-ruby'
 gem 'faraday'
@@ -37,7 +39,7 @@ gem 'ansible'
 # for projects to use if needed.
 gem 'delayed_job', :require => nil
 gem 'whenever', :require => nil
-gem 'airbrake', :require => nil
+# gem 'airbrake', :require => nil
 gem 'newrelic_rpm', :require => nil
 
 group :development, :test do
@@ -51,7 +53,7 @@ group :development do
   gem 'guard'
   gem 'guard-rspec'
   gem 'guard-bundler'
-  gem 'guard-rails'
+  gem 'guard-pow'
 end
 
 group :test do

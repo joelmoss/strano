@@ -12,8 +12,8 @@ Strano::Application.routes.draw do
     end
   end
 
-  require 'resque/server'
-  mount Resque::Server.new, :at => "/resque"
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
 
   root :to => "dashboard#index"
 

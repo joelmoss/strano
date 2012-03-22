@@ -10,7 +10,7 @@ footer {
   margin-top: 65px;
   font-size: 11px;
   padding-top: 10px;
-  
+
   a {
     color: #666;
   }
@@ -72,10 +72,16 @@ footer {
   border-bottom: 1px solid #EEE;
 }
 
-#results pre {
-  overflow-x: auto;
-  white-space: pre;
-  word-wrap: normal;
+#results {
+  h3 {
+    margin-bottom: 10px;
+  }
+
+  pre {
+    overflow-x: auto;
+    white-space: pre;
+    word-wrap: normal;
+  }
 }
 
 #slider {
@@ -92,7 +98,7 @@ footer {
   color: #FFF;
   line-height: 1.8em;
   font-size: 12px;
-  
+
   .ansible_1        { font-weight: bold; }
   .ansible_4        { text-decoration: underline; }
   .ansible_30       { color: black; }

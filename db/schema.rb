@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120213093204) do
+ActiveRecord::Schema.define(:version => 20120322195922) do
 
   create_table "jobs", :force => true do |t|
     t.string   "task"
@@ -19,19 +19,19 @@ ActiveRecord::Schema.define(:version => 20120213093204) do
     t.text     "results"
     t.integer  "project_id"
     t.integer  "user_id"
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.datetime "completed_at"
     t.string   "stage"
     t.datetime "deleted_at"
     t.boolean  "success",      :default => true
-    t.string   "verbosity",    :default => "v"
+    t.string   "verbosity",    :default => "vvv"
   end
 
   create_table "projects", :force => true do |t|
     t.string   "url"
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.text     "github_data"
     t.datetime "cloned_at"
     t.datetime "deleted_at"
@@ -45,8 +45,8 @@ ActiveRecord::Schema.define(:version => 20120213093204) do
     t.string   "github_access_token"
     t.text     "github_data"
     t.boolean  "ssh_key_uploaded_to_github", :default => false
-    t.datetime "created_at",                                    :null => false
-    t.datetime "updated_at",                                    :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.datetime "deleted_at"
     t.string   "token"
   end
