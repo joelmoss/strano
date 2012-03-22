@@ -8,7 +8,7 @@ class JobsController < InheritedResources::Base
   before_filter :ensure_unlocked_project, :only => [:new, :create, :delete]
 
   rescue_from Strano::ProjectCapError do |e|
-    redirect_to parent, :alert => e.message and return
+    redirect_to parent
   end
 
 

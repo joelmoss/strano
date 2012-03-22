@@ -17,25 +17,23 @@ module Strano
       cli
     end
 
-    # override in order to use DB logger
+    # Override in order to use DB logger
     def instantiate_configuration(options={})
       config = CapistranoMonkey::Configuration.new(options)
       config.logger = logger
       config
     end
 
-    # override in order to use DB logger
+    # Override in order to use DB logger
     def handle_error(error)
-      case error
-        when Net::SSH::AuthenticationFailed
-          logger.important "authentication failed for `#{error.message}'"
-        when Capistrano::Error
-          logger.important error.message
+      if error.is_a?(Net::SSH::AuthenticationFailed)
+        logger.important "authentication failed for `#{error.message}'"
       else
-        # we did not expect this error, so log the trace
         logger.important error.message
         logger.trace error.backtrace.join("\n")
       end
+
+      false
     end
 
   end

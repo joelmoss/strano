@@ -15,15 +15,17 @@ class Job < ActiveRecord::Base
 
 
   def run_task
+    success = true
+
     FileUtils.chdir project.repo.path do
       out = capture_stdout do
-        Strano::CLI.parse(Strano::Logger.new(self), full_command).execute!
+        success = Strano::CLI.parse(Strano::Logger.new(self), full_command).execute!
       end
 
-      unless out.string.blank?
-        update_attribute(:results, (results || '') + "\n  > #{out.string}")
-      end
+      puts "\n  > #{out.string}" unless out.string.blank?
     end
+
+    !!success
   end
 
   def complete?
@@ -32,6 +34,10 @@ class Job < ActiveRecord::Base
 
   def command
     "#{stage} #{task}"
+  end
+
+  def puts(msg)
+    update_attribute :results, (results || '') + msg unless msg.blank?
   end
 
 
