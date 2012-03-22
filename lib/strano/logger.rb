@@ -1,6 +1,7 @@
 # a logger for Capistrano::Configuration that logs to the database
 require 'capistrano_colors/configuration'
 require 'capistrano_colors/logger'
+
 module Strano
   class Logger < Capistrano::Logger
     attr_accessor :job

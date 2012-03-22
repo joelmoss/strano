@@ -1,5 +1,6 @@
 require 'kernel'
 class Job < ActiveRecord::Base
+  include Ansible
 
   belongs_to :project
   belongs_to :user
@@ -22,7 +23,7 @@ class Job < ActiveRecord::Base
         success = Strano::CLI.parse(Strano::Logger.new(self), full_command).execute!
       end
 
-      puts "\n  > #{out.string}" unless out.string.blank?
+      puts "\n  \e[1;32m> #{out.string}\e" unless out.string.blank?
     end
 
     !!success
@@ -37,7 +38,13 @@ class Job < ActiveRecord::Base
   end
 
   def puts(msg)
-    update_attribute :results, (results || '') + msg unless msg.blank?
+    update_attribute :results, (results_before_type_cast || '') + msg unless msg.blank?
+  end
+
+  def results
+    unless (res = read_attribute(:results)).blank?
+      escape_to_html res
+    end
   end
 
 

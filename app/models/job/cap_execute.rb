@@ -1,6 +1,6 @@
 class Job
   class CapExecute
-    include Sidekiq::Worker, Ansible
+    include Sidekiq::Worker
 
     def perform(job_id)
       job = Job.find(job_id)
