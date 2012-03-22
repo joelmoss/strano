@@ -97,20 +97,26 @@ class Project < ActiveRecord::Base
   # args - An Array of arguments which will be passed to the Cap command.
   def cap(args = [])
     unless Dir.exists?(repo.path)
-      raise Strano::RepositoryPathNotFound, "Path to local repository: #{repo.path} does not exist"
+      raise Strano::RepositoryPathNotFound, "Path to the local repository: #{repo.path} does not exist. " +
+                                            "Ensure that the repository is cloned to #{repo.path}."
     end
 
     unless File.exists?(File.join(repo.path, 'Capfile'))
-      raise Strano::CapfileNotFound, "Capfile cannot be found in repository"
+      raise Strano::CapfileNotFound, "A Capfile cannot be found in this repository"
     end
 
-    _cap = nil
-    FileUtils.chdir repo.path do
-      query = %W(-f Capfile -Xx -l STDOUT) + args
-      Rails.logger.debug "  Capistrano command: #{query.join(' ')}"
-      _cap = Capistrano::CLI.parse(query).execute!
+    begin
+      _cap = nil
+      FileUtils.chdir repo.path do
+        query = %W(-f Capfile -Xx -l STDOUT) + args
+        Rails.logger.debug "  Capistrano command: #{query.join(' ')}"
+        _cap = Capistrano::CLI.parse(query).execute!
+      end
+      _cap
+    rescue LoadError => e
+      raise Strano::CapistranoLoadError, "Capistrano #{e.message}. Make sure you have installed any gem " +
+                                         "that provides these files, then restart Strano."
     end
-    _cap
   end
 
   # Run git pull on the repo, as long as the last pull was more than 15 mins ago.

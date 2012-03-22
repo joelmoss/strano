@@ -7,6 +7,10 @@ class JobsController < InheritedResources::Base
   before_filter :authenticate_user!
   before_filter :ensure_unlocked_project, :only => [:new, :create, :delete]
 
+  rescue_from Strano::ProjectCapError do |e|
+    redirect_to parent, :alert => e.message and return
+  end
+
 
   def new
     @job = parent.jobs.build params[:job]

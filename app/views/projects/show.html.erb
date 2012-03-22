@@ -29,31 +29,31 @@
       <%- if resource.job_in_progress? -%>
         <%= link_to 'JOB IN PROGRESS', [resource, resource.job_in_progress], :class => "label warning" %>
       <%- else -%>
-        <%- if resource.cloned? && resource.repo.exists? && resource.capified? && task = resource.cap.find_task(:deploy) %>
-          <%= link_to 'DEPLOY NOW...', new_project_jobs_path(resource, task.fully_qualified_name), :class => "btn btn-success", :data => { :toggle => "button" } %>
-        <%- end -%>
+        <%= deploy_now_button %>
       <%- end -%>
     </div>
 
-    <div class="pull-right" id="tabwell">
-      <div class="hide" id="tabwell-tasks">
+    <% unless @project_cap_error %>
+      <div class="pull-right" id="tabwell">
+        <div class="hide" id="tabwell-tasks">
+          <%- if params[:all_tasks] -%>
+            <%= link_to 'hide hidden tasks', resource_path(:tab => "tasks"), :class => "btn small" %>
+          <%- else -%>
+            <%= link_to 'show hidden tasks', resource_path(:tab => "hidden_tasks", :all_tasks => true), :class => "btn small" %>
+          <%- end -%>
+        </div>
         <%- if params[:all_tasks] -%>
+        <div class="hide" id="tabwell-hidden_tasks">
           <%= link_to 'hide hidden tasks', resource_path(:tab => "tasks"), :class => "btn small" %>
-        <%- else -%>
-          <%= link_to 'show hidden tasks', resource_path(:tab => "hidden_tasks", :all_tasks => true), :class => "btn small" %>
+        </div>
         <%- end -%>
       </div>
-      <%- if params[:all_tasks] -%>
-      <div class="hide" id="tabwell-hidden_tasks">
-        <%= link_to 'hide hidden tasks', resource_path(:tab => "tasks"), :class => "btn small" %>
-      </div>
-      <%- end -%>
-    </div>
+    <% end %>
 
     <li class="active"><a href="#info" data-toggle="tab">Information</a></li>
 
     <%- if resource.cloned? -%>
-      <%- if resource.capified? -%>
+      <%- if resource.capified? && !@project_cap_error -%>
         <li><a href="#tasks" data-toggle="tab">Tasks</a></li>
         <%- if params[:all_tasks] -%>
           <li><a href="#hidden_tasks" data-toggle="tab">Hidden Tasks</a></li>
@@ -74,7 +74,7 @@
     <div class="tab-pane active" id="info"><%= render 'projects/show/info' %></div>
 
     <%- if resource.cloned? -%>
-      <%- if resource.capified? -%>
+      <%- if resource.capified? && !@project_cap_error -%>
         <%= render 'projects/show/tasks' %>
         <%= render 'projects/show/hidden_tasks' if params[:all_tasks] %>
       <%- end -%>

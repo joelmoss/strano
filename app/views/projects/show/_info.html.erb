@@ -1,19 +1,28 @@
+<% if @project_cap_error %>
+  <div class="alert alert-error alert-block">
+    <a class="close" data-dismiss="alert">×</a>
+    <h4 class="alert-heading">Warning!</h4>
+    Strano cannot currently run any tasks until the following issue is resolved.
+    <%= @project_cap_error %>
+  </div>
+<% end %>
+
 <div class="row">
   <div class="span3 right">
-    
+
     <p>Description</p>
     <p>Repository</p>
     <%- if resource.organization? -%><p>Organization</p><%- end -%>
-    
+
   </div>
   <div class="span9">
-    
+
     <p><strong><%= resource.description %></strong></p>
     <p><%= link_to resource.html_url, resource.html_url %></p>
     <%- if resource.organization? -%>
       <p><%= link_to resource.organization.login, "https://github.com/#{resource.organization.login}" %></p>
     <%- end -%>
-    
+
   </div>
 </div>
 
@@ -43,7 +52,7 @@
       <%- else -%>
         <code class="no-bg">n/a</code>
       <%- end -%>
-      
+
       &nbsp;&nbsp;<%= link_to 'update now!', [:pull, resource], :class => "small", :remote => true %>
     </p>
   </div>

@@ -5,6 +5,9 @@ require "strano/repo"
 module Strano
   extend Configuration
 
-  class RepositoryPathNotFound < StandardError; end
-  class CapfileNotFound < StandardError; end
+  class ProjectCapError < StandardError; end
+
+  class RepositoryPathNotFound < ProjectCapError; end
+  class CapfileNotFound < ProjectCapError; end
+  class CapistranoLoadError < ProjectCapError; end
 end

@@ -1,7 +1,7 @@
 module ApplicationHelper
-  
+
   # Set the page title.
-  # 
+  #
   # page_title                      - The page title as a String.
   # show_title                      - A Boolean of whether to show the title
   #                                   within the page (default: true).
@@ -17,7 +17,7 @@ module ApplicationHelper
   end
 
   # Set the page sub-title.
-  # 
+  #
   # page_title            - The page title as a String.
   # show_title            - A Boolean of whether to show the title within the
   #                         page (default: true).
@@ -36,7 +36,7 @@ module ApplicationHelper
     @breadcrumbs = [] if @breadcrumbs.nil?
     @breadcrumbs << [ text, link ]
   end
-  
+
   def render_breadcrumbs
     crumbs = (@breadcrumbs || [])
     if !@ignore_subtitle_in_breadcrumbs && show_subtitle?
@@ -45,5 +45,14 @@ module ApplicationHelper
       crumbs = crumbs << [@title_for_content, nil]
     end
     render :partial => "layouts/breadcrumbs", :object => [[ "home", root_path ]] + crumbs
+  end
+
+  def deploy_now_button
+    if resource.cloned? && resource.repo.exists? && resource.capified? && task = resource.cap.find_task(:deploy)
+      link_to 'DEPLOY NOW...', new_project_jobs_path(resource, task.fully_qualified_name), :class => "btn btn-success", :data => { :toggle => "button" }
+    end
+  rescue Strano::ProjectCapError => e
+    @project_cap_error = e.message
+    nil
   end
 end

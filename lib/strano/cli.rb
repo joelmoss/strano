@@ -33,7 +33,8 @@ module Strano
           logger.important error.message
       else
         # we did not expect this error, so log the trace
-        logger.important error.message + "\n" + error.backtrace.join("\n")
+        logger.important error.message
+        logger.trace error.backtrace.join("\n")
       end
     end
 
