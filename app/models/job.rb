@@ -9,6 +9,8 @@ class Job < ActiveRecord::Base
   default_scope order('created_at DESC')
   default_scope where(:deleted_at => nil)
 
+  store :variables, :accessors => [ :branch ]
+
 
   def self.deleted
     self.unscoped.where 'deleted_at IS NOT NULL'
@@ -20,9 +22,8 @@ class Job < ActiveRecord::Base
 
     FileUtils.chdir project.repo.path do
       out = capture_stdout do
-        success = Strano::CLI.parse(Strano::Logger.new(self), full_command).execute!
+        success = Strano::CLI.parse(Strano::Logger.new(self), full_command.flatten).execute!
       end
-
       puts "\n  \e[1;32m> #{out.string}\e" unless out.string.blank?
     end
 
@@ -51,7 +52,13 @@ class Job < ActiveRecord::Base
   private
 
     def full_command
-      %W(-f #{Rails.root.join('Capfile.repos')} -f Capfile -Xx#{verbosity}) + command.split(' ')
+      %W(-f #{Rails.root.join('Capfile.repos')} -f Capfile -Xx#{verbosity}) + mapped_variables + command.split(' ')
+    end
+
+    def mapped_variables
+      variables.map do |k,v|
+        %W(-s #{k}=#{v}) unless v.blank?
+      end
     end
 
     def execute_task

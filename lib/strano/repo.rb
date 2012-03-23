@@ -32,7 +32,7 @@ module Strano
       repo = new(url)
       repo.git.pull({:timeout => false, :chdir => repo.path, :base => false})
     end
-    
+
     # Remove a cloned repo from the filesystem.
     #
     # url - The SSH URL of the git repository that this local repo is cloned from.
@@ -50,6 +50,17 @@ module Strano
 
     def path
       File.join root_path, user_name, repo_name
+    end
+
+    # Returns an Array of all branches, remote and local.
+    def branches
+      str = git.branch({:timeout => false, :chdir => path, :base => false}, '-a')
+      branches = []
+      str.split("\n").each do |br|
+        branch = br.gsub(/\*/, '').strip.split(' ').first.split('/').last
+        branches << branch unless branch == 'HEAD'
+      end
+      branches.uniq
     end
 
     def git

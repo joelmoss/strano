@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120322195922) do
+ActiveRecord::Schema.define(:version => 20120323103049) do
 
   create_table "jobs", :force => true do |t|
     t.string   "task"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(:version => 20120322195922) do
     t.datetime "deleted_at"
     t.boolean  "success",      :default => true
     t.string   "verbosity",    :default => "vvv"
+    t.text     "variables"
   end
 
   create_table "projects", :force => true do |t|

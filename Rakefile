@@ -8,6 +8,3 @@ Strano::Application.load_tasks
 # Make spec the default task and replace the test task.
 task :test => :spec
 task :default => :spec
-
-require 'resque/tasks'
-task "resque:setup" => :environment
