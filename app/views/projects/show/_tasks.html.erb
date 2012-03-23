@@ -7,7 +7,7 @@
     </div>
 
     <%- @recent_tasks.each do |job| -%>
-      <%= render :partial => "task", :locals => { :task => resource.cap.find_task(job.task), :hidden => false } %>
+      <%= render :partial => "task", :locals => { :task => task, :hidden => false } if task = resource.cap.find_task(job.task) %>
     <%- end -%>
 
     <div class="page-header margin-top8">
@@ -17,7 +17,7 @@
         </a>
       </h4>
     </div>
-  
+
   <%- end -%>
 
   <div id="other_tasks" class="<%= 'hide' unless @recent_tasks.empty? %>">
