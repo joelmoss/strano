@@ -9,13 +9,10 @@ class Job < ActiveRecord::Base
   default_scope order('created_at DESC')
   default_scope where(:deleted_at => nil)
 
-  store :variables, :accessors => [ :branch ]
-
 
   def self.deleted
     self.unscoped.where 'deleted_at IS NOT NULL'
   end
-
 
   def run_task
     success = true
