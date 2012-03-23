@@ -18,10 +18,15 @@ class Job < ActiveRecord::Base
     success = true
 
     FileUtils.chdir project.repo.path do
-      out = capture_stdout do
+      out = capture(:stderr) do
         success = Strano::CLI.parse(Strano::Logger.new(self), full_command.flatten).execute!
       end
-      puts "\n  \e[1;32m> #{out.string}\e" unless out.string.blank?
+
+      if out.is_a?(String)
+        puts "\n  \e[33m> #{out}\e" unless out.blank?
+      elsif !out.string.blank?
+        puts "\n  \e[1;32m> #{out.string}\e"
+      end
     end
 
     !!success
@@ -49,13 +54,11 @@ class Job < ActiveRecord::Base
   private
 
     def full_command
-      %W(-f #{Rails.root.join('Capfile.repos')} -f Capfile -Xx#{verbosity}) + mapped_variables + command.split(' ')
+      %W(-f #{Rails.root.join('Capfile.repos')} -f Capfile -Xx#{verbosity}) + branch_setting + command.split(' ')
     end
 
-    def mapped_variables
-      variables.map do |k,v|
-        %W(-s #{k}=#{v}) unless v.blank?
-      end
+    def branch_setting
+      %W(-s branch=#{branch}) unless branch.blank?
     end
 
     def execute_task
