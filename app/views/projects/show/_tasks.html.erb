@@ -7,7 +7,9 @@
     </div>
 
     <%- @recent_tasks.each do |job| -%>
-      <%= render :partial => "task", :locals => { :task => task, :hidden => false } if task = resource.cap.find_task(job.task) %>
+      <% if task = resource.cap.find_task(job.task) %>
+        <%= render :partial => "task", :locals => { :task => task, :hidden => false } %>
+      <% end %>
     <%- end -%>
 
     <div class="page-header margin-top8">

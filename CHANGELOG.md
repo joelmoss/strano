@@ -1,5 +1,6 @@
 ## Strano 1.0.0 (unreleased) ##
 
+* Can now choose which branch to deploy from. *Joel Moss*
 * Fixed default verbosity (vvv). *Joel Moss*
 * Replaced Resque with the more efficient Sidekiq. *Joel Moss*
 * Refactored task processing, which now logs output in real time, and handles errors much more gracefully. *Joel Moss*
