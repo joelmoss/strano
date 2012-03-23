@@ -29,7 +29,7 @@ module Strano
       if error.is_a?(Net::SSH::AuthenticationFailed)
         logger.important "authentication failed for `#{error.message}'"
       else
-        logger.important error.message
+        logger.important CGI::escapeHTML(error.message)
         logger.trace error.backtrace.join("\n")
       end
 
