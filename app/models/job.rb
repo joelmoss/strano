@@ -17,6 +17,8 @@ class Job < ActiveRecord::Base
   def run_task
     success = true
 
+    ARGV << stage if stage
+
     FileUtils.chdir project.repo.path do
       out = capture(:stderr) do
         success = Strano::CLI.parse(Strano::Logger.new(self), full_command.flatten).execute!
