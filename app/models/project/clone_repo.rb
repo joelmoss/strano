@@ -3,7 +3,12 @@ class Project
     include Sidekiq::Worker
 
     def perform(project_id)
-      project = Project.find(project_id)
+      begin
+        project = Project.find(project_id)
+      rescue ActiveRecord::RecordNotFound
+        return
+      end
+
       project.update_column :pull_in_progress, true
 
       Strano::Repo.clone project.url

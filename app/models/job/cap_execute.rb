@@ -3,7 +3,11 @@ class Job
     include Sidekiq::Worker
 
     def perform(job_id)
-      job = Job.find(job_id)
+      begin
+        job = Job.find(job_id)
+      rescue ActiveRecord::RecordNotFound
+        return
+      end
 
       # Make sure the local repo is up to date.
       Project::PullRepo.perform(job.project.id) unless job.project.pull_in_progress?

@@ -3,7 +3,11 @@ class Project
     include Sidekiq::Worker
 
     def perform(project_id)
-      Strano::Repo.remove Project.unscoped.find(project_id).url
+      begin
+        Strano::Repo.remove Project.unscoped.find(project_id).url
+      rescue ActiveRecord::RecordNotFound
+        return
+      end
     end
   end
 end
