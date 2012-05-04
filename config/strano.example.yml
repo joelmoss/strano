@@ -3,10 +3,10 @@ defaults: &defaults
   # Strano's public SSH key with which it will attempt to clone Github repos via.
   public_ssh_key: MYPUBLICKEY
 
-  # Strano's Github application client ID. See https://github.com/account/applications
+  # Strano's Github application client ID. See https://github.com/settings/applications
   github_key: github-application-client-id
 
-  # Strano's Github application secret. See https://github.com/account/applications
+  # Strano's Github application secret. See https://github.com/settings/applications
   github_secret: github-application-secret
 
   # The path to where Strano will clone your project's repos.
