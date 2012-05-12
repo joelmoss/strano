@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Strano by joelmoss</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Strano</h1>
+        <p>Capistrano and Github sittin' in a tree...</p>
+        <p class="view"><a href="https://github.com/joelmoss/strano">View the Project on GitHub <small>joelmoss/strano</small></a></p>
+        <ul>
+          <li><a href="https://github.com/joelmoss/strano/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/joelmoss/strano/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/joelmoss/strano">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>Strano</h1>
+
+<p>The Github backed Capistrano deployment management UI.</p>
+
+<p>Strano allows you to run any capistrano task via a clean and simple web interface.
+Simply create a project from any of your Github repositories, and Strano will use
+the Capistrano configuration within the repository itself. Which means you don't
+have to set up Capistrano twice, and you can still run capistrano tasks from the
+command line without fear of different configurations being used, causing
+conflicted deploys.</p>
+
+<p>All tasks are recorded, so you can look back and see a full history of who did
+what and when. I also plan on creating a Capistrano plugin, that will record all
+command line task activity with Strano. Which means your task history will also
+include the tasks that you ran on the command line.</p>
+
+<p>Strano is in production use at ShermansTravel, but is still in active development.
+So I need your help to improve and ensure the code is top quality. So I encourage
+any and all pull requests. Fork away!</p>
+
+<p><img src="https://img.skitch.com/20120119-rk61yn6u4gt73s9kic829513py.jpg" alt="Task History"></p>
+
+<h2>Installation</h2>
+
+<p>Strano is simply a Rails app with a Resque backend for processing background jobs.
+Clone the repo from <a href="https://github.com/joelmoss/strano">Github</a> and run:</p>
+
+<pre><code>script/bootstrap
+</code></pre>
+
+<p>Then start the app:</p>
+
+<pre><code>bundle exec rails s
+</code></pre>
+
+<p><strong>NOTE</strong> Strano cannot be run on Heroku, as the project repositories have to cloned
+to a local directory in your app at <code>vendors/repos</code>.</p>
+
+<h2>Configuration</h2>
+
+<p>Strano requires that you define only three configuration variables. The rest are
+optional, but can be overridden. You can either create a config/strano.yml
+configuration file and define them in there, or you can define them in the <code>ENV</code>
+variable. See <code>config/strano.example.yml</code> for all possible configuration variables.</p>
+
+<p>The following are required and should be defined before running Strano.</p>
+
+<ul>
+<li>
+<p>Github Key and Secret</p>
+
+<p>Create a <a href="https://github.com/settings/applications">Github application</a> and copy
+the generated key and secret to: <code>github_key</code> and <code>github_secret</code>.</p>
+</li>
+<li>
+<p>Public SSH key</p>
+
+<p>In order to clone repositories from Github, it requires a public SSH key be
+defined in <code>public_ssh_key</code>.</p>
+</li>
+</ul><h2>Background Processing</h2>
+
+<p>Background processing of tasks and repo management is taken care of by the excellent <a href="https://github.com/mperham/sidekiq">Sidekiq</a>. Run
+the queue like this:</p>
+
+<pre><code>bundle exec sidekiq
+</code></pre>
+
+<p>You can then monitor your queue at <code>http://YOUR-STRANO-APP/sidekiq</code>. Check out the <a href="https://github.com/mperham/sidekiq/wiki">Sidekiq Wiki</a> for assistance on Sidekiq and its options.</p>
+
+<h2>License</h2>
+
+<p>Strano is released under the MIT license:</p>
+
+<ul>
+<li><a href="http://www.opensource.org/licenses/MIT">http://www.opensource.org/licenses/MIT</a></li>
+</ul><h2>Contributing</h2>
+
+<p>Read the [Contributing][cb] wiki page first.</p>
+
+<p>Once you've made your great commits:</p>
+
+<ol>
+<li>[Fork][1] Strano</li>
+<li>Create a topic branch - <code>git checkout -b my_branch</code>
+</li>
+<li>Push to your branch - <code>git push origin my_branch</code>
+</li>
+<li>Create a <a href="http://help.github.com/pull-requests/">Pull Request</a> from your branch</li>
+<li>That's it!</li>
+</ol>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/joelmoss">joelmoss</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
