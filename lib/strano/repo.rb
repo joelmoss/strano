@@ -57,7 +57,7 @@ module Strano
       str = git.branch({:timeout => false, :chdir => path, :base => false}, '-a')
       branches = []
       str.split("\n").each do |br|
-        branch = br.gsub(/\*/, '').strip.split(' ').first.split('/').last
+        branch = br.gsub(/\*/, '').strip.split(' ').first.split('/',3).last
         branches << branch unless branch == 'HEAD'
       end
       branches.uniq
