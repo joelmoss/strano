@@ -19,7 +19,7 @@ module Strano
 
     # Override in order to use DB logger
     def instantiate_configuration(options={})
-      config = CapistranoMonkey::Configuration.new(options)
+      config = Capistrano::Configuration.new(options)
       config.logger = logger
       config
     end
