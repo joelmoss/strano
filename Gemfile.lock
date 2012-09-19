@@ -42,6 +42,8 @@ GEM
       net-ssh (>= 2.0.14)
       net-ssh-gateway (>= 1.1.0)
     capistrano_colors (0.5.5)
+    capistrano_rsync_with_remote_cache (2.4.0)
+      capistrano (>= 2.1.0)
     celluloid (0.10.0)
     chronic (0.6.7)
     coffee-rails (3.2.2)
@@ -254,6 +256,7 @@ DEPENDENCIES
   ansible
   capistrano (~> 2.11)
   capistrano_colors
+  capistrano_rsync_with_remote_cache
   coffee-rails (~> 3.2.1)
   database_cleaner
   delayed_job
