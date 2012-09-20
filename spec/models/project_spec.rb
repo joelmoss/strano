@@ -11,8 +11,8 @@ describe Project do
     @project = Project.create :url => url
   end
 
-  it "should set the github data after save", :vcr => { :cassette_name => 'Github_Repo/_repo' } do
-    @project.github_data.should_not be_empty
+  it "should set the data after save", :vcr => { :cassette_name => 'Github_Repo/_repo' } do
+    @project.data.should_not be_empty
   end
 
   describe "#repo", :vcr => { :cassette_name => 'Github_Repo/_repo' } do
