@@ -1,0 +1,14 @@
+<%= simple_form_for resource, :html => { :class => 'form-horizontal' } do |f| %>
+
+  <%= f.input :url, :placeholder => 'git@git.server.com:project/repo.git' %>
+  <%= f.simple_fields_for :data do |d| %>
+    <%= d.input :html_url, :placeholder => 'http://www.project-page.com' %>
+    <%= d.input :description, :as => :text, :input_html => { :class => "span8", :rows => 5, :style => "height:80px;" } %>
+  <% end %>
+
+  <div class="form-actions">
+    <%= f.button :submit, 'Create' %>
+    <%= f.button :cancel, :url => collection_path %>
+  </div>
+
+<%- end %>

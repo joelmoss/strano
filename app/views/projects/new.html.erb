@@ -1,41 +1,10 @@
 <%- title "Create Project" -%>
-<%- subtitle "from a github repo", true, true -%>
 <%- breadcrumb 'Projects', collection_path -%>
 
-<div class="tabbable">
-  <ul class="nav nav-tabs">
-    <%- if Strano.allow_users_include?(current_user.username) -%>
-      <li class="active"><a href="#repos" data-toggle="tab">My Repositories</a></li>
-    <%- end -%>
-
-    <%- if Strano.allow_organizations? -%>
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Organisations... <b class="caret"></b></a>
-        <ul class="dropdown-menu">
-          <%- current_user.github.orgs.each do |org| -%>
-            <li><a href="#<%= org.login %>" data-toggle="tab"><%= org.login %></a></li>
-          <%- end -%>
-        </ul>
-      </li>
-    <%- end -%>
-  </ul>
-  
-  <div class="tab-content">
-    <%- if Strano.allow_users_include?(current_user.username) -%>
-      <div class="tab-pane active" id="repos"><%= render 'repos', :repos => current_user.github.repos %></div>
-    <%- end -%>
-
-    <%- current_user.github.orgs.each do |org| -%>
-
-      <div class="tab-pane" id="<%= org.login %>">
-        <h2 class="page-header">
-          <%= image_tag org.avatar_url, :size => "26x26", :class => "org-avatar" %>
-          <span class="padding-bottom3"><%= org.login %></span>
-        </h2>
-
-        <%= render 'repos', :repos => org.repos %>
-      </div>
-
-    <%- end if Strano.allow_organizations? -%>
-  </div>
-</div>
+<% if params[:type] == 'github' %>
+  <%- subtitle "from a github repo", true, true -%>
+  <%= render 'new_github' %>
+<% else %>
+  <%- subtitle "from a git repo", true, true -%>
+  <%= render 'form' %>
+<% end %>

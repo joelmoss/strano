@@ -4,7 +4,7 @@ require 'capistrano_monkey/configuration/namespaces'
 class Project < ActiveRecord::Base
 
   # The github data will be serialzed as a Hash.
-  serialize :github_data
+  serialize :data
 
   has_many :jobs, :dependent => :destroy
   has_one :job_in_progress, :class_name => "Job"
@@ -13,12 +13,12 @@ class Project < ActiveRecord::Base
 
   before_create :ensure_allowed_repo
   after_create :clone_repo
-  before_save :update_github_data
+  before_save :update_data
   after_destroy :remove_repo
 
   # Lets do some delegation so that we can access some common methods directly.
   delegate :user_name, :repo_name, :cloned?, :capified?, :to => :repo
-  delegate :html_url, :description, :organization, :to => :github_data
+  delegate :html_url, :description, :organization, :to => :data
 
   default_scope where(:deleted_at => nil)
 
@@ -56,7 +56,7 @@ class Project < ActiveRecord::Base
   #
   # Returns a Boolean true if the user has access.
   def accessible_by?(user)
-    !!github.to_hash
+    !github? || !!github.to_hash
   rescue
     false
   end
@@ -64,8 +64,8 @@ class Project < ActiveRecord::Base
   # Convert the github data into a Hashie::Mash object, so that delegation works.
   #
   # Returns a Hashie::Mash object.
-  def github_data
-    @github_data ||= Hashie::Mash.new(read_attribute(:github_data))
+  def data
+    @data ||= Hashie::Mash.new(read_attribute(:data))
   end
 
   # Returns an un-authenticated instance of Github::Repos.
@@ -73,9 +73,18 @@ class Project < ActiveRecord::Base
     @github ||= Github.new.repo(repo.user_name, repo.repo_name)
   end
 
+  def github?
+    self.url =~ /github.com/
+  end
+
   # Returns a Strano::Repo instance.
   def repo
     @repo ||= Strano::Repo.new(url)
+  end
+
+  # Returns a Strano::Repo instance of the repository referenced in the Capistrano file.
+  def target_repo
+    @target_repo = Strano::Repo.new(cap.repository)
   end
 
   # The public task list for this project's repository.
@@ -146,8 +155,10 @@ class Project < ActiveRecord::Base
       RemoveRepo.perform_async id
     end
 
-    def update_github_data
-      self.github_data = github.to_hash
+    def update_data
+      if github?
+        self.data = github.to_hash
+      end
     end
 
     def ensure_allowed_repo
