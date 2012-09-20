@@ -1,13 +1,14 @@
 <%- title 'Projects' -%>
 
 <div class="well">
+  <%= link_to 'Create github project...', new_resource_path(:type => :github), :class => "btn btn-primary" %>
   <%= link_to 'Create project...', new_resource_path, :class => "btn btn-primary" %>
 </div>
 
 <%- if collection.empty? -%>
-  
+
   <h4 align="center">You haven't created any projects yet! <%= link_to "Create a project now", new_resource_path %>...</h4>
-  
+
 <% else %>
 
   <table class="table table-striped">

@@ -2,7 +2,7 @@ class ProjectsController < InheritedResources::Base
 
   before_filter :authenticate_user!
   before_filter :pull_repo, :only => [:show, :edit]
-  before_filter :ensure_accessibility_by_current_user, :except => [:index, :new, :create]
+  before_filter :ensure_accessibility_by_current_user, :except => [:index, :new, :new_github, :create]
 
   respond_to :json, :only => :show
 
