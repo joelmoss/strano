@@ -1,5 +1,6 @@
 ## Strano 1.0.0 (unreleased) ##
 
+* Remote cache strategy with rsync
 * Can now choose which branch to deploy from. *Joel Moss*
 * Fixed default verbosity (vvv). *Joel Moss*
 * Replaced Resque with the more efficient Sidekiq. *Joel Moss*
