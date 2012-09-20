@@ -17,7 +17,7 @@
   </div>
   <div class="span9">
 
-    <p><strong><%= resource.description %></strong></p>
+    <p><strong><%= resource.description.blank? ? '&nbsp;'.html_safe : resource.description %></strong></p>
     <p><%= link_to resource.html_url, resource.html_url %></p>
     <%- if resource.organization? -%>
       <p><%= link_to resource.organization.login, "https://github.com/#{resource.organization.login}" %></p>
