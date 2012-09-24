@@ -17,7 +17,9 @@ class JobsController < InheritedResources::Base
     # TODO write in the README that all the projects that use multistage need one
     # default_stage configuration
     @job.stage = parent.cap.default_stage if parent.cap.namespaces.keys.include?(:multistage)
+    @job.stage = params[:stage] if params[:stage]
 
+    @job.branch = begin parent.cap([@job.stage]).branch rescue '' end
     new!
   end
 
