@@ -6,19 +6,14 @@ colorize [
  { :match => /git/,                    :color => :white,     :prio => 20, :attribute => :reverse },
 ]
 
+# MonkeyPatch run_locally so that we use Bundler.with_clean_env
+alias run_locally_without_bundler_clean_env run_locally
+alias run_locally run_locally_with_bundler_clean_env
+
 # logs the command then executes it locally.
 # returns the command output as a string
-def run_locally(cmd)
-  logger.trace "executing locally: #{cmd.inspect}" if logger
-  output_on_stdout = nil
-  elapsed = Benchmark.realtime do
-    Bundler.with_clean_env do
-      output_on_stdout = `#{cmd}`
-    end
+def run_locally_with_bundler_clean_env(cmd)
+  Bundler.with_clean_env do
+    run_locally_without_bundler_clean_env(cmd)
   end
-  if $?.to_i > 0 # $? is command exit code (posix style)
-    raise Capistrano::LocalArgumentError, "Command #{cmd} returned status code #{$?}"
-  end
-  logger.trace "command finished in #{(elapsed * 1000).round}ms" if logger
-  output_on_stdout
 end
