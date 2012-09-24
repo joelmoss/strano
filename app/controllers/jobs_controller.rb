@@ -2,7 +2,9 @@ class JobsController < InheritedResources::Base
 
   belongs_to :project
   actions :all, :except => :index
+
   respond_to :json, :only => :show
+  respond_to :js, :only => :new
 
   before_filter :authenticate_user!
   before_filter :ensure_unlocked_project, :only => [:new, :create, :delete]

@@ -1,4 +1,12 @@
 $ ->
+  $("#job_stage").change ->
+    self = $(this)
+    val = self.val()
+    url = '?stage=' + val
+    xhr = $.ajax({
+      url: url,
+      dataType: 'script'
+    })
 
   $("#slider").slider
     value: 3
