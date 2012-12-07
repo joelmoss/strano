@@ -52,6 +52,10 @@ class Job < ActiveRecord::Base
     end
   end
 
+  # allows formatters in capistrano logger
+  def tty?
+    true
+  end
 
   private
 
