@@ -51,10 +51,9 @@ group :development, :test do
 end
 
 group :development do
-  gem 'guard'
   gem 'guard-rspec'
   gem 'guard-bundler'
-  gem 'guard-pow'
+  gem 'debugger'
 end
 
 group :test do
