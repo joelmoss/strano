@@ -14,6 +14,10 @@ Strano.public_ssh_key = 'stranoshakey'
 Strano.clone_path     = File.join(::Rails.root, '/spec/repos')
 REPO_ROOT = File.expand_path("../repos", __FILE__)
 
+# Create .git folder for dummy repo since we can't have it in actual tree
+STRANO_GIT = "#{REPO_ROOT}/joelmoss/strano/.git"
+Dir.mkdir(STRANO_GIT) unless File.exists?(STRANO_GIT)
+
 RSpec.configure do |config|
   config.mock_with :rspec
 

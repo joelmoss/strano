@@ -1,4 +1,4 @@
-Strano
+Strano [![Build Status](https://secure.travis-ci.org/joelmoss/strano.png?branch=master)](https://travis-ci.org/joelmoss/strano)
 ======
 
 The Github backed Capistrano deployment management UI.
