@@ -54,6 +54,7 @@ group :development do
   gem 'guard-rspec'
   gem 'guard-bundler'
   gem 'debugger'
+  gem 'thin'
 end
 
 group :test do
