@@ -1,0 +1,14 @@
+language: ruby
+rvm:
+  - 1.9.3
+env:
+  - DB=sqlite
+  - DB=mysql
+script:
+  - RAILS_ENV=test bundle exec rake db:migrate --trace
+  - bundle exec rake db:test:prepare
+  - bundle exec rake
+before_script:
+  - cp config/database.travis.yml config/database.yml
+  - mysql -e 'create database strano_test'
+  - psql -c 'create database strano_test' -U postgres
