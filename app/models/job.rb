@@ -4,7 +4,7 @@ class Job < ActiveRecord::Base
 
   belongs_to :project
   belongs_to :user
-  after_create :execute_task
+  after_commit :execute_task, :on => :create
 
   default_scope order('created_at DESC')
   default_scope where(:deleted_at => nil)
