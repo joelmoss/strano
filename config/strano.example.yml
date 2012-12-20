@@ -9,6 +9,14 @@ defaults: &defaults
   # Strano's Github application secret. See https://github.com/settings/applications
   github_secret: github-application-secret
 
+  # Secret used to sign hook requests from GitHub.
+  github_hook_secret: github-hook-secret
+
+  # The application URL with a trailing slash, required for github hooks.
+  # Can be passed as environment variable STRANO_BASE_URL=''
+  #
+  # base_url: http://example.com/
+
   # The path to where Strano will clone your project's repos.
   #
   # clone_path: vendor/repos

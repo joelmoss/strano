@@ -8,6 +8,8 @@ module Strano
       :clone_path,
       :github_key,
       :github_secret,
+      :github_hook_secret,
+      :base_url,
       :allow_organizations,
       :allow_users].freeze
 
@@ -26,6 +28,12 @@ module Strano
     # https://github.com/account/applications
     DEFAULT_GITHUB_SECRET = nil
     
+    # Secret used to sign hook requests from GitHub.
+    DEFAULT_GITHUB_HOOK_SECRET = 'topsecret'
+
+    # The application URL with a trailing slash, required for github hooks.
+    DEFAULT_BASE_URL = nil
+
     # Allow project creation from repos for Github organization accounts.
     # Default value is true, which allows any and all organizations. Set to
     # false to disallow creating projects from organizations completely.
@@ -117,6 +125,8 @@ module Strano
       self.clone_path           = DEFAULT_CLONE_PATH
       self.github_key           = DEFAULT_GITHUB_KEY
       self.github_secret        = DEFAULT_GITHUB_SECRET
+      self.github_hook_secret   = DEFAULT_GITHUB_HOOK_SECRET
+      self.base_url             = DEFAULT_BASE_URL
       self.allow_organizations  = DEFAULT_ALLOW_ORGANIZATIONS
       self.allow_users          = DEFAULT_ALLOW_USERS
       self
