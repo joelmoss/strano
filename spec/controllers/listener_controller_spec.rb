@@ -24,31 +24,27 @@ end
 describe ListenerController do
   describe "POST #github" do
     context "with a valid signature" do
+      let(:url) { 'git@github.com:yevgenko/cap-foobar.git' }
+      let(:jobs) { stub(:jobs, create: true) }
+      let(:project) { Project.new }
+
+      before(:each) do
+        project.stub(:jobs).and_return(jobs)
+        Project.stub(:find_by_url).and_return(project)
+      end
+
       it "should respond with 'No Content'" do
         post_github(@request)
         should respond_with 204
       end
 
       it "finds the project" do
-        jobs = double('jobs')
-        jobs.stub(:create).and_return(true)
-        project = Project.new
-        project.stub(:jobs).and_return(jobs)
-
-        url = 'git@github.com:yevgenko/cap-foobar.git'
-        Project.should_receive(:find_by_url).with(url).and_return(project)
-
+        Project.should_receive(:find_by_url).with(url)
         post_github(@request)
       end
 
       it "creates the job" do
-        jobs = double('jobs')
-        project = Project.new
-        project.stub(:jobs).and_return(jobs)
-        Project.stub(:find_by_url).and_return(project)
-
-        jobs.should_receive(:create).and_return(true)
-
+        jobs.should_receive(:create)
         post_github(@request)
       end
     end
