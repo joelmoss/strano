@@ -13,8 +13,12 @@ class SessionsController < ApplicationController
     attributes = { :github_data => data, :github_access_token => request.env["omniauth.auth"][:credentials][:token] }
     user = User.find_or_create_by_username(data[:login], attributes)
     
-    session[:user_id] = user.id
-    redirect_to root_url, :notice => 'Successfully signed in via Github!'
+    if user.authorized_for_app?
+      session[:user_id] = user.id
+      redirect_to root_url, :notice => 'Successfully signed in via Github!'
+    else
+      redirect_to root_url, :alert => "Access requires organization membership"
+    end
   end
   
   def destroy

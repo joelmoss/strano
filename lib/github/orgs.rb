@@ -11,6 +11,13 @@ class Github
         yield Github::Org.new(@access_token, org)
       end
     end
+    
+    # Whether the user is a member of any of the allowed organizations
+    #
+    # Returns boolean
+    def any_allowed?
+      all.any? { |org| Strano.allow_organizations_include?(org.login) }
+    end
   
   end
 end

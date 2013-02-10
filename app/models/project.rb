@@ -12,7 +12,7 @@ class Project < ActiveRecord::Base
   validate :url, :presence => true, :uniqueness => { :case_sensitive => false }
 
   before_create :ensure_allowed_repo
-  after_create :clone_repo
+  after_commit :clone_repo, :on => :create
   before_save :update_data
   after_destroy :remove_repo
 
