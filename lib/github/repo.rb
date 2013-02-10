@@ -12,6 +12,18 @@ class Github
     end
     alias :to_hash :inspect
 
+    def hook(url, secret)
+      post "/repos/#{user_name}/#{repo_name}/hooks", {
+        "name" => "web",
+        "active" => true,
+        "config" => {
+          "url" => url,
+          "secret" => secret,
+          "content_type" => "json"
+        }
+      }
+    end
+
 
     private
     

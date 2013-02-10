@@ -12,7 +12,8 @@ class Project < ActiveRecord::Base
   validate :url, :presence => true, :uniqueness => { :case_sensitive => false }
 
   before_create :ensure_allowed_repo
-  after_create :clone_repo
+  after_commit :clone_repo, :on => :create
+  after_commit :create_hook, :on => :create
   before_save :update_data
   after_destroy :remove_repo
 
@@ -149,6 +150,12 @@ class Project < ActiveRecord::Base
 
     def clone_repo
       CloneRepo.perform_async id
+    end
+
+    def create_hook
+      if github? && Strano.base_url
+        github.hook("#{Strano.base_url}listener", Strano.github_hook_secret)
+      end
     end
 
     def remove_repo

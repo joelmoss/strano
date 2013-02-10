@@ -12,6 +12,8 @@ Strano::Application.routes.draw do
     end
   end
 
+  post '/listener' => 'listener#github'
+
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
 

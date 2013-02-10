@@ -63,4 +63,5 @@ group :test do
   gem 'vcr', '~> 2'
   gem 'webmock'
   gem "fakefs", :require => "fakefs/safe"
+  gem 'test_after_commit'
 end
