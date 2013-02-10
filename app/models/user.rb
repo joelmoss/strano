@@ -47,6 +47,17 @@ class User < ActiveRecord::Base
     !github.nil?
   end
 
+  # If open_login is set to false in the strano settings, users may only enter if 
+  # they or an organization they belong to is explicitly allowed.
+  # 
+  # Returns a Boolean
+  def authorized_for_app?
+    # authorized if open login is enabled or they're on the members list
+    return true if Strano.open_login || Strano.allow_users_include?(username)
+    
+    # otherwise make a call to github to see if we've allowed any of their organizations
+    github.orgs.any_allowed?
+  end
 
   private
 
