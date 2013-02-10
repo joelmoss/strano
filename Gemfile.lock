@@ -293,7 +293,7 @@ DEPENDENCIES
   omniauth-github
   open4
   permanent_records
-  rails (= 3.2.11)
+  rails (~> 3.2.11)
   rspec-rails
   sass-rails (~> 3.2.3)
   shoulda-matchers
