@@ -1,5 +1,6 @@
 ## Strano 1.0.0 (unreleased) ##
 
+* Can restrict who can sign in to Strano using a whitelist. *@hyfn*
 * Can now create non-Github repositories.  *@goodtouch*
 * Remote cache strategy with rsync.  *@goodtouch*
 * Can now choose which branch to deploy from. *@joelmoss*
