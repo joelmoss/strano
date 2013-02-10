@@ -36,6 +36,12 @@ defaults: &defaults
   # To only allow project creation from your own repos:
   #
   # allow_users: my_github_username
+  
+  # Set to false to prevent users from accessing the app or creating repos
+  # unless they are listed under allow_users or have membership in an 
+  # organization listed under allow_organizations. Default value is true.
+  # 
+  # open_login: true
 
 development:
   <<: *defaults

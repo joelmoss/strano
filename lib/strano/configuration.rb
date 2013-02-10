@@ -9,7 +9,8 @@ module Strano
       :github_key,
       :github_secret,
       :allow_organizations,
-      :allow_users].freeze
+      :allow_users,
+      :open_login].freeze
 
     # The public SSH key that Strano will add to each users Github account
     # so that Strano can clone github repos locally.
@@ -38,6 +39,12 @@ module Strano
     # creating projects from users completely. Pass an array of Github
     # usernames to restrict which projects Strano can create new projects for.
     DEFAULT_ALLOW_USERS = true
+    
+    # Any user with a Github account can create new deployments. Default
+    # values if true. Setting this to false will only allow users to log in to
+    # the app if they are listed under 'allow_users' or a member of one of the
+    # organizations under 'allow_organizations'.
+    DEFAULT_OPEN_LOGIN = true
 
     attr_accessor *VALID_OPTIONS_KEYS
 
@@ -119,6 +126,7 @@ module Strano
       self.github_secret        = DEFAULT_GITHUB_SECRET
       self.allow_organizations  = DEFAULT_ALLOW_ORGANIZATIONS
       self.allow_users          = DEFAULT_ALLOW_USERS
+      self.open_login           = DEFAULT_OPEN_LOGIN
       self
     end
   end
