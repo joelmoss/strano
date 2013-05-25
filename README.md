@@ -48,9 +48,29 @@ Background Processing
 Background processing of tasks and repo management is taken care of by the excellent [Sidekiq](https://github.com/mperham/sidekiq). Run
 the queue like this:
 
-    bundle exec sidekiq
+    bundle exec rake sidekiq:start
 
 You can then monitor your queue at `http://YOUR-STRANO-APP/sidekiq`. Check out the [Sidekiq Wiki](https://github.com/mperham/sidekiq/wiki) for assistance on Sidekiq and its options.
+
+You can stop Sidekiq like this:
+
+    bundle exec rake sidekiq:stop
+
+
+Install init.d Script
+----------------------
+
+An `init.d` script is provided in `scripts/init.d/strano`. This will start both Strano under Puma, and Sidekiq.
+
+On Debian and Ubuntu, this script can be installed as follows:
+
+	sudo cp script/init.d/strano /etc/init.d/
+	sudo chmod +x /ec/init.d/strano
+	sudo update-rc.d strano defaults 21
+
+On CentOS and RHEL, replace the last line with:
+
+	sudo /sbin/chkconfig strano on
 
 
 License
