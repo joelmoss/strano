@@ -33,6 +33,7 @@ gem 'permanent_records'
 gem 'simple_form', '~> 2'
 gem 'open4'
 gem 'ansible'
+gem "puma"
 
 # While these are not needed by Strano itself, without them installed, any project
 # that requires them will die when Strano tries to run a cap task. By using
