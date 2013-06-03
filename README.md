@@ -57,22 +57,6 @@ You can stop Sidekiq like this:
     bundle exec rake sidekiq:stop
 
 
-Install init.d Script
-----------------------
-
-An `init.d` script is provided in `scripts/init.d/strano`. This will start both Strano under Puma, and Sidekiq.
-
-On Debian and Ubuntu, this script can be installed as follows:
-
-	sudo cp script/init.d/strano /etc/init.d/
-	sudo chmod +x /ec/init.d/strano
-	sudo update-rc.d strano defaults 21
-
-On CentOS and RHEL, replace the last line with:
-
-	sudo /sbin/chkconfig strano on
-
-
 License
 -------
 

@@ -3,7 +3,7 @@
 # Start Puma with next command:
 # RAILS_ENV=production bundle exec puma -e production -C ./config/puma.rb
 
-application_path = '/home/deploy/strano'
+application_path = '.'
 
 # The directory to operate out of.
 #
