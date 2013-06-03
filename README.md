@@ -48,9 +48,13 @@ Background Processing
 Background processing of tasks and repo management is taken care of by the excellent [Sidekiq](https://github.com/mperham/sidekiq). Run
 the queue like this:
 
-    bundle exec sidekiq
+    bundle exec rake sidekiq:start
 
 You can then monitor your queue at `http://YOUR-STRANO-APP/sidekiq`. Check out the [Sidekiq Wiki](https://github.com/mperham/sidekiq/wiki) for assistance on Sidekiq and its options.
+
+You can stop Sidekiq like this:
+
+    bundle exec rake sidekiq:stop
 
 
 License
