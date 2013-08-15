@@ -2,7 +2,9 @@ class JobsController < InheritedResources::Base
 
   belongs_to :project
   actions :all, :except => :index
+
   respond_to :json, :only => :show
+  respond_to :js, :only => :new
 
   before_filter :authenticate_user!
   before_filter :ensure_unlocked_project, :only => [:new, :create, :delete]
@@ -17,7 +19,9 @@ class JobsController < InheritedResources::Base
     # TODO write in the README that all the projects that use multistage need one
     # default_stage configuration
     @job.stage = parent.cap.default_stage if parent.cap.namespaces.keys.include?(:multistage)
+    @job.stage = params[:stage] if params[:stage]
 
+    @job.branch = begin parent.cap([@job.stage]).branch rescue '' end
     new!
   end
 

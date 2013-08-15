@@ -1,4 +1,5 @@
 require 'capistrano/cli'
+require 'capistrano_monkey/cli'
 module Strano
   # Defines constants and methods related to configuration
   class CLI < Capistrano::CLI

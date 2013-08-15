@@ -16,8 +16,7 @@
   <%- if parent.cap.namespaces.keys.include?(:multistage) -%>
     <%= f.input :stage, :as => :select, :collection => parent.cap.stages, :include_blank => false %>
   <%- end -%>
-
-  <%= f.input :branch, :as => :select, :collection => parent.repo.branches, :include_blank => false, :selected => parent.cap.branch %>
+  <%= f.input :branch, :collection => [ [:tags, parent.target_repo.tags], [:branchs, parent.target_repo.branches] ], :group_label_method => :first, :group_method => :last, :as => :grouped_select, :include_blank => false %>
 
   <%= f.input :notes, :input_html => { :class => "span8", :rows => 5, :style => "height:80px;" } %>
 

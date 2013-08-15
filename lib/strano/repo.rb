@@ -52,15 +52,37 @@ module Strano
       File.join root_path, user_name, repo_name
     end
 
+    def refs
+      if @refs
+        return @refs
+      else
+        branches = []
+        tags = []
+
+        str = git.send(:'ls-remote', {:timeout => false, :base => false}, ssh_url)
+        str.split("\n").each do |ref|
+          if %r|refs/heads/(?<branch>[^^{}]*)$| =~ ref
+            branches << branch
+          elsif %r|refs/tags/(?<tag>[^^{}]*)$| =~ ref
+            tags << tag
+          end
+        end
+
+        @refs = {
+          branches: branches.uniq.reverse,
+          tags: tags.uniq.reverse
+        }
+      end
+    end
+
     # Returns an Array of all branches, remote and local.
     def branches
-      str = git.branch({:timeout => false, :chdir => path, :base => false}, '-a')
-      branches = []
-      str.split("\n").each do |br|
-        branch = br.gsub(/\*/, '').strip.split(' ').first.split('/').last
-        branches << branch unless branch == 'HEAD'
-      end
-      branches.uniq
+      refs[:branches]
+    end
+
+    # Returns an Array of all tags.
+    def tags
+      refs[:tags]
     end
 
     def git
