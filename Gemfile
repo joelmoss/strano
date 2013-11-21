@@ -1,66 +1,35 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
-gem 'rails', '~>3.2.11'
+gem 'rails', '4.0.1'
 gem 'mysql2'
-gem 'sqlite3'
 
-# Gems used only for assets and not required
-# in production environments by default.
-group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
-  gem 'uglifier', '>= 1.0.3'
-end
+gem 'sass-rails', '~> 4.0.0'
+gem 'uglifier', '>= 1.3.0'
+gem 'coffee-rails', '~> 4.0.0'
+
+# See https://github.com/sstephenson/execjs#readme for more supported runtimes
+# gem 'therubyracer', platforms: :ruby
 
 gem 'jquery-rails'
-gem 'twitter-bootstrap-rails'
-gem 'sidekiq'
-gem 'slim'
-gem 'sinatra'
-gem 'omniauth-github'
-gem 'yajl-ruby'
-gem 'faraday'
-gem 'faraday-stack'
-gem 'faraday_middleware'
-gem 'capistrano', '~> 2.13'
-gem 'capistrano_colors'
-gem 'capistrano_rsync_with_remote_cache'
-gem 'grit'
-gem 'dotiw'
-gem 'inherited_resources'
-gem 'kaminari'
-gem 'permanent_records'
-gem 'simple_form', '~> 2'
-gem 'open4'
-gem 'ansible'
+gem 'bootstrap-sass'
 
-# While these are not needed by Strano itself, without them installed, any project
-# that requires them will die when Strano tries to run a cap task. By using
-# :require => nil, these don't get required/loaded into Strano, but are installed
-# for projects to use if needed.
-gem 'delayed_job', :require => nil
-gem 'whenever', :require => nil
-gem 'airbrake', :require => nil
-gem 'newrelic_rpm', :require => nil
+gem 'figaro'
+gem 'inherited_resources'
+gem 'simple_form'
+
+# Use ActiveModel has_secure_password
+# gem 'bcrypt-ruby', '~> 3.1.2'
+
+# Use unicorn as the app server
+# gem 'unicorn'
+
+# Use Capistrano for deployment
+# gem 'capistrano', group: :development
 
 group :development, :test do
-  gem 'rspec-rails'
-  gem 'factory_girl_rails'
-  gem 'marked'
-  gem 'ffaker'
-end
-
-group :development do
-  gem 'guard-rspec'
-  gem 'guard-bundler'
+  gem 'puma'
   gem 'debugger'
-  gem 'thin'
-end
-
-group :test do
-  gem 'shoulda-matchers'
-  gem 'database_cleaner'
-  gem 'vcr', '~> 2'
-  gem 'webmock'
-  gem "fakefs", :require => "fakefs/safe"
+  gem 'jazz_hands'
+  gem 'coffee-rails-source-maps'
+  gem 'rspec-rails', '3.0.0.beta1'
 end

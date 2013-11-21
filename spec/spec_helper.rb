@@ -3,23 +3,28 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
-require 'fakefs/spec_helpers'
 
-# Requires supporting ruby files with custom matchers and macros, etc,
-# in spec/support/ and its subdirectories.
-Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+# Requires supporting ruby files with custom matchers and macros, etc, in
+# spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
+# run as spec files by default. This means that files in spec/support that end
+# in _spec.rb will both be required and run as specs, causing the specs to be
+# run twice. It is recommended that you do not name files matching this glob to
+# end with _spec.rb. You can configure this pattern with with the --pattern
+# option on the command line or in ~/.rspec, .rspec or `.rspec-local`.
+Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
-OmniAuth.config.test_mode = true
-Strano.public_ssh_key = 'stranoshakey'
-Strano.clone_path     = File.join(::Rails.root, '/spec/repos')
-REPO_ROOT = File.expand_path("../repos", __FILE__)
-
-# Create .git folder for dummy repo since we can't have it in actual tree
-STRANO_GIT = "#{REPO_ROOT}/joelmoss/strano/.git"
-Dir.mkdir(STRANO_GIT) unless File.exists?(STRANO_GIT)
+# Checks for pending migrations before tests are run.
+# If you are not using ActiveRecord, you can remove this line.
+ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
 RSpec.configure do |config|
-  config.mock_with :rspec
+  # ## Mock Framework
+  #
+  # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
+  #
+  # config.mock_with :mocha
+  # config.mock_with :flexmock
+  # config.mock_with :rr
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
@@ -34,17 +39,9 @@ RSpec.configure do |config|
   # rspec-rails.
   config.infer_base_class_for_anonymous_controllers = false
 
-  config.before(:all) do
-    DeferredGarbageCollection.start
-  end
-
-  config.after(:all) do
-    DeferredGarbageCollection.reconsider
-  end
-
-  config.after(:each) { User.disable_ssh_github_upload = false }
-
-  config.treat_symbols_as_metadata_keys_with_true_values = true
-  config.filter_run :focus => true
-  config.run_all_when_everything_filtered = true
+  # Run specs in random order to surface order dependencies. If you find an
+  # order dependency and want to debug it, you can fix the order by providing
+  # the seed, which is printed after each run.
+  #     --seed 1234
+  config.order = "random"
 end

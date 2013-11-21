@@ -1,7 +1,0 @@
-<div class="tab-pane" id="hidden_tasks">
-
-  <%- resource.hidden_tasks.each do |task| -%>
-    <%= render :partial => "task", :locals => { :task => task, :hidden => true } %>
-  <%- end if params[:all_tasks] -%>
-
-</div>
