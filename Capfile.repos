@@ -5,3 +5,19 @@ colorize [
  { :match => /^transaction: commit$/,  :color => :magenta,   :prio => 10, :attribute => :blink },
  { :match => /git/,                    :color => :white,     :prio => 20, :attribute => :reverse },
 ]
+
+on :load do
+  # MonkeyPatch run_locally so that we use Bundler.with_clean_env
+  # logs the command then executes it locally.
+
+  # returns the command output as a string
+  def run_locally_with_bundler_clean_env(cmd)
+    Bundler.with_clean_env do
+      run_locally_without_bundler_clean_env(cmd)
+    end
+  end
+
+  alias run_locally_without_bundler_clean_env run_locally
+  alias run_locally run_locally_with_bundler_clean_env
+
+end
