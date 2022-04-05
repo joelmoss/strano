@@ -259,7 +259,7 @@ GEM
     whenever (0.7.3)
       activesupport (>= 2.3.4)
       chronic (~> 0.6.3)
-    yajl-ruby (1.1.0)
+    yajl-ruby (1.4.2)
 
 PLATFORMS
   ruby
