@@ -248,7 +248,7 @@ GEM
       actionpack (>= 3.1)
       less-rails (~> 2.2.0)
       railties (>= 3.1)
-    tzinfo (0.3.35)
+    tzinfo (0.3.61)
     uglifier (1.2.4)
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
